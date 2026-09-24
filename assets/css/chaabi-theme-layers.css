@@ -1,0 +1,258 @@
+/*
+ * Radio Chaabi — couches de thème (spécificité maîtrisée)
+ * Utilise html[data-theme="dark|light|ios"] (posé par applyTheme)
+ * Charger EN DERNIER après chaabi-core.css et les styles inline critiques.
+ */
+
+/* ── Variables par thème ── */
+html[data-theme="dark"] {
+  --lb-bg: linear-gradient(90deg, #3d2414 0%, #2a1830 42%, #1a2e28 100%);
+  --lb-fg: #fef3c7;
+  --lb-border: rgba(245, 185, 66, 0.4);
+  --chip-bg: rgba(245, 185, 66, 0.2);
+  --chip-bd: rgba(245, 185, 66, 0.35);
+  --chip-fg: #fef3c7;
+  --chip-song: #fde68a;
+  --chip-show: #7dd3fc;
+  --chip-interview: #6ee7b7;
+  --ded-bg: linear-gradient(90deg, #3a2210, #2a1830);
+  --ded-fg: #fef3c7;
+  --ded-to: #fcd34d;
+}
+
+html[data-theme="light"],
+html[data-theme="ios"] {
+  --lb-bg: linear-gradient(90deg, #fff8eb 0%, #fde68a 50%, #fff7ed 100%);
+  --lb-fg: #1c1410;
+  --lb-border: #d97706;
+  --chip-bg: #f5e6c8;
+  --chip-bd: #b45309;
+  --chip-fg: #1c1410;
+  --chip-song: #7c2d12;
+  --chip-show: #0c4a6e;
+  --chip-interview: #064e3b;
+  --ded-bg: linear-gradient(90deg, #fff7ed, #fef3c7, #fffbeb);
+  --ded-fg: #1c1410;
+  --ded-to: #9a3412;
+}
+
+html[data-theme="ios"] {
+  --lb-bg: linear-gradient(90deg, #fffaf3, #fef3c7, #fff7ed);
+  --chip-bg: rgba(255, 255, 255, 0.85);
+  --chip-bd: rgba(180, 120, 40, 0.3);
+}
+
+/* ── Live-bar (une seule source de vérité) ── */
+html[data-theme] #live-bar,
+html[data-theme] #live-bar.glass,
+html[data-theme] #top-chrome #live-bar,
+html[data-theme] section#live-bar {
+  background: var(--lb-bg) !important;
+  color: var(--lb-fg) !important;
+  border-bottom: 1px solid var(--lb-border) !important;
+  box-shadow: none !important;
+}
+
+html[data-theme] #live-bar-items,
+html[data-theme] #live-bar-items span,
+html[data-theme] #live-bar .text-white,
+html[data-theme] #live-bar .text-slate-300,
+html[data-theme] #live-bar .text-slate-400,
+html[data-theme] #live-bar .text-slate-500,
+html[data-theme] #live-bar .live-bar-muted {
+  color: var(--lb-fg) !important;
+}
+
+html[data-theme] #live-listeners {
+  color: var(--chip-song) !important;
+}
+
+/* ── Chips ── */
+html[data-theme] .live-chip,
+html[data-theme] .live-chip.glass-chip {
+  background: var(--chip-bg) !important;
+  border: 1px solid var(--chip-bd) !important;
+  color: var(--chip-fg) !important;
+}
+
+html[data-theme] .live-chip *,
+html[data-theme] .live-chip b,
+html[data-theme] .live-chip span {
+  color: inherit !important;
+}
+
+html[data-theme] .live-chip--song { color: var(--chip-song) !important; }
+html[data-theme] .live-chip--song * { color: var(--chip-song) !important; }
+html[data-theme] .live-chip--show { color: var(--chip-show) !important; }
+html[data-theme] .live-chip--show * { color: var(--chip-show) !important; }
+html[data-theme] .live-chip--interview { color: var(--chip-interview) !important; }
+html[data-theme] .live-chip--interview * { color: var(--chip-interview) !important; }
+
+/* ── Dédicaces ── */
+html[data-theme] #dedicaces-bar:not(.hidden) {
+  background: var(--ded-bg) !important;
+  color: var(--ded-fg) !important;
+  border-color: var(--lb-border) !important;
+}
+html[data-theme] #dedicaces-bar .dedicace-item,
+html[data-theme] #dedicaces-bar .dedicace-from,
+html[data-theme] #dedicaces-bar .dedicace-msg,
+html[data-theme] #dedicaces-bar .dedicace-label {
+  color: var(--ded-fg) !important;
+}
+html[data-theme] #dedicaces-bar .dedicace-to {
+  color: var(--ded-to) !important;
+}
+
+/* ── Header glass (réduit les conflits gris) ── */
+html[data-theme="dark"] header.glass-strong {
+  background: rgba(26, 18, 40, 0.92) !important;
+  border-bottom-color: rgba(245, 185, 66, 0.22) !important;
+}
+html[data-theme="light"] header.glass-strong,
+html[data-theme="ios"] header.glass-strong {
+  background: rgba(255, 250, 240, 0.92) !important;
+  border-bottom-color: rgba(180, 120, 40, 0.2) !important;
+}
+html[data-theme="light"] header .text-white,
+html[data-theme="light"] header .font-black,
+html[data-theme="ios"] header .text-white,
+html[data-theme="ios"] header .font-black {
+  color: #1c1410 !important;
+}
+html[data-theme="light"] header .text-slate-300,
+html[data-theme="light"] header .text-slate-400,
+html[data-theme="ios"] header .text-slate-300,
+html[data-theme="ios"] header .text-slate-400 {
+  color: #57534e !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   PLAYER flottant — contraste garanti (3 thèmes)
+   ═══════════════════════════════════════════════════════════ */
+html[data-theme="dark"] #floating-player .glass-strong,
+html[data-theme="dark"] #floating-player > div > div {
+  background: rgba(22, 16, 32, 0.96) !important;
+  border: 1px solid rgba(245, 185, 66, 0.3) !important;
+  color: #fef3c7 !important;
+}
+html[data-theme="light"] #floating-player .glass-strong,
+html[data-theme="light"] #floating-player > div > div,
+html[data-theme="ios"] #floating-player .glass-strong,
+html[data-theme="ios"] #floating-player > div > div {
+  background: #fffaf3 !important;
+  border: 1px solid rgba(180, 120, 40, 0.35) !important;
+  color: #1c1410 !important;
+  box-shadow: 0 -4px 24px rgba(120, 80, 20, 0.12) !important;
+}
+
+/* Titres / métadonnées */
+html[data-theme="dark"] #fp-title { color: #fff8ee !important; }
+html[data-theme="dark"] #fp-artist,
+html[data-theme="dark"] #fp-time,
+html[data-theme="dark"] #fp-duration { color: #d4b896 !important; }
+
+html[data-theme="light"] #fp-title,
+html[data-theme="ios"] #fp-title { color: #1c1410 !important; }
+html[data-theme="light"] #fp-artist,
+html[data-theme="light"] #fp-time,
+html[data-theme="light"] #fp-duration,
+html[data-theme="ios"] #fp-artist,
+html[data-theme="ios"] #fp-time,
+html[data-theme="ios"] #fp-duration { color: #57534e !important; }
+
+/* Boutons icônes (prev/next/shuffle/repeat/fav/share/mute/close) */
+html[data-theme="dark"] #floating-player button,
+html[data-theme="dark"] #floating-player .text-slate-300,
+html[data-theme="dark"] #floating-player .text-slate-400 {
+  color: #e8d5b5 !important;
+}
+html[data-theme="dark"] #floating-player button:hover {
+  color: #f5b942 !important;
+}
+
+html[data-theme="light"] #floating-player button,
+html[data-theme="light"] #floating-player .text-slate-300,
+html[data-theme="light"] #floating-player .text-slate-400,
+html[data-theme="light"] #floating-player .text-white,
+html[data-theme="ios"] #floating-player button,
+html[data-theme="ios"] #floating-player .text-slate-300,
+html[data-theme="ios"] #floating-player .text-slate-400,
+html[data-theme="ios"] #floating-player .text-white {
+  color: #1c1410 !important;
+}
+html[data-theme="light"] #floating-player button:hover,
+html[data-theme="ios"] #floating-player button:hover {
+  color: #b45309 !important;
+  background: rgba(180, 120, 40, 0.12) !important;
+}
+
+/* Play principal */
+html[data-theme="dark"] #fp-toggle {
+  background: linear-gradient(135deg, #f5b942, #d97706) !important;
+  color: #1a1008 !important;
+}
+html[data-theme="light"] #fp-toggle,
+html[data-theme="ios"] #fp-toggle {
+  background: linear-gradient(135deg, #d97706, #b45309) !important;
+  color: #fffbeb !important;
+}
+
+/* Barre de progression */
+html[data-theme="dark"] #fp-progress { background: rgba(255,255,255,0.12) !important; }
+html[data-theme="light"] #fp-progress,
+html[data-theme="ios"] #fp-progress { background: rgba(28, 20, 16, 0.12) !important; }
+html[data-theme] #fp-progress-fill {
+  background: linear-gradient(90deg, #f5b942, #fcd34d) !important;
+}
+html[data-theme] #fp-progress-knob {
+  background: #f5b942 !important;
+  opacity: 1 !important;
+}
+
+/* Queue panel */
+html[data-theme="dark"] #fp-queue:not(.hidden) {
+  background: rgba(22, 16, 32, 0.98) !important;
+  border-color: rgba(245, 185, 66, 0.25) !important;
+  color: #fef3c7 !important;
+}
+html[data-theme="light"] #fp-queue:not(.hidden),
+html[data-theme="ios"] #fp-queue:not(.hidden) {
+  background: #fffaf3 !important;
+  border-color: rgba(180, 120, 40, 0.3) !important;
+  color: #1c1410 !important;
+}
+html[data-theme="light"] #fp-queue *,
+html[data-theme="ios"] #fp-queue * {
+  color: #1c1410 !important;
+}
+html[data-theme="dark"] #fp-queue * {
+  color: #fef3c7 !important;
+}
+
+/* Badge type média */
+html[data-theme="dark"] .fp-type-badge {
+  background: rgba(245, 185, 66, 0.2) !important;
+  color: #fde68a !important;
+}
+html[data-theme="light"] .fp-type-badge,
+html[data-theme="ios"] .fp-type-badge {
+  background: rgba(180, 120, 40, 0.15) !important;
+  color: #7c2d12 !important;
+}
+
+/* États actifs shuffle / repeat / continuous */
+html[data-theme] #fp-shuffle.is-on,
+html[data-theme] #fp-repeat.is-on,
+html[data-theme] #fp-continuous.fp-continuous-on {
+  color: #f5b942 !important;
+}
+html[data-theme="light"] #fp-shuffle.is-on,
+html[data-theme="light"] #fp-repeat.is-on,
+html[data-theme="light"] #fp-continuous.fp-continuous-on,
+html[data-theme="ios"] #fp-shuffle.is-on,
+html[data-theme="ios"] #fp-repeat.is-on,
+html[data-theme="ios"] #fp-continuous.fp-continuous-on {
+  color: #b45309 !important;
+}

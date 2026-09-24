@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Composants thème — pilotés par data-theme (applyTheme) */
+@layer components {
+  /* Live-bar */
+  #live-bar,
+  #live-bar.glass,
+  section#live-bar {
+    @apply border-b transition-colors duration-300;
+  }
+
+  html[data-theme='dark'] #live-bar,
+  html[data-theme='dark'] #live-bar.glass {
+    @apply bg-lb-dark text-amber-100 border-amber-400/40;
+  }
+
+  html[data-theme='light'] #live-bar,
+  html[data-theme='light'] #live-bar.glass {
+    @apply bg-lb-light text-chaabi-ink border-amber-600;
+  }
+
+  html[data-theme='ios'] #live-bar,
+  html[data-theme='ios'] #live-bar.glass {
+    @apply bg-lb-ios text-chaabi-ink border-amber-500/50;
+  }
+
+  html[data-theme='light'] #live-bar-items,
+  html[data-theme='light'] #live-bar-items span,
+  html[data-theme='ios'] #live-bar-items,
+  html[data-theme='ios'] #live-bar-items span {
+    @apply text-chaabi-ink;
+  }
+
+  html[data-theme='dark'] #live-bar-items,
+  html[data-theme='dark'] #live-bar-items span {
+    @apply text-amber-100;
+  }
+
+  /* Chips live */
+  .live-chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs sm:text-[13px] leading-snug whitespace-nowrap transition-colors;
+  }
+
+  html[data-theme='dark'] .live-chip {
+    @apply bg-amber-400/20 border border-amber-400/35 text-amber-100;
+  }
+
+  html[data-theme='light'] .live-chip,
+  html[data-theme='ios'] .live-chip {
+    @apply bg-amber-100 border border-amber-700 text-chaabi-ink;
+  }
+
+  html[data-theme='dark'] .live-chip--song { @apply text-amber-200; }
+  html[data-theme='light'] .live-chip--song,
+  html[data-theme='ios'] .live-chip--song { @apply text-amber-900; }
+
+  html[data-theme='dark'] .live-chip--show { @apply text-sky-300; }
+  html[data-theme='light'] .live-chip--show,
+  html[data-theme='ios'] .live-chip--show { @apply text-sky-800; }
+
+  html[data-theme='dark'] .live-chip--interview { @apply text-emerald-300; }
+  html[data-theme='light'] .live-chip--interview,
+  html[data-theme='ios'] .live-chip--interview { @apply text-emerald-800; }
+
+  /* Dédicaces */
+  html[data-theme='dark'] #dedicaces-bar:not(.hidden) {
+    @apply border-amber-400/30 text-amber-100;
+    background: linear-gradient(90deg, #3a2210, #2a1830);
+  }
+  html[data-theme='light'] #dedicaces-bar:not(.hidden),
+  html[data-theme='ios'] #dedicaces-bar:not(.hidden) {
+    @apply border-amber-600/40 text-chaabi-ink;
+    background: linear-gradient(90deg, #fff7ed, #fef3c7, #fffbeb);
+  }
+
+  /* Header */
+  html[data-theme='dark'] header.glass-strong {
+    @apply border-b border-amber-400/20;
+    background: rgba(26, 18, 40, 0.92);
+  }
+  html[data-theme='light'] header.glass-strong,
+  html[data-theme='ios'] header.glass-strong {
+    @apply border-b border-amber-700/20;
+    background: rgba(255, 250, 240, 0.92);
+  }
+}

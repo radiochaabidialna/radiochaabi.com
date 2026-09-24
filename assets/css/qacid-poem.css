@@ -1,0 +1,541 @@
+/* ═══════════════════════════════════════════
+   QACIDATES — rendu poétique optimisé
+   ═══════════════════════════════════════════ */
+
+.poetry-card,
+.poem-panel,
+.part-block,
+.part-grid,
+.content-grid {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Ne pas limiter la largeur des colonnes bilingues */
+.yd-pair .ar-text-panel,
+.yd-pair .manuscript,
+.part-block > .ar-text-panel,
+.part-block > div {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.poetry-card,
+.ar-text-panel,
+.panel {
+  background: #fffef9;
+  border: 1px solid rgba(146, 64, 14, 0.14);
+  border-radius: 18px;
+  box-shadow:
+    0 4px 6px rgba(0,0,0,0.03),
+    0 12px 28px rgba(120, 80, 20, 0.06);
+  padding: 1.35rem 1.25rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .poetry-card,
+  .ar-text-panel,
+  .panel {
+    padding: 1.75rem 1.75rem 2rem;
+  }
+}
+
+.content-grid,
+.part-grid,
+.grid2,
+.bilingual-row {
+  display: grid;
+  gap: 1.25rem;
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .content-grid,
+  .part-grid,
+  .grid2,
+  .bilingual-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem;
+  }
+}
+
+.ar-body,
+.poem-ar,
+.poem-arabic,
+.arabic-block,
+.arabic-text,
+.qacida-text,
+[dir="rtl"].verse,
+.verse[dir="rtl"] {
+  font-family: "Amiri", "Traditional Arabic", "Scheherazade New", serif !important;
+  font-size: clamp(1.15rem, 2.4vw, 1.4rem) !important;
+  line-height: 2.15 !important;
+  direction: rtl !important;
+  text-align: right !important;
+  color: #1c1917 !important;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  word-spacing: 0.04em;
+  user-select: text;
+  -webkit-user-select: text;
+  cursor: text;
+  hyphens: none;
+}
+
+.poem-fr,
+.poem-french,
+.french-text,
+.french-block,
+.verse-text,
+.poem-text {
+  font-family: "Playfair Display", "Cormorant Garamond", Georgia, serif !important;
+  font-size: clamp(1rem, 2vw, 1.12rem) !important;
+  line-height: 1.85 !important;
+  color: #292524 !important;
+  text-align: left;
+  user-select: text;
+}
+
+.verse-block,
+.verse {
+  margin-bottom: 1.1rem;
+  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  background: rgba(245, 158, 11, 0.06);
+  border-right: 3px solid #d97706;
+  border-left: 3px solid transparent;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.verse-block:hover,
+.verse:hover {
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.verse.chorus,
+.verse-block.refrain,
+.verse.harba,
+.chorus,
+.refrain-block {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.16), rgba(220, 38, 38, 0.06)) !important;
+  border-color: #b45309 !important;
+  border-width: 3px !important;
+  font-weight: 600;
+  box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.2);
+}
+
+.verse-label,
+.ar-caption {
+  display: inline-block;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #b45309;
+  margin-bottom: 0.55rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(245, 158, 11, 0.12);
+}
+
+.section-title,
+.poem-section-title {
+  font-family: Cinzel, "Playfair Display", serif !important;
+  font-size: clamp(1.15rem, 3vw, 1.45rem) !important;
+  color: #92400e !important;
+  text-align: center;
+  margin: 1.75rem 0 1.25rem;
+  padding-bottom: 0.65rem;
+  position: relative;
+  letter-spacing: 0.03em;
+}
+.section-title::after {
+  content: "❦";
+  position: absolute;
+  bottom: -0.15rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #f59e0b;
+  font-size: 0.95rem;
+  background: transparent;
+}
+
+.part-block + .part-block,
+.part-grid + .part-grid {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed rgba(217, 119, 6, 0.35);
+}
+
+.ar-orig,
+details.ar-orig {
+  margin-top: 0.85rem;
+  font-size: 0.8rem;
+  color: #78716c;
+}
+.ar-orig summary {
+  cursor: pointer;
+  color: #92400e;
+  font-weight: 600;
+}
+.ar-orig-thumb,
+.ar-orig img {
+  max-width: 100%;
+  border-radius: 12px;
+  margin-top: 0.5rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  opacity: 0.92;
+}
+
+#chaabi-livebar {
+  position: sticky;
+  top: 56px;
+  z-index: 900;
+  height: 34px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #0f172a, #1e293b, #0f172a);
+  border-bottom: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fbbf24;
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+#chaabi-livebar .clb-inner { width: 100%; overflow: hidden; white-space: nowrap; }
+#chaabi-livebar .clb-track {
+  display: inline-block;
+  padding-left: 100%;
+  animation: chaabi-live-scroll 42s linear infinite;
+}
+@keyframes chaabi-live-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+#chaabi-back {
+  max-width: 1100px;
+  margin: 0.75rem auto;
+  padding: 0 1rem;
+}
+#chaabi-back a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #92400e;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+#chaabi-back a:hover { background: rgba(245, 158, 11, 0.2); }
+
+@media (max-width: 899px) {
+  .ar-body, .poem-ar, .poem-arabic, .arabic-block, .arabic-text {
+    font-size: 1.2rem !important;
+    line-height: 2.05 !important;
+  }
+  .verse-block, .verse {
+    padding: 0.85rem 0.9rem;
+  }
+}
+
+@media print {
+  #chaabi-topnav, #chaabi-livebar, #chaabi-back, #footer-root, .ar-orig { display: none !important; }
+  .ar-body, .poem-fr, .french-text { color: #000 !important; }
+  .poetry-card, .ar-text-panel { box-shadow: none; border: 1px solid #ccc; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #chaabi-livebar .clb-track { animation: none; padding-left: 0.5rem; }
+  .verse-block, .verse { transition: none; }
+}
+
+
+/* ═══════════════════════════════════════════
+   MOBILE qacidates (portrait)
+   ═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .yd-pair,
+  .part-block,
+  .bilingual-row,
+  .content-grid,
+  .part-grid,
+  .grid2 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.25rem !important;
+    width: 100% !important;
+  }
+  /* Français d'abord, arabe ensuite */
+  .yd-pair > .yd-fr,
+  .yd-pair > div:first-child {
+    order: 1;
+  }
+  .yd-pair > .manuscript,
+  .yd-pair > .ar-text-panel {
+    order: 2;
+  }
+
+  .section-card,
+  .poetry-card,
+  .ar-text-panel,
+  .manuscript {
+    padding: 1rem !important;
+    border-radius: 14px !important;
+  }
+
+  .poem-arabic,
+  .ar-body,
+  .ar-text-panel .ar-body {
+    font-size: 1.1rem !important;
+    line-height: 1.85 !important;
+  }
+  .poem-french,
+  .french-text {
+    font-size: 0.95rem !important;
+    line-height: 1.7 !important;
+  }
+
+  .header,
+  .hero-bg {
+    min-height: 42vh !important;
+    padding: 1.5rem 1rem !important;
+  }
+  .arabic-title,
+  .hero-bg h1 {
+    font-size: 1.6rem !important;
+  }
+
+  .anchor-nav {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0.5rem 0.25rem !important;
+  }
+  .anchor-nav::-webkit-scrollbar { display: none; }
+  .anchor-nav .anchor-btn,
+  .anchor-nav a {
+    flex-shrink: 0;
+    font-size: 0.72rem !important;
+    padding: 0.4rem 0.65rem !important;
+    white-space: nowrap;
+  }
+
+  #poem-content,
+  .container {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  /* Mini-player */
+  #mini-player-wrap {
+    max-width: calc(100% - 1rem) !important;
+    margin: 1rem auto !important;
+    padding: 0.5rem 0.75rem !important;
+    border-radius: 16px !important;
+    flex-wrap: wrap;
+  }
+
+  /* Footer safe */
+  .chaabi-footer {
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .poem-arabic, .ar-body { font-size: 1.05rem !important; }
+  .section-card { padding: 0.85rem !important; }
+  .yd-pair { gap: 1rem !important; }
+}
+
+/* ANCHOR-NAV VISIBLE — mobile + desktop */
+.anchor-nav {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: sticky;
+  top: 52px;
+  z-index: 9000;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.anchor-nav .anchor-btn,
+.anchor-nav a.anchor-btn {
+  display: inline-flex !important;
+  flex-shrink: 0;
+  visibility: visible !important;
+}
+@media (max-width: 768px) {
+  .anchor-nav {
+    top: 52px !important;
+    z-index: 9000 !important;
+    background: #1e293b !important;
+    border-bottom: 2px solid #f59e0b !important;
+    padding: 0.5rem 0.4rem !important;
+  }
+  .anchor-nav a,
+  .anchor-nav .anchor-btn {
+    color: #fde68a !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE GLOBAL — toutes les qacidates
+   ═══════════════════════════════════════════ */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+img, video, svg, iframe {
+  max-width: 100%;
+  height: auto;
+}
+.container,
+.poetry-card,
+#poem-content {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: max(0.75rem, env(safe-area-inset-left));
+  padding-right: max(0.75rem, env(safe-area-inset-right));
+}
+
+/* Grilles bilingues desktop */
+.part-block,
+.yd-pair,
+.bilingual-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+  width: 100%;
+  direction: ltr;
+}
+.part-block > *,
+.yd-pair > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 900px) {
+  .part-block,
+  .yd-pair,
+  .bilingual-row,
+  .part-grid,
+  .content-grid,
+  .grid2 {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  .header,
+  .hero-bg {
+    min-height: 40vh !important;
+    background-size: cover !important;
+    background-position: center !important;
+  }
+  .header-content {
+    padding: 1.5rem 1rem !important;
+  }
+  .title, .arabic-title, .header h1 {
+    font-size: clamp(1.35rem, 5vw, 1.85rem) !important;
+    line-height: 1.25 !important;
+  }
+
+  .container {
+    padding: 1.25rem 0.85rem !important;
+  }
+  .section-card,
+  .poetry-card,
+  .part-block {
+    padding: 1rem !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .mini-player,
+  #mini-player-wrap {
+    max-width: 100% !important;
+    width: 100% !important;
+    border-radius: 16px !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+
+  .artist-card {
+    max-width: 100% !important;
+  }
+  .artist-img {
+    width: 96px !important;
+    height: 96px !important;
+  }
+
+  /* Tables / images manuscrites */
+  table {
+    display: block;
+    overflow-x: auto;
+    max-width: 100%;
+  }
+  .arabic-image,
+  .ar-orig-thumb,
+  img.ar-orig-thumb {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  .french-text,
+  .poem-french {
+    font-size: 0.95rem !important;
+    line-height: 1.7 !important;
+  }
+  .ar-body,
+  .poem-arabic,
+  .arabic-poetry {
+    font-size: 1.1rem !important;
+    line-height: 1.85 !important;
+  }
+
+  /* Ancres */
+  .anchor-nav {
+    display: block !important;
+    visibility: visible !important;
+    position: sticky !important;
+    top: 52px !important;
+    z-index: 9000 !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    background: #1e293b !important;
+    border-bottom: 2px solid #f59e0b !important;
+    padding: 0.45rem 0.4rem !important;
+  }
+  .anchor-nav a,
+  .anchor-btn {
+    display: inline-flex !important;
+    flex-shrink: 0 !important;
+    color: #fde68a !important;
+  }
+
+  /* Nav top */
+  #chaabi-topnav {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 10000 !important;
+  }
+
+  body {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+}
+
+@media (max-width: 480px) {
+  .part-title { font-size: 1.15rem !important; }
+  .mini-player { padding: 0.5rem 0.75rem !important; }
+}

@@ -1,0 +1,301 @@
+/**
+ * Radio Chaabi — bibliothèque d'animations CSS
+ * Classes utilitaires + raffinements (cartes, live, player)
+ * Respecte prefers-reduced-motion
+ */
+
+@layer utilities {
+  /* ——— Entrées ——— */
+  @keyframes rc-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes rc-fade-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes rc-fade-down {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes rc-scale-in {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes rc-slide-in-right {
+    from { opacity: 0; transform: translateX(16px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .rc-anim-fade { animation: rc-fade-in 0.4s ease both; }
+  .rc-anim-up { animation: rc-fade-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .rc-anim-down { animation: rc-fade-down 0.35s ease both; }
+  .rc-anim-scale { animation: rc-scale-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .rc-anim-slide { animation: rc-slide-in-right 0.4s ease both; }
+
+  /* Délais échelonnés (stagger) */
+  .rc-delay-1 { animation-delay: 0.05s; }
+  .rc-delay-2 { animation-delay: 0.1s; }
+  .rc-delay-3 { animation-delay: 0.15s; }
+  .rc-delay-4 { animation-delay: 0.2s; }
+  .rc-delay-5 { animation-delay: 0.25s; }
+  .rc-delay-6 { animation-delay: 0.3s; }
+  .rc-delay-7 { animation-delay: 0.35s; }
+  .rc-delay-8 { animation-delay: 0.4s; }
+
+  /* ——— Boucles ——— */
+  @keyframes rc-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.05); }
+  }
+  @keyframes rc-pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgb(239 68 68 / 0.5); }
+    70% { box-shadow: 0 0 0 12px rgb(239 68 68 / 0); }
+    100% { box-shadow: 0 0 0 0 rgb(239 68 68 / 0); }
+  }
+  @keyframes rc-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  @keyframes rc-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  @keyframes rc-glow {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.15); }
+  }
+  @keyframes rc-eq {
+    0%, 100% { height: 4px; }
+    50% { height: 14px; }
+  }
+
+  .rc-anim-pulse { animation: rc-pulse 1.6s ease-in-out infinite; }
+  .rc-anim-float { animation: rc-float 3s ease-in-out infinite; }
+  .rc-anim-glow { animation: rc-glow 2.5s ease-in-out infinite; }
+  .rc-shimmer {
+    background: linear-gradient(
+      90deg,
+      rgb(229 231 235 / 0.6) 25%,
+      rgb(243 244 246 / 0.9) 50%,
+      rgb(229 231 235 / 0.6) 75%
+    );
+    background-size: 200% 100%;
+    animation: rc-shimmer 1.5s linear infinite;
+  }
+  html.dark .rc-shimmer {
+    background: linear-gradient(
+      90deg,
+      #1a2230 25%,
+      #2a3344 50%,
+      #1a2230 75%
+    );
+    background-size: 200% 100%;
+  }
+
+  /* ——— Cartes : apparition en cascade ——— */
+  .home-card-grid > .media-card,
+  .home-card-grid--list > .media-card,
+  #list-container > .media-card {
+    animation: rc-fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .home-card-grid > .media-card:nth-child(1),
+  .home-card-grid--list > .media-card:nth-child(1),
+  #list-container > .media-card:nth-child(1) { animation-delay: 0.03s; }
+  .home-card-grid > .media-card:nth-child(2),
+  .home-card-grid--list > .media-card:nth-child(2),
+  #list-container > .media-card:nth-child(2) { animation-delay: 0.06s; }
+  .home-card-grid > .media-card:nth-child(3),
+  .home-card-grid--list > .media-card:nth-child(3),
+  #list-container > .media-card:nth-child(3) { animation-delay: 0.09s; }
+  .home-card-grid > .media-card:nth-child(4),
+  .home-card-grid--list > .media-card:nth-child(4),
+  #list-container > .media-card:nth-child(4) { animation-delay: 0.12s; }
+  .home-card-grid > .media-card:nth-child(5),
+  .home-card-grid--list > .media-card:nth-child(5),
+  #list-container > .media-card:nth-child(5) { animation-delay: 0.15s; }
+  .home-card-grid > .media-card:nth-child(6),
+  .home-card-grid--list > .media-card:nth-child(6),
+  #list-container > .media-card:nth-child(6) { animation-delay: 0.18s; }
+  .home-card-grid > .media-card:nth-child(7),
+  .home-card-grid--list > .media-card:nth-child(7),
+  #list-container > .media-card:nth-child(7) { animation-delay: 0.21s; }
+  .home-card-grid > .media-card:nth-child(8),
+  .home-card-grid--list > .media-card:nth-child(8),
+  #list-container > .media-card:nth-child(8) { animation-delay: 0.24s; }
+  .home-card-grid > .media-card:nth-child(n + 9),
+  .home-card-grid--list > .media-card:nth-child(n + 9),
+  #list-container > .media-card:nth-child(n + 9) { animation-delay: 0.28s; }
+
+  /* ——— Slider ——— */
+  @keyframes rc-swiper-in {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: none; }
+  }
+  #home-swiper {
+    animation: rc-swiper-in 0.5s ease both;
+  }
+
+  /* ——— Live bar pulse accent ——— */
+  #live-bar .live-label i,
+  #live-bar .fa-broadcast-tower {
+    animation: rc-pulse 1.8s ease-in-out infinite;
+  }
+
+  /* ——— Player : barre de progression douce ——— */
+  #fp-progress-fill {
+    transition: width 0.15s linear;
+  }
+  #fp-progress-knob {
+    transition: left 0.15s linear, transform 0.2s ease;
+  }
+  #fp-progress:hover #fp-progress-knob,
+  #fp-progress:active #fp-progress-knob {
+    transform: scale(1.25);
+  }
+
+  /* ——— Boutons header ——— */
+  #theme-btn,
+  #lang-toggle-btn,
+  #search-toggle-btn,
+  #mobile-menu-btn {
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+  #theme-btn:active,
+  #lang-toggle-btn:active,
+  #search-toggle-btn:active,
+  #mobile-menu-btn:active {
+    transform: scale(0.92);
+  }
+
+  /* ——— Sections titre ——— */
+  #view-home h2,
+  .section-heading {
+    animation: rc-fade-up 0.5s ease both;
+  }
+
+  /* ——— Toast / feedback ——— */
+  @keyframes rc-toast-in {
+    from { opacity: 0; transform: translateY(12px) scale(0.96); }
+    to { opacity: 1; transform: none; }
+  }
+  .rc-toast {
+    animation: rc-toast-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* ——— Réduction mouvement ——— */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    .home-card-grid > .media-card,
+    .home-card-grid--list > .media-card,
+    #list-container > .media-card,
+    #home-swiper,
+    #view-home h2 {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+}
+
+
+/* ========== Suite : like / vues / thème iOS ========== */
+
+/* Cœur qui bat */
+@keyframes rc-heart-beat {
+  0%   { transform: scale(1); }
+  15%  { transform: scale(1.35); }
+  30%  { transform: scale(0.95); }
+  45%  { transform: scale(1.25); }
+  60%  { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+@keyframes rc-heart-burst {
+  0%   { box-shadow: 0 0 0 0 rgb(239 68 68 / 0.45); }
+  70%  { box-shadow: 0 0 0 14px rgb(239 68 68 / 0); }
+  100% { box-shadow: 0 0 0 0 rgb(239 68 68 / 0); }
+}
+
+.mc-actions .mc-like-btn.is-liked i,
+.mc-actions .mc-like-btn.liked i,
+.mc-actions .mc-like-btn.rc-heart-anim i {
+  color: #ef4444;
+  animation: rc-heart-beat 0.6s ease;
+  display: inline-block;
+}
+.mc-actions .mc-like-btn.is-liked,
+.mc-actions .mc-like-btn.liked,
+.mc-actions .mc-like-btn.rc-heart-anim {
+  animation: rc-heart-burst 0.55s ease;
+}
+
+/* Transitions de vues */
+#view-home,
+#view-list,
+#view-detail,
+#view-admin,
+#view-onair,
+#view-radio {
+  animation: none;
+}
+.rc-view-enter {
+  animation: rc-view-in 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes rc-view-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Switch thème : flash glass iOS */
+@keyframes rc-ios-glass-in {
+  0% {
+    opacity: 0.35;
+    filter: saturate(0.8) blur(2px);
+  }
+  40% {
+    opacity: 1;
+    filter: saturate(1.2) blur(0);
+  }
+  100% {
+    opacity: 1;
+    filter: none;
+  }
+}
+html.theme-ios.rc-theme-anim body {
+  animation: rc-ios-glass-in 0.55s ease both;
+}
+html.theme-ios.rc-theme-anim header,
+html.theme-ios.rc-theme-anim .media-card,
+html.theme-ios.rc-theme-anim #live-bar,
+html.theme-ios.rc-theme-anim #floating-player .glass-strong {
+  animation: rc-fade-up 0.45s ease both;
+}
+
+/* Transition soft pour dark/light aussi */
+html.rc-theme-anim body {
+  animation: rc-fade-in 0.35s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mc-actions .mc-like-btn.is-liked i,
+  .mc-actions .mc-like-btn.rc-heart-anim i,
+  .rc-view-enter,
+  html.theme-ios.rc-theme-anim body,
+  html.rc-theme-anim body {
+    animation: none !important;
+  }
+}
+

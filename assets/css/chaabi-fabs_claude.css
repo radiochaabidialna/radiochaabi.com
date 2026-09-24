@@ -1,0 +1,72 @@
+/* Boutons flottants — géométrie commune (sommeil + haut de page)
+   ATTENTION : ce fichier ne doit JAMAIS forcer opacity / visibility / pointer-events / transform
+   sur #back-to-top sans distinguer .btt-visible : la visibilité du bouton est pilotée par le JS
+   (chaabi-fabs.js ajoute .btt-visible après ~300 px de scroll). */
+#rc-fab-sleep,
+#back-to-top,
+button#back-to-top {
+  position: fixed !important;
+  z-index: 99999 !important;
+  width: 3rem !important;
+  height: 3rem !important;
+  border-radius: 9999px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: none !important;
+  cursor: pointer !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.28) !important;
+  font-size: 1rem !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#rc-fab-sleep {
+  right: 1rem !important;
+  bottom: calc(9.5rem + env(safe-area-inset-bottom, 0px)) !important;
+  background: linear-gradient(135deg, #7c3aed, #a78bfa) !important;
+  color: #fff !important;
+}
+
+#rc-fab-sleep.rc-sleep-on {
+  outline: 3px solid #f5b942 !important;
+  outline-offset: 2px;
+}
+
+/* Haut de page : position et couleurs */
+#back-to-top,
+button#back-to-top {
+  right: 1rem !important;
+  bottom: calc(6rem + env(safe-area-inset-bottom, 0px)) !important;
+  background: rgba(245, 185, 66, 0.95) !important;
+  color: #0f172a !important;
+}
+
+/* MASQUÉ tant que la classe .btt-visible n'est pas là (début de page) */
+html body button#back-to-top:not(.btt-visible) {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(8px) !important;
+  transition: opacity .2s ease, transform .2s ease, visibility 0s linear .2s !important;
+}
+
+/* VISIBLE uniquement après scroll */
+html body button#back-to-top.btt-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: none !important;
+  transition: opacity .2s ease, transform .2s ease, visibility 0s !important;
+}
+
+html body button#back-to-top.btt-visible:hover {
+  filter: brightness(1.08);
+  transform: scale(1.05) !important;
+}
+
+/* Cacher l'ancien bouton sommeil dans la barre player (doublon) */
+#floating-player #fp-sleep-btn {
+  /* keep as secondary if space allows */
+}

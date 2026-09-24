@@ -1,0 +1,554 @@
+/* Chaabi — menu qacid (HTML + CSS) */
+#chaabi-topnav {
+  display: block !important;
+  visibility: visible !important;
+  position: sticky; top: 0; z-index: 1000; width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #e7e5e4;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+}
+#chaabi-topnav * { box-sizing: border-box; }
+#chaabi-topnav a { text-decoration: none; color: inherit; }
+#chaabi-topnav .ctn-wrap { max-width: 1280px; margin: 0 auto; padding: 0 12px; }
+#chaabi-topnav .ctn-inner {
+  display: flex; height: 56px; align-items: center; justify-content: space-between; gap: 8px;
+}
+#chaabi-topnav .ctn-brand {
+  display: flex; align-items: center; color: #dc2626; font-weight: 700; flex-shrink: 0;
+}
+#chaabi-topnav .ctn-brand:hover { color: #b91c1c; }
+#chaabi-topnav .ctn-logo {
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 10px;
+  background: linear-gradient(135deg, #dc2626, #ca8a04);
+  color: #fff; font-size: 13px;
+  box-shadow: 0 2px 8px rgba(220,38,38,.3);
+}
+#chaabi-topnav .ctn-brand-text {
+  display: none; margin-left: 8px; font-family: Amiri, serif; font-size: 17px; font-weight: 700;
+}
+@media (min-width: 768px) {
+  #chaabi-topnav .ctn-brand-text { display: block; }
+  #chaabi-topnav .ctn-wrap { padding: 0 24px; }
+}
+
+/* Liens desktop — JAMAIS masqués par la règle anti-anciens-menus */
+#chaabi-topnav nav.ctn-links {
+  display: none;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 2px;
+  min-width: 0;
+}
+@media (min-width: 768px) {
+  #chaabi-topnav nav.ctn-links {
+    display: flex !important;
+    visibility: visible !important;
+    height: auto !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
+}
+#chaabi-topnav nav.ctn-links a {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  gap: 6px;
+  color: #292524;
+  white-space: nowrap;
+  transition: background .15s, color .15s;
+  visibility: visible !important;
+}
+#chaabi-topnav nav.ctn-links a i { font-size: 12px; }
+#chaabi-topnav nav.ctn-links a:hover { background: #eab308; color: #0c0a09; }
+#chaabi-topnav nav.ctn-links a.is-current {
+  background: linear-gradient(135deg, #dc2626, #ca8a04);
+  color: #fafaf9;
+  box-shadow: 0 2px 8px rgba(220,38,38,.25);
+}
+@media (min-width: 768px) and (max-width: 1200px) {
+  #chaabi-topnav nav.ctn-links a span.lbl { display: none; }
+  #chaabi-topnav nav.ctn-links a { padding: 0 12px; }
+}
+
+#chaabi-topnav .ctn-tools {
+  display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+}
+#chaabi-topnav .lang-switch {
+  display: flex; background: #f3f4f6; border-radius: 999px;
+  border: 1px solid #e5e7eb; padding: 2px;
+}
+#chaabi-topnav .lang-opt {
+  border: 0; cursor: pointer; padding: 4px 10px; border-radius: 999px;
+  font-size: 12px; font-weight: 700; color: #6b7280; background: transparent;
+}
+#chaabi-topnav .lang-opt.is-active { background: #dc2626; color: #fff; }
+#chaabi-topnav .ctn-burger {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 40px; width: 40px; border: 0; border-radius: 10px;
+  background: transparent; color: #292524; cursor: pointer; font-size: 18px;
+}
+#chaabi-topnav .ctn-burger:hover { background: #eab308; }
+@media (min-width: 768px) {
+  #chaabi-topnav .ctn-burger { display: none; }
+}
+
+#chaabi-mob {
+  display: none; background: #fff; border-top: 1px solid #e7e5e4;
+  padding: 8px 0 12px;
+}
+#chaabi-mob.open { display: block; }
+@media (min-width: 768px) {
+  #chaabi-mob { display: none !important; }
+}
+#chaabi-mob a {
+  display: flex !important; align-items: center; gap: 10px;
+  padding: 12px 16px; margin: 2px 12px; border-radius: 8px;
+  font-size: 14px; font-weight: 500; color: #1c1917;
+  visibility: visible !important;
+}
+#chaabi-mob a:hover { background: #f5f5f4; }
+#chaabi-mob a.is-current { background: #f5f5f4; }
+#chaabi-mob a i { color: #ef4444; width: 18px; text-align: center; }
+
+#chaabi-back {
+  max-width: 1280px; margin: 12px auto 0; padding: 0 16px;
+}
+#chaabi-back a {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 999px;
+  background: #fef2f2; border: 1px solid #fecaca; color: #dc2626;
+  font-weight: 600; font-size: 13px; text-decoration: none;
+  font-family: Inter, system-ui, sans-serif;
+}
+#chaabi-back a:hover { background: #fee2e2; }
+
+/*
+ * Masquer UNIQUEMENT les anciens menus de navigation et footers.
+ * NE PAS masquer <header class="header"> (titre / artiste / player de la qacidate).
+ */
+body > nav {
+  display: none !important;
+}
+body > footer,
+footer.footer,
+footer.bg-gray-900,
+footer.bg-gradient-to-b {
+  display: none !important;
+}
+/* Anciennes barres de nav Tailwind sticky (pas le hero poésie) */
+body > div.sticky.top-0,
+body > div[class*="sticky"][class*="top-0"]:not(#chaabi-back) {
+  /* seulement si ça ressemble à une navbar (beaucoup de liens) — géré en JS */
+}
+
+
+/* Headers de contenu qacidate — toujours visibles */
+header.header,
+header.header * {
+  /* ne pas forcer display none */
+}
+body > header.header {
+  display: flex !important;
+  visibility: visible !important;
+  height: auto !important;
+  overflow: visible !important;
+  margin: revert !important;
+  padding: revert !important;
+}
+
+
+/* Nav prev/next entre qacidates */
+.qacid-pager {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  justify-content: space-between;
+  align-items: stretch;
+  font-family: Inter, system-ui, sans-serif;
+}
+.qacid-pager a {
+  flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  padding: .9rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid #fecaca;
+  background: #fff;
+  text-decoration: none;
+  color: #1c1917;
+  box-shadow: 0 2px 10px rgba(0,0,0,.04);
+  transition: transform .15s, box-shadow .15s, border-color .15s;
+}
+.qacid-pager a:hover {
+  transform: translateY(-2px);
+  border-color: #f87171;
+  box-shadow: 0 6px 18px rgba(220,38,38,.12);
+}
+.qacid-pager a.disabled {
+  opacity: .4;
+  pointer-events: none;
+}
+.qacid-pager .pg-label {
+  font-size: .7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #dc2626;
+}
+.qacid-pager .pg-title {
+  font-size: .92rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.qacid-pager .pg-next { text-align: right; align-items: flex-end; }
+.qacid-listen {
+  max-width: 1100px;
+  margin: 1rem auto 0;
+  padding: 0 1.25rem;
+  font-family: Inter, system-ui, sans-serif;
+}
+.qacid-listen a {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .65rem 1.15rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #dc2626, #ca8a04);
+  color: #fff;
+  font-weight: 700;
+  font-size: .85rem;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(220,38,38,.3);
+}
+.qacid-listen a:hover { filter: brightness(1.06); }
+.qacid-listen a.secondary {
+  background: #fff;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  box-shadow: none;
+  margin-left: .5rem;
+}
+
+
+/* ── Live-bar fixe sous le menu (pages qacidates) ── */
+#chaabi-livebar {
+  position: sticky;
+  top: 64px; /* sous #chaabi-topnav */
+  z-index: 900;
+  width: 100%;
+  height: 36px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  border-bottom: 1px solid rgba(245, 158, 11, 0.35);
+  color: #fbbf24;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+#chaabi-livebar .clb-inner {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+#chaabi-livebar .clb-track {
+  display: inline-block;
+  padding-left: 100%;
+  animation: chaabi-live-scroll 40s linear infinite;
+}
+@keyframes chaabi-live-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+html[dir="rtl"] #chaabi-livebar .clb-track {
+  animation-name: chaabi-live-scroll-rtl;
+}
+@keyframes chaabi-live-scroll-rtl {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(50%); }
+}
+/* footer toujours visible une fois injecté */
+#footer-root {
+  min-height: 1px;
+  display: block !important;
+  visibility: visible !important;
+}
+#footer-root footer {
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* See also qacid-poem.css for full poetic rendering */
+
+
+/* === QACID-POEM (intégré) === */
+/* ═══════════════════════════════════════════
+   QACIDATES — rendu poétique optimisé
+   ═══════════════════════════════════════════ */
+
+.poetry-card,
+.poem-panel,
+.ar-text-panel,
+.manuscript,
+.part-block,
+.part-grid,
+.content-grid {
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.poetry-card,
+.ar-text-panel,
+.panel {
+  background: #fffef9;
+  border: 1px solid rgba(146, 64, 14, 0.14);
+  border-radius: 18px;
+  box-shadow:
+    0 4px 6px rgba(0,0,0,0.03),
+    0 12px 28px rgba(120, 80, 20, 0.06);
+  padding: 1.35rem 1.25rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .poetry-card,
+  .ar-text-panel,
+  .panel {
+    padding: 1.75rem 1.75rem 2rem;
+  }
+}
+
+.content-grid,
+.part-grid,
+.grid2,
+.bilingual-row {
+  display: grid;
+  gap: 1.25rem;
+  align-items: start;
+}
+@media (min-width: 768px) {
+  .content-grid,
+  .part-grid,
+  .grid2,
+  .bilingual-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem;
+  }
+}
+
+.ar-body,
+.poem-ar,
+.poem-arabic,
+.arabic-block,
+.arabic-text,
+.qacida-text,
+[dir="rtl"].verse,
+.verse[dir="rtl"] {
+  font-family: "Amiri", "Traditional Arabic", "Scheherazade New", serif !important;
+  font-size: clamp(1.15rem, 2.4vw, 1.4rem) !important;
+  line-height: 2.15 !important;
+  direction: rtl !important;
+  text-align: right !important;
+  color: #1c1917 !important;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  word-spacing: 0.04em;
+  user-select: text;
+  -webkit-user-select: text;
+  cursor: text;
+  hyphens: none;
+}
+
+.poem-fr,
+.poem-french,
+.french-text,
+.french-block,
+.verse-text,
+.poem-text {
+  font-family: "Playfair Display", "Cormorant Garamond", Georgia, serif !important;
+  font-size: clamp(1rem, 2vw, 1.12rem) !important;
+  line-height: 1.85 !important;
+  color: #292524 !important;
+  text-align: left;
+  user-select: text;
+}
+
+.verse-block,
+.verse {
+  margin-bottom: 1.1rem;
+  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  background: rgba(245, 158, 11, 0.06);
+  border-right: 3px solid #d97706;
+  border-left: 3px solid transparent;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.verse-block:hover,
+.verse:hover {
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.verse.chorus,
+.verse-block.refrain,
+.verse.harba,
+.chorus,
+.refrain-block {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.16), rgba(220, 38, 38, 0.06)) !important;
+  border-color: #b45309 !important;
+  border-width: 3px !important;
+  font-weight: 600;
+  box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.2);
+}
+
+.verse-label,
+.ar-caption {
+  display: inline-block;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #b45309;
+  margin-bottom: 0.55rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(245, 158, 11, 0.12);
+}
+
+.section-title,
+.poem-section-title {
+  font-family: Cinzel, "Playfair Display", serif !important;
+  font-size: clamp(1.15rem, 3vw, 1.45rem) !important;
+  color: #92400e !important;
+  text-align: center;
+  margin: 1.75rem 0 1.25rem;
+  padding-bottom: 0.65rem;
+  position: relative;
+  letter-spacing: 0.03em;
+}
+.section-title::after {
+  content: "❦";
+  position: absolute;
+  bottom: -0.15rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #f59e0b;
+  font-size: 0.95rem;
+  background: transparent;
+}
+
+.part-block + .part-block,
+.part-grid + .part-grid {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed rgba(217, 119, 6, 0.35);
+}
+
+.ar-orig,
+details.ar-orig {
+  margin-top: 0.85rem;
+  font-size: 0.8rem;
+  color: #78716c;
+}
+.ar-orig summary {
+  cursor: pointer;
+  color: #92400e;
+  font-weight: 600;
+}
+.ar-orig-thumb,
+.ar-orig img {
+  max-width: 100%;
+  border-radius: 12px;
+  margin-top: 0.5rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  opacity: 0.92;
+}
+
+#chaabi-livebar {
+  position: sticky;
+  top: 56px;
+  z-index: 900;
+  height: 34px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #0f172a, #1e293b, #0f172a);
+  border-bottom: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fbbf24;
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+#chaabi-livebar .clb-inner { width: 100%; overflow: hidden; white-space: nowrap; }
+#chaabi-livebar .clb-track {
+  display: inline-block;
+  padding-left: 100%;
+  animation: chaabi-live-scroll 42s linear infinite;
+}
+@keyframes chaabi-live-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+#chaabi-back {
+  max-width: 1100px;
+  margin: 0.75rem auto;
+  padding: 0 1rem;
+}
+#chaabi-back a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #92400e;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+#chaabi-back a:hover { background: rgba(245, 158, 11, 0.2); }
+
+@media (max-width: 899px) {
+  .ar-body, .poem-ar, .poem-arabic, .arabic-block, .arabic-text {
+    font-size: 1.2rem !important;
+    line-height: 2.05 !important;
+  }
+  .verse-block, .verse {
+    padding: 0.85rem 0.9rem;
+  }
+}
+
+@media print {
+  #chaabi-topnav, #chaabi-livebar, #chaabi-back, #footer-root, .ar-orig { display: none !important; }
+  .ar-body, .poem-fr, .french-text { color: #000 !important; }
+  .poetry-card, .ar-text-panel { box-shadow: none; border: 1px solid #ccc; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #chaabi-livebar .clb-track { animation: none; padding-left: 0.5rem; }
+  .verse-block, .verse { transition: none; }
+}
+
+@media (max-width: 768px) {
+  #chaabi-topnav .ctn-inner { height: 52px; }
+  #chaabi-topnav nav.ctn-links a,
+  #chaabi-topnav nav a {
+    min-height: 40px;
+    padding: 8px 10px !important;
+  }
+  body { padding-bottom: env(safe-area-inset-bottom, 0); }
+}

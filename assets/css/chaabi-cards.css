@@ -1,0 +1,135 @@
+/**
+ * Radio Chaabi — cartes interactives
+ * Améliore .media-card sans casser le HTML généré par app.js
+ */
+
+@layer components {
+  .media-card {
+    --mc-lift: 6px;
+    --mc-glow: 0 18px 40px rgb(37 99 235 / 0.18);
+    cursor: pointer;
+    isolation: isolate;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Focus clavier */
+  .media-card:focus-visible {
+    outline: 2px solid #f5b942;
+    outline-offset: 3px;
+  }
+
+  /* Press / active */
+  .media-card:active {
+    transform: translateY(-2px) scale(0.985) !important;
+    transition-duration: 0.12s !important;
+  }
+
+  /* Play overlay plus réactif */
+  .media-card .mc-play {
+    pointer-events: none;
+  }
+  .media-card .mc-img-bx {
+    cursor: pointer;
+  }
+  .media-card .mc-img-bx:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+  }
+
+  /* Bouton play visible aussi au focus de la carte */
+  .media-card:focus-within .mc-play,
+  .media-card.is-playing .mc-play {
+    opacity: 1;
+  }
+  .media-card:focus-within .mc-play span,
+  .media-card.is-playing .mc-play span {
+    transform: translateY(0);
+  }
+
+  /* Carte en lecture */
+  .media-card.is-playing {
+    border-color: rgb(245 185 66 / 0.55) !important;
+    box-shadow:
+      0 0 0 1px rgb(245 185 66 / 0.35),
+      0 14px 36px rgb(245 185 66 / 0.15) !important;
+  }
+  .media-card.is-playing .mc-play span {
+    background: linear-gradient(135deg, #f5b942, #e08c2b) !important;
+  }
+  .media-card.is-playing .mc-play span i::before {
+    content: "\f04c"; /* pause */
+  }
+
+  /* Like actif */
+  .mc-actions .mc-like-btn.is-liked,
+  .mc-actions .mc-like-btn.liked {
+    color: #ef4444 !important;
+  }
+  .mc-actions .mc-like-btn.is-liked i,
+  .mc-actions .mc-like-btn.liked i {
+    font-weight: 900;
+    animation: mc-pop 0.35s ease;
+  }
+
+  /* Favori actif */
+  .mc-actions button.is-fav,
+  .mc-actions button.fav-on {
+    color: #f59e0b !important;
+  }
+  .mc-actions button.is-fav i,
+  .mc-actions button.fav-on i {
+    font-weight: 900;
+  }
+
+  /* Ripple léger sur actions */
+  .mc-actions button {
+    position: relative;
+    overflow: hidden;
+  }
+  .mc-actions button.mc-ripple::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: rgb(255 255 255 / 0.35);
+    transform: scale(0);
+    opacity: 0;
+    animation: mc-ripple 0.45s ease-out forwards;
+    pointer-events: none;
+  }
+
+  @keyframes mc-pop {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.35); }
+    100% { transform: scale(1); }
+  }
+  @keyframes mc-ripple {
+    0% { transform: scale(0); opacity: 0.5; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+
+  /* Mobile : play toujours un peu visible */
+  @media (hover: none) {
+    .media-card .mc-play {
+      opacity: 0.85;
+    }
+    .media-card .mc-play span {
+      transform: none;
+      width: 40px;
+      height: 40px;
+    }
+    .media-card:active {
+      transform: scale(0.98) !important;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .media-card,
+    .media-card .mc-img-bx,
+    .media-card .mc-play span,
+    .mc-actions button {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+}

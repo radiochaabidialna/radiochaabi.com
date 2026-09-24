@@ -1,0 +1,9 @@
+<?php
+/** Copier vers database.local.php et adapter */
+return [
+    'host' => 'localhost',
+    'name' => 'chaabi_music_v7_bilingue',
+    'user' => 'root',
+    'pass' => 'root',
+    'charset' => 'utf8mb4',
+];

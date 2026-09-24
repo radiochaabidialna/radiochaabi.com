@@ -1,0 +1,77 @@
+
+/* FAB — sommeil toujours visible ; haut de page seulement si .btt-visible */
+#rc-fab-sleep,
+#back-to-top,
+button#back-to-top {
+  position: fixed !important;
+  z-index: 99999 !important;
+  width: 3rem !important;
+  height: 3rem !important;
+  border-radius: 9999px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: none !important;
+  cursor: pointer !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.28) !important;
+  font-size: 1rem !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  transition: opacity .2s ease, transform .2s ease, visibility .2s !important;
+}
+
+/* Sommeil : toujours visible */
+#rc-fab-sleep {
+  right: 1rem !important;
+  bottom: calc(9.5rem + env(safe-area-inset-bottom, 0px)) !important;
+  background: linear-gradient(135deg, #7c3aed, #a78bfa) !important;
+  color: #fff !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: none !important;
+}
+
+#rc-fab-sleep.rc-sleep-on {
+  outline: 3px solid #f5b942 !important;
+  outline-offset: 2px;
+}
+
+/* Haut de page : masqué par défaut, visible seulement avec .btt-visible */
+#back-to-top,
+button#back-to-top {
+  right: 1rem !important;
+  bottom: calc(6rem + env(safe-area-inset-bottom, 0px)) !important;
+  background: rgba(245, 185, 66, 0.95) !important;
+  color: #0f172a !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(8px) !important;
+}
+
+#back-to-top.btt-visible,
+button#back-to-top.btt-visible {
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: none !important;
+}
+
+#back-to-top:hover,
+#rc-fab-sleep:hover {
+  filter: brightness(1.08);
+}
+
+#back-to-top.btt-visible:hover {
+  transform: scale(1.05) !important;
+}
+#rc-fab-sleep:hover {
+  transform: scale(1.05) !important;
+}
+
+/* Cacher l'ancien bouton sommeil dans la barre player (doublon) */
+#floating-player #fp-sleep-btn {
+  /* keep as secondary if space allows */
+}

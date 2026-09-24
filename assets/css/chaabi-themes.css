@@ -1,0 +1,503 @@
+/**
+ * Radio Chaabi — thèmes (CSS moderne)
+ * @layer tokens → base → components → themes → utilities
+ * Chemins images relatifs à ce fichier : ../img_hero/
+ */
+
+@layer tokens, base, components, themes, utilities;
+
+/* ========== TOKENS ========== */
+@layer tokens {
+  :root {
+    --rc-font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --rc-radius: 1rem;
+    --rc-radius-lg: 1.25rem;
+    --rc-blur: 20px;
+    --rc-blur-strong: 32px;
+    --rc-ease: 0.3s ease;
+    --rc-hero-mosaic: url("/music/img_hero/radiochaabi_accueil_1920x600.jpg");
+    --rc-hero-onair: url("/music/img_hero/radiochaabi_emissions_1920x600.jpg");
+  }
+
+  html.dark,
+  html[data-theme="dark"] {
+    --rc-text: #f8fafc;
+    --rc-text-muted: #94a3b8;
+    --rc-accent: #f5b942;
+    --rc-accent-soft: rgb(245 185 66 / 0.16);
+    --rc-primary: #2563eb;
+    --rc-glass: rgb(28 20 40 / 0.78);
+    --rc-card: rgb(48 34 58 / 0.72);
+    --rc-border: rgb(245 185 66 / 0.18);
+    --rc-border-strong: rgb(245 185 66 / 0.35);
+    --rc-player-title: #fff;
+    --rc-player-artist: #cbd5e1;
+    --rc-live-grad: linear-gradient(90deg, #3d2414, #2a1830 40%, #1a2e28);
+    --footer-bg: #0d1117;
+    --footer-card: #161b22;
+    --footer-text: #fff;
+    --footer-muted: #9ca3af;
+    --footer-border: rgb(245 185 66 / 0.18);
+    --footer-accent: #f5b942;
+    color-scheme: dark;
+  }
+
+  html.theme-light,
+  html[data-theme="light"] {
+    --rc-text: #1c1917;
+    --rc-text-muted: #57534e;
+    --rc-accent: #d97706;
+    --rc-accent-soft: rgb(217 119 6 / 0.12);
+    --rc-primary: #2563eb;
+    --rc-glass: #fffefb;
+    --rc-card: #fff;
+    --rc-border: rgb(180 120 30 / 0.2);
+    --rc-border-strong: rgb(180 120 30 / 0.32);
+    --rc-player-title: #0f172a;
+    --rc-player-artist: #57534e;
+    --rc-live-grad: linear-gradient(90deg, #fff8eb, #fde68a 45%, #fff7ed);
+    --footer-bg: #f5f0e8;
+    --footer-card: #fff;
+    --footer-text: #1c1917;
+    --footer-muted: #78716c;
+    --footer-border: rgb(180 120 30 / 0.2);
+    --footer-accent: #b45309;
+    color-scheme: light;
+  }
+
+  html.theme-ios,
+  html[data-theme="ios"] {
+    --rc-text: #1c1c1e;
+    --rc-text-muted: #3a3a3c;
+    --rc-accent: #007aff;
+    --rc-accent-soft: rgb(0 122 255 / 0.12);
+    --rc-primary: #007aff;
+    --rc-glass: rgb(255 255 255 / 0.45);
+    --rc-card: rgb(255 255 255 / 0.4);
+    --rc-border: rgb(255 255 255 / 0.65);
+    --rc-border-strong: rgb(255 255 255 / 0.8);
+    --rc-player-title: #1c1c1e;
+    --rc-player-artist: #48484a;
+    --rc-live-grad: linear-gradient(
+      90deg,
+      rgb(255 255 255 / 0.45),
+      rgb(255 255 255 / 0.6),
+      rgb(255 255 255 / 0.45)
+    );
+    --footer-bg: rgb(255 255 255 / 0.4);
+    --footer-card: rgb(255 255 255 / 0.45);
+    --footer-text: #1c1c1e;
+    --footer-muted: #636366;
+    --footer-border: rgb(255 255 255 / 0.55);
+    --footer-accent: #007aff;
+    color-scheme: light;
+  }
+}
+
+/* ========== BASE ========== */
+@layer base {
+  html.dark body {
+    color: var(--rc-text);
+    background:
+      radial-gradient(1100px 520px at 85% -10%, rgb(245 185 66 / 0.07), transparent 55%),
+      linear-gradient(180deg, #0d1117 0%, #07090d 50%) fixed;
+  }
+
+  html.theme-light body {
+    color: var(--rc-text);
+    background:
+      radial-gradient(900px 400px at 10% -5%, rgb(245 185 66 / 0.12), transparent 50%),
+      linear-gradient(180deg, #f8fafc 0%, #f5f0e8 100%) fixed;
+  }
+
+  html.theme-ios body {
+    color: var(--rc-text);
+    background:
+      radial-gradient(ellipse 100% 80% at 0% 0%, #ffd6a5 0%, transparent 55%),
+      radial-gradient(ellipse 90% 70% at 100% 10%, #a8c5ff 0%, transparent 50%),
+      radial-gradient(ellipse 80% 60% at 50% 100%, #ffc8dd 0%, transparent 50%),
+      radial-gradient(ellipse 60% 50% at 80% 50%, #b8f2e6 0%, transparent 45%),
+      linear-gradient(160deg, #e9eef8 0%, #f3eef6 50%, #e8f2ee 100%) fixed;
+  }
+
+  body,
+  .glass,
+  .media-card,
+  header,
+  #live-bar {
+    transition:
+      background-color var(--rc-ease),
+      background var(--rc-ease),
+      color 0.2s ease,
+      border-color 0.25s ease,
+      box-shadow var(--rc-ease);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body,
+    .glass,
+    .media-card,
+    header,
+    #live-bar {
+      transition: none;
+    }
+  }
+}
+
+/* ========== COMPONENTS ========== */
+@layer components {
+  .glass {
+    background: var(--rc-glass);
+    border-color: var(--rc-border);
+  }
+
+  .glass-strong {
+    background: var(--rc-glass);
+    border-color: var(--rc-border-strong);
+  }
+
+  .media-card {
+    background: var(--rc-card);
+    border-color: var(--rc-border);
+    transition:
+      background 0.2s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
+
+    &:hover {
+      border-color: var(--rc-border-strong);
+    }
+  }
+
+  #floating-player {
+    #fp-title {
+      color: var(--rc-player-title) !important;
+    }
+    #fp-artist {
+      color: var(--rc-player-artist) !important;
+    }
+  }
+}
+
+/* ========== THEMES ========== */
+@layer themes {
+  /* —— Light : opaque —— */
+  html.theme-light {
+    & .glass,
+    & .glass-strong {
+      background: #fffefb !important;
+      border-color: rgb(180 120 30 / 0.18) !important;
+      backdrop-filter: none;
+      box-shadow: 0 8px 24px rgb(28 25 23 / 0.06);
+    }
+
+    & .media-card {
+      background: #fff !important;
+      border: 1px solid rgb(180 120 30 / 0.15) !important;
+      backdrop-filter: none;
+      box-shadow: 0 4px 16px rgb(28 25 23 / 0.05);
+    }
+
+    & header {
+      background: rgb(255 252 247 / 0.95) !important;
+      backdrop-filter: none;
+    }
+
+    & #live-bar {
+      background: var(--rc-live-grad) !important;
+      color: #1c1410 !important;
+    }
+  }
+
+  /* —— Dark —— */
+  html.dark {
+    & .media-card {
+      background: var(--rc-card) !important;
+      border-color: var(--rc-border) !important;
+    }
+
+    & #live-bar {
+      background: var(--rc-live-grad) !important;
+      border-bottom-color: var(--rc-border-strong) !important;
+    }
+  }
+
+  /* —— iOS glass —— */
+  html.theme-ios {
+    /* Hero : image intacte (chemins relatifs au CSS) */
+    & .hero-bg,
+    & .hero-bg.hero-casbah,
+    & #view-home > section.hero-bg {
+      background-color: #0f0a12 !important;
+      background-image:
+        linear-gradient(180deg, rgb(7 9 13 / 0.2) 0%, rgb(7 9 13 / 0.5) 100%),
+        var(--rc-hero-mosaic) !important;
+      background-size: contain !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      filter: none !important;
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+
+    & .onair-hero {
+      background-color: #0a1a14 !important;
+      background-image:
+        linear-gradient(
+          135deg,
+          rgb(6 20 16 / 0.72) 0%,
+          rgb(10 30 24 / 0.55) 50%,
+          rgb(6 20 16 / 0.78) 100%
+        ),
+        var(--rc-hero-onair) !important;
+      background-size: cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+      backdrop-filter: none !important;
+      filter: none !important;
+    }
+
+    /* Chrome glass */
+    & header {
+      background: rgb(255 255 255 / 0.55) !important;
+      backdrop-filter: saturate(180%) blur(24px) !important;
+      -webkit-backdrop-filter: saturate(180%) blur(24px) !important;
+      border-bottom: 0.5px solid rgb(255 255 255 / 0.7) !important;
+      box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 0.9),
+        0 4px 24px rgb(0 0 0 / 0.06) !important;
+
+      & .text-white,
+      & .font-black {
+        color: #1c1c1e !important;
+      }
+      & .text-slate-300,
+      & .text-slate-400,
+      & .text-amber-400 {
+        color: #636366 !important;
+      }
+    }
+
+    & #lang-toggle-btn,
+    & #theme-btn,
+    & #search-toggle-btn,
+    & #mobile-menu-btn {
+      background: rgb(255 255 255 / 0.5) !important;
+      backdrop-filter: blur(12px) !important;
+      border: 1px solid rgb(255 255 255 / 0.65) !important;
+      color: #007aff !important;
+    }
+
+    & #live-bar {
+      background: rgb(255 255 255 / 0.5) !important;
+      backdrop-filter: saturate(180%) blur(20px) !important;
+      -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+      border-bottom: 0.5px solid rgb(255 255 255 / 0.6) !important;
+      color: #1c1c1e !important;
+
+      & .text-white,
+      & .text-slate-300,
+      & #live-bar-items,
+      & #live-bar-items span {
+        color: #1c1c1e !important;
+      }
+      & .text-amber-300,
+      & .live-label {
+        color: #007aff !important;
+      }
+    }
+
+    & .media-card {
+      background: rgb(255 255 255 / 0.42) !important;
+      backdrop-filter: saturate(180%) blur(18px) !important;
+      -webkit-backdrop-filter: saturate(180%) blur(18px) !important;
+      border: 1px solid rgb(255 255 255 / 0.7) !important;
+      box-shadow:
+        0 8px 28px rgb(31 38 135 / 0.08),
+        inset 0 1px 0 rgb(255 255 255 / 0.9) !important;
+      color: #1c1c1e !important;
+
+      &:hover {
+        background: rgb(255 255 255 / 0.62) !important;
+        transform: translateY(-2px);
+      }
+
+      & .text-white,
+      & .text-slate-200,
+      & h3,
+      & p {
+        color: #1c1c1e !important;
+      }
+      & .text-amber-300,
+      & .text-amber-400 {
+        color: #007aff !important;
+      }
+    }
+
+    /* Sections contenu — exclure le hero */
+    & #view-home > section:not(.hero-bg):not(.hero-casbah):not(.onair-hero),
+    & section.bg-gray-100 {
+      background: rgb(255 255 255 / 0.32) !important;
+      backdrop-filter: saturate(160%) blur(16px) !important;
+      -webkit-backdrop-filter: saturate(160%) blur(16px) !important;
+      border: 1px solid rgb(255 255 255 / 0.5) !important;
+      border-radius: var(--rc-radius-lg);
+      box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.7);
+    }
+
+    & .glass,
+    & .glass-strong:not(header) {
+      background: rgb(255 255 255 / 0.4) !important;
+      backdrop-filter: saturate(180%) blur(22px) !important;
+      -webkit-backdrop-filter: saturate(180%) blur(22px) !important;
+      border: 1px solid rgb(255 255 255 / 0.65) !important;
+      box-shadow:
+        0 8px 32px rgb(31 38 135 / 0.08),
+        inset 0 1px 0 rgb(255 255 255 / 0.85) !important;
+    }
+
+    & #mobile-menu {
+      background: rgb(255 255 255 / 0.65) !important;
+      backdrop-filter: saturate(200%) blur(40px) !important;
+      -webkit-backdrop-filter: saturate(200%) blur(40px) !important;
+      border-top: 1px solid rgb(255 255 255 / 0.7) !important;
+
+      & button,
+      & a {
+        color: #1c1c1e !important;
+
+        &:hover {
+          background: rgb(0 122 255 / 0.12) !important;
+          color: #007aff !important;
+        }
+      }
+    }
+
+    & #floating-player {
+      & .glass-strong,
+      & > div > div.glass-strong {
+        background: rgb(255 255 255 / 0.55) !important;
+        backdrop-filter: saturate(200%) blur(40px) !important;
+        -webkit-backdrop-filter: saturate(200%) blur(40px) !important;
+        border: 1px solid rgb(255 255 255 / 0.75) !important;
+        box-shadow:
+          0 -8px 40px rgb(0 0 0 / 0.08),
+          inset 0 1px 0 #fff !important;
+      }
+
+      & #fp-title {
+        color: #1c1c1e !important;
+      }
+      & #fp-artist,
+      & #fp-time,
+      & #fp-duration {
+        color: #636366 !important;
+      }
+    }
+
+    & #fp-toggle {
+      background: linear-gradient(135deg, #007aff, #5856d6) !important;
+    }
+    & #fp-progress {
+      background: rgb(0 0 0 / 0.1) !important;
+    }
+    & #fp-progress-fill {
+      background: linear-gradient(90deg, #007aff, #64b5ff) !important;
+    }
+    & #fp-progress-knob {
+      background: #007aff !important;
+    }
+
+    & #home-swiper {
+      border: 1px solid rgb(255 255 255 / 0.55) !important;
+      box-shadow: 0 12px 40px rgb(31 38 135 / 0.12) !important;
+    }
+
+    & .chaabi-swiper-nav {
+      background: rgb(255 255 255 / 0.55) !important;
+      backdrop-filter: blur(12px) !important;
+      color: #007aff !important;
+      border: 1px solid rgb(255 255 255 / 0.7) !important;
+    }
+
+    & #home-swiper-pagination .swiper-pagination-bullet-active {
+      background: #007aff !important;
+    }
+
+    & .live-chip {
+      background: rgb(255 255 255 / 0.45) !important;
+      backdrop-filter: blur(12px) !important;
+      border: 1px solid rgb(255 255 255 / 0.7) !important;
+      color: #1c1c1e !important;
+    }
+
+    & #dedicaces-bar {
+      background: rgb(255 255 255 / 0.4) !important;
+      backdrop-filter: blur(16px) !important;
+      border-color: rgb(255 255 255 / 0.55) !important;
+    }
+
+    & input,
+    & textarea,
+    & select {
+      background: rgb(255 255 255 / 0.5) !important;
+      backdrop-filter: blur(10px) !important;
+      border: 1px solid rgb(255 255 255 / 0.7) !important;
+      color: #1c1c1e !important;
+
+      &:focus {
+        border-color: rgb(0 122 255 / 0.55) !important;
+        box-shadow: 0 0 0 3px rgb(0 122 255 / 0.15) !important;
+      }
+    }
+
+    & .bg-indigo-600,
+    & .hero-cta-primary {
+      background: linear-gradient(135deg, #007aff, #5856d6) !important;
+      box-shadow: 0 4px 14px rgb(0 122 255 / 0.35) !important;
+    }
+
+    & .text-indigo-600,
+    & .text-amber-400,
+    & .text-amber-300 {
+      color: #007aff !important;
+    }
+
+    & #footer-root,
+    & .chaabi-footer {
+      background: rgb(255 255 255 / 0.4) !important;
+      backdrop-filter: saturate(180%) blur(24px) !important;
+      -webkit-backdrop-filter: saturate(180%) blur(24px) !important;
+      border-top: 1px solid rgb(255 255 255 / 0.55) !important;
+    }
+  }
+
+  /* Fallback sans backdrop-filter */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    html.theme-ios {
+      & .media-card,
+      & header,
+      & .glass {
+        background: rgb(255 255 255 / 0.88) !important;
+      }
+    }
+  }
+}
+
+/* ========== UTILITIES ========== */
+@layer utilities {
+  .rc-glass {
+    background: var(--rc-glass);
+    backdrop-filter: saturate(180%) blur(var(--rc-blur));
+    -webkit-backdrop-filter: saturate(180%) blur(var(--rc-blur));
+    border: 1px solid var(--rc-border);
+  }
+
+  .rc-text-accent {
+    color: var(--rc-accent);
+  }
+}
