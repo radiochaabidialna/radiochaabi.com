@@ -34,8 +34,6 @@
             detail: null,       // { type, id } | null
             searching: false
         };
-        var listSearchQuery = '';
-        var _listSearchTimer = null;
 
         function uiGet(id) {
             return document.getElementById(id);
@@ -52,10 +50,7 @@
                 else el.classList.add('hidden');
             });
             UIState.view = view;
-            if (opts.tab) {
-                if (UIState.tab !== opts.tab) { listSearchQuery = ''; var _ls = document.getElementById('list-search'); if (_ls) _ls.value = ''; }
-                UIState.tab = opts.tab;
-            }
+            if (opts.tab) UIState.tab = opts.tab;
             if (opts.detail !== undefined) UIState.detail = opts.detail;
             if (opts.searching !== undefined) UIState.searching = !!opts.searching;
 
@@ -821,32 +816,7 @@
             const container = document.getElementById('grid-container');
             container.innerHTML = renderSkeletons(8);
             document.getElementById('pagination').innerHTML = '';
-            // Barre de recherche + tri par section
-            var toolbar = document.getElementById('list-toolbar');
-            var listSearch = document.getElementById('list-search');
-            var sortSel = document.getElementById('list-sort');
-            var searchableTabs = ['artistes', 'chansons', 'emissions', 'interviews', 'bouqalla', 'dedicaces'];
-            if (toolbar) {
-                if (searchableTabs.indexOf(currentTab) >= 0) {
-                    toolbar.classList.remove('hidden');
-                    if (listSearch) {
-                        var phMap = {
-                            artistes: (translations[currentLang] && translations[currentLang].list_search_artistes) || 'Rechercher un artiste…',
-                            chansons: (translations[currentLang] && translations[currentLang].list_search_chansons) || 'Rechercher une chanson…',
-                            emissions: (translations[currentLang] && translations[currentLang].list_search_emissions) || 'Rechercher une émission…',
-                            interviews: (translations[currentLang] && translations[currentLang].list_search_interviews) || 'Rechercher une interview…',
-                            bouqalla: (translations[currentLang] && translations[currentLang].list_search_bouqalla) || 'Rechercher une bouqalla…',
-                            dedicaces: (translations[currentLang] && translations[currentLang].list_search_dedicaces) || 'Rechercher une dédicace…'
-                        };
-                        listSearch.placeholder = phMap[currentTab] || ((translations[currentLang] && translations[currentLang].list_search_ph) || 'Rechercher dans cette section…');
-                        if (listSearch.value !== listSearchQuery) listSearch.value = listSearchQuery || '';
-                        var clr = document.getElementById('list-search-clear');
-                        if (clr) clr.classList.toggle('hidden', !(listSearchQuery && listSearchQuery.length));
-                    }
-                } else {
-                    toolbar.classList.add('hidden');
-                }
-            }
+            const sortSel = document.getElementById('list-sort');
             if (sortSel) {
                 if (currentTab === 'dedicaces') {
                     sortSel.innerHTML = '<option value="recent">' + translations[currentLang].sort_recent + '</option><option value="likes">' + translations[currentLang].sort_likes + '</option>';
@@ -856,8 +826,7 @@
                 }
             }
             const sortQ = (currentTab === 'dedicaces' && sortSel && sortSel.value) ? '&tri=' + encodeURIComponent(sortSel.value) : '';
-            const searchQ = (listSearchQuery && listSearchQuery.trim()) ? '&q=' + encodeURIComponent(listSearchQuery.trim()) : '';
-            const result = await safeFetch((window.CHAABI_API||'api/radiochaabi.php')+'?action=get_' + currentTab + '&page=' + currentPage + '&limit=8' + sortQ + searchQ);
+            const result = await safeFetch((window.CHAABI_API||'api/radiochaabi.php')+`?action=get_${currentTab}&page=${currentPage}&limit=8${sortQ}`);
             if (!result || !result.data || result.data.length === 0) {
                 var tEmpty = (translations[currentLang] || {});
             container.innerHTML = '<div class="col-span-full empty-state">' +
@@ -1205,34 +1174,6 @@
         window.onSearchInput = onSearchInput;
         window.activateSearchSuggestion = activateSearchSuggestion;
 		
-        
-        function onListSearchInput(immediate) {
-            var input = document.getElementById('list-search');
-            if (!input) return;
-            var q = String(input.value || '').trim();
-            var clr = document.getElementById('list-search-clear');
-            if (clr) clr.classList.toggle('hidden', !q);
-            clearTimeout(_listSearchTimer);
-            var run = function () {
-                listSearchQuery = q;
-                if (typeof currentPage !== 'undefined') currentPage = 1;
-                if (typeof loadListData === 'function') loadListData();
-            };
-            if (immediate) run();
-            else _listSearchTimer = setTimeout(run, 320);
-        }
-        function clearListSearch() {
-            listSearchQuery = '';
-            var input = document.getElementById('list-search');
-            if (input) input.value = '';
-            var clr = document.getElementById('list-search-clear');
-            if (clr) clr.classList.add('hidden');
-            if (typeof currentPage !== 'undefined') currentPage = 1;
-            if (typeof loadListData === 'function') loadListData();
-        }
-        window.onListSearchInput = onListSearchInput;
-        window.clearListSearch = clearListSearch;
-
         async function performSearch() {
             var input = document.getElementById('search-input');
             var q = input ? String(input.value || '').trim() : '';
