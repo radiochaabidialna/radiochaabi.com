@@ -1,0 +1,28 @@
+{
+  "name": "Radio Chaabi — Musique populaire algérienne",
+  "short_name": "Radio Chaabi",
+  "description": "Chansons, émissions, interviews et patrimoine chaâbi algérien.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": "./index.html#home",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0b1220",
+  "theme_color": "#0b1220",
+  "categories": ["music", "entertainment"],
+  "icons": [
+    {
+      "src": "/music/images/chaabidialna.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/music/images/chaabidialna.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

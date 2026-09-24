@@ -1,0 +1,2691 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr" class="dark">
+<head>
+<meta charset="UTF-8">
+<link rel="preload" as="image" href="/music/img_hero/qacidate.2026.webp" type="image/webp" fetchpriority="high">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qacidates Chaabi — Poésie algérienne | Chaabi Music</title>
+<meta name="description" content="Découvrez la richesse de la poésie algérienne à travers les plus beaux textes du chaabi : qaçayd d'El Anka, Guerouabi, Ezzahi, Hadj Mrizek et bien d'autres, en arabe et en français.">
+<meta name="author" content="Chaabi Music">
+<meta name="theme-color" content="#2563eb">
+<link rel="canonical" href="/qacidates.html">
+
+<!-- Open Graph / réseaux sociaux -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Chaabi Music">
+<meta property="og:title" content="Qacidates Chaabi — Poésie algérienne | Chaabi Music">
+<meta property="og:description" content="Les plus beaux textes du chaabi algérien, en arabe et en français, avec explications détaillées.">
+<meta property="og:image" content="/music/images/chaabidialna.png">
+<meta property="og:url" content="/qacidates.html">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Qacidates Chaabi — Poésie algérienne">
+<meta name="twitter:description" content="Les plus beaux textes du chaabi algérien, en arabe et en français.">
+<meta name="twitter:image" content="/music/images/chaabidialna.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+    darkMode: 'class',
+    theme: {
+        extend: {
+            colors: { primary: '#2563eb', secondary: '#f59e0b' },
+            fontFamily: { amiri: ['Amiri','serif'] }
+        }
+    }
+};
+// Applique le thème sauvegardé le plus tôt possible (évite le flash)
+(function() {
+    try {
+        var t = localStorage.getItem('chaabi_theme') || localStorage.getItem('rc_theme') || 'dark';
+        var html = document.documentElement;
+        html.classList.remove('dark', 'theme-ios', 'theme-light');
+        if (t === 'ios') html.classList.add('theme-ios');
+        else if (t === 'light') html.classList.add('theme-light');
+        else html.classList.add('dark');
+        html.setAttribute('data-theme', t === 'ios' ? 'ios' : (t === 'light' ? 'light' : 'dark'));
+    } catch (e) {
+        document.documentElement.classList.add('dark');
+    }
+})();
+</script>
+<style>
+@keyframes fadeIn  { from{opacity:0} to{opacity:1} }
+@keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
+@keyframes scroll-left { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+@keyframes ping {
+    0%        { transform:scale(1);   opacity:1; }
+    75%, 100% { transform:scale(2.2); opacity:0; }
+}
+
+.animate-fade-in  { animation:fadeIn .5s ease-in-out; }
+.arabic-text { font-family:'Amiri','Tahoma',serif; direction:rtl; text-align:right; }
+.filter-btn.active { background:#2563eb !important; color:#fff !important; border-color:#2563eb !important; }
+
+/* ── Live bar + Dédicaces (fixed stack) ── */
+#site-top-chrome {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 60;
+    width: 100%;
+}
+#live-bar {
+    background: linear-gradient(90deg, #1a1208 0%, #1d4ed8 40%, #2563eb 100%);
+    height: 30px;
+    overflow: hidden;
+    width: 100%;
+    border-bottom: 1px solid rgba(245,185,66,.25);
+}
+#live-bar .live-bar-inner {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    max-width: 100%;
+}
+#live-bar .live-logo {
+    height: 18px; width: auto; max-width: 48px;
+    object-fit: contain; flex-shrink: 0;
+    margin-right: 4px; border-radius: 3px;
+}
+#live-bar .live-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #fff; flex-shrink: 0;
+    box-shadow: 0 0 0 0 rgba(255,255,255,.5);
+    animation: ping 1.5s infinite;
+}
+#live-bar-track-wrap {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    position: relative;
+    height: 30px;
+}
+#live-bar-track {
+    display: inline-flex;
+    align-items: center;
+    height: 30px;
+    white-space: nowrap;
+    width: max-content;
+    will-change: transform;
+    animation: scroll-left 40s linear infinite;
+}
+#live-bar-track:hover { animation-play-state: paused; }
+#live-bar-track span {
+    color: rgba(255,255,255,.95);
+    font-size: .72rem;
+    padding: 0 6px;
+    white-space: nowrap;
+    font-weight: 600;
+}
+/* Dédicaces bar */
+#dedicaces-bar {
+    display: none;
+    width: 100%;
+    height: 26px;
+    overflow: hidden;
+    background: linear-gradient(90deg, #2a1810, #3d2414 50%, #2a1810);
+    border-bottom: 1px solid rgba(245,185,66,.3);
+    color: #fde68a;
+}
+#dedicaces-bar.is-on { display: block; }
+#dedicaces-bar-inner {
+    display: flex; align-items: center; height: 26px;
+}
+#dedicaces-bar .ded-label {
+    flex-shrink: 0; padding: 0 10px;
+    font-size: .65rem; font-weight: 800;
+    letter-spacing: .04em; color: #fbbf24;
+    border-right: 1px solid rgba(245,185,66,.25);
+    white-space: nowrap;
+}
+#dedicaces-track-wrap {
+    flex: 1; min-width: 0; overflow: hidden; height: 26px; position: relative;
+}
+#dedicaces-ticker-items {
+    display: inline-flex; align-items: center;
+    height: 26px; white-space: nowrap; width: max-content;
+    animation: scroll-left 50s linear infinite;
+    font-size: .72rem;
+}
+#dedicaces-ticker-items:hover { animation-play-state: paused; }
+#dedicaces-ticker-items span { padding: 0 1rem; white-space: nowrap; }
+body { padding-top: 30px; } /* live only; JS bumps if dedicaces on */
+body.has-dedicaces-bar { padding-top: 56px; }
+
+/* Live/dedicaces — thème clair */
+html.theme-light #live-bar {
+    background: linear-gradient(90deg, #fff8eb, #fde68a, #fff8eb) !important;
+    border-bottom-color: rgba(180,120,30,.35) !important;
+}
+html.theme-light #live-bar-track span,
+html.theme-light #live-bar .live-label { color: #1c1410 !important; font-weight: 700; }
+html.theme-light #live-bar .live-dot { background: #dc2626; }
+html.theme-light #dedicaces-bar {
+    background: linear-gradient(90deg, #fffbeb, #fef3c7, #fffbeb) !important;
+    color: #1c1410 !important;
+    border-bottom-color: rgba(180,120,30,.25) !important;
+}
+html.theme-light #dedicaces-bar .ded-label { color: #92400e !important; }
+
+/* Live — iOS glass */
+html.theme-ios #live-bar {
+    background: linear-gradient(90deg, rgba(37,99,235,.75), rgba(29,78,216,.85)) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+html.theme-ios #dedicaces-bar {
+    background: rgba(255,251,235,.85) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #1c1410 !important;
+}
+html.theme-ios #dedicaces-bar .ded-label { color: #b45309 !important; }
+
+/* Glass cards / nav renforcé */
+html.dark .qcard {
+    background: rgba(22,27,34,.82) !important;
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    border-color: rgba(255,255,255,.08) !important;
+    box-shadow: 0 8px 28px -10px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.06) !important;
+}
+html.theme-ios .qcard {
+    background: rgba(255,255,255,.62) !important;
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(255,255,255,.7) !important;
+    box-shadow: 0 8px 32px rgba(31,38,135,.1), inset 0 1px 0 rgba(255,255,255,.8) !important;
+}
+html.theme-ios nav.bg-white\/90,
+html.theme-ios nav.sticky {
+    background: rgba(255,255,255,.55) !important;
+    backdrop-filter: saturate(180%) blur(20px) !important;
+    -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+    border-bottom: 1px solid rgba(255,255,255,.5) !important;
+}
+html.dark nav.sticky {
+    background: rgba(7,9,13,.78) !important;
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border-bottom-color: rgba(245,185,66,.2) !important;
+}
+
+
+/* ── Carte horizontale compacte ── */
+.qcard {
+    display:flex; align-items:center; gap:11px;
+    background:#fff; border-radius:16px;
+    border:1px solid #eceef2; padding:10px 12px 10px 14px;
+    transition:transform .28s cubic-bezier(.4,0,.2,1), box-shadow .28s cubic-bezier(.4,0,.2,1), border-color .28s;
+    box-shadow:0 1px 3px rgba(16,24,40,.05);
+    position:relative; overflow:hidden; isolation:isolate;
+}
+/* Barre d'accent dégradée à gauche (révélée au survol) */
+.qcard::before {
+    content:''; position:absolute; left:0; top:0; bottom:0; width:4px;
+    background:linear-gradient(180deg,#2563eb,#7c3aed,#f59e0b);
+    transform:scaleY(0); transform-origin:top; transition:transform .3s ease;
+}
+/* Halo dégradé diffus au survol */
+.qcard::after {
+    content:''; position:absolute; inset:0; z-index:-1; opacity:0;
+    background:radial-gradient(120% 120% at 0% 0%, rgba(37,99,235,.08), transparent 60%);
+    transition:opacity .3s ease;
+}
+.qcard:hover {
+    transform:translateY(-4px);
+    box-shadow:0 14px 30px -10px rgba(37,99,235,.28);
+    border-color:#c7d7fe;
+}
+.qcard:hover::before { transform:scaleY(1); }
+.qcard:hover::after  { opacity:1; }
+
+.qcard-avatar {
+    width:54px; height:54px; border-radius:50%;
+    object-fit:cover; flex-shrink:0; padding:2px;
+    background:linear-gradient(135deg,#2563eb,#f59e0b);
+    box-shadow:0 2px 8px rgba(37,99,235,.25);
+    transition:transform .28s ease;
+}
+.qcard:hover .qcard-avatar { transform:scale(1.06) rotate(-2deg); }
+.qcard-avatar-gradient {
+    width:54px; height:54px; border-radius:50%; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 2px 8px rgba(0,0,0,.15), inset 0 0 0 2px rgba(255,255,255,.35);
+    transition:transform .28s ease;
+}
+.qcard:hover .qcard-avatar-gradient { transform:scale(1.06) rotate(-2deg); }
+.qcard-body { flex:1; min-width:0; }
+.qcard-ar {
+    font-family:'Amiri',serif; font-size:.95rem; color:#b91c1c;
+    direction:rtl; text-align:right; line-height:1.25; margin-bottom:1px;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.qcard-title {
+    font-size:.76rem; font-weight:700; color:#111827; line-height:1.25;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-height:1em;
+}
+.qcard-title a { transition:color .2s; }
+.qcard-title a:hover { color:#2563eb; }
+/* Curseur de la machine à écrire */
+.qcard-title a.typing::after {
+    content:'▌'; margin-left:1px; color:#2563eb;
+    font-weight:400; animation:caretBlink .7s step-end infinite;
+}
+.qcard-fr {
+    font-size:.64rem; color:#9ca3af; font-style:italic;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.qcard-meta {
+    display:flex; align-items:center;
+    justify-content:space-between; margin-top:6px;
+}
+.qcard-artist { font-size:.8rem; font-weight:600; color:#374151; display:flex; align-items:center; gap:5px; }
+.qcard-btn {
+    font-size:.6rem; padding:3px 9px;
+    background:linear-gradient(135deg,#2563eb,#4f46e5); color:#fff;
+    border-radius:999px; text-decoration:none;
+    display:flex; align-items:center; gap:4px;
+    box-shadow:0 2px 6px -1px rgba(37,99,235,.4);
+    transition:box-shadow .2s, transform .2s; white-space:nowrap;
+}
+.qcard-btn i { transition:transform .2s; }
+.qcard-btn:hover { box-shadow:0 4px 12px -1px rgba(37,99,235,.55); transform:translateY(-1px); }
+.qcard-btn:hover i { transform:translateX(3px); }
+@keyframes caretBlink { 50% { opacity:0; } }
+.qcard-theme {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: auto;
+    z-index: 2;
+    font-size: .48rem;
+    padding: 2px 7px;
+    border-radius: 999px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+.qcard:hover .qcard-theme { transform:scale(1.06); }
+
+/* ── Stats ── */
+.stat-counter {
+    font-size:1rem; font-weight:800;
+    background:linear-gradient(135deg,#fff,#bfdbfe);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text;
+}
+
+/* ── Suggestions recherche ── */
+#search-suggestions {
+    position:absolute; top:calc(100% + 4px); left:0; right:0;
+    background:#fff; border:1px solid #e5e7eb; border-radius:12px;
+    box-shadow:0 12px 32px rgba(0,0,0,.18); z-index:500;
+    max-height:min(320px, 50vh); overflow-y:auto; display:none;
+}
+#search-suggestions .suggestion-item {
+    padding:8px 14px; cursor:pointer; display:flex;
+    align-items:center; gap:8px; font-size:.8rem;
+    border-bottom:1px solid #f3f4f6; transition:background .15s;
+    text-decoration:none; color:inherit;
+}
+#search-suggestions .suggestion-item:last-child { border-bottom:none; }
+#search-suggestions .suggestion-item:hover { background:#eff6ff; }
+#search-suggestions .suggestion-item .sug-ar {
+    font-family:'Amiri',serif; color:#b91c1c; font-size:.85rem;
+    margin-left:auto; direction:rtl;
+}
+#search-suggestions .suggestion-item.active,
+#search-suggestions .suggestion-item:focus { background:#dbeafe; outline:none; }
+#search-suggestions mark { background:#fde68a; color:inherit; padding:0 1px; border-radius:2px; }
+
+/* ── Accessibilité ── */
+.skip-link {
+    position:absolute; left:-999px; top:0; z-index:100;
+    background:#2563eb; color:#fff; padding:10px 16px;
+    border-radius:0 0 8px 0; font-size:.85rem; font-weight:600;
+}
+.skip-link:focus { left:0; }
+a:focus-visible, button:focus-visible, input:focus-visible {
+    outline:2px solid #2563eb; outline-offset:2px; border-radius:6px;
+}
+.qcard:focus-within { border-color:#93c5fd; box-shadow:0 8px 24px -6px rgba(37,99,235,.25); }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration:.001ms !important; animation-iteration-count:1 !important;
+        transition-duration:.001ms !important; scroll-behavior:auto !important;
+    }
+    #live-bar-track, #dedicaces-ticker-items { animation:none !important; }
+    .title-shimmer, .hero-shimmer { animation:none !important; }
+}
+
+/* ── Titres animés ── */
+@keyframes shimmer { to { background-position:-200% center; } }
+@keyframes titleUp  { from{opacity:0; transform:translateY(24px)} to{opacity:1; transform:translateY(0)} }
+@keyframes underlineGrow { from{width:0; opacity:0} to{width:5rem; opacity:1} }
+
+.title-shimmer {
+    background:linear-gradient(90deg,#2563eb 0%,#f59e0b 25%,#db2777 50%,#f59e0b 75%,#2563eb 100%);
+    background-size:200% auto;
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent;
+    animation:shimmer 5s linear infinite;
+}
+.hero-shimmer {
+    background:linear-gradient(90deg,#ffffff 0%,#fde68a 40%,#fbbf24 50%,#fde68a 60%,#ffffff 100%);
+    background-size:200% auto;
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent;
+    animation:shimmer 5s linear infinite;
+}
+.reveal-title { opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+.reveal-title.in-view { opacity:1; transform:translateY(0); }
+.title-underline { width:0 !important; opacity:0; transition:width .8s .2s ease-out, opacity .8s .2s ease-out; }
+.title-underline.in-view { width:5rem !important; opacity:1; }
+
+
+/* ── Thème clair (theme-light) ── */
+html.theme-light body,
+html:not(.dark):not(.theme-ios) body {
+  background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+  color: #0f172a;
+}
+html.theme-light nav.bg-white\/90,
+html:not(.dark):not(.theme-ios) nav.bg-white\/90 {
+  background: rgba(255,255,255,.92) !important;
+  border-color: #e2e8f0 !important;
+  backdrop-filter: blur(12px);
+}
+html.theme-light .qcard {
+  background: #fff;
+  border-color: #e2e8f0;
+  box-shadow: 0 1px 4px rgba(15,23,42,.06);
+}
+html.theme-light .qcard:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 10px 28px -8px rgba(37,99,235,.25);
+}
+html.theme-light .qcard-title,
+html.theme-light .qcard-title a { color: #0f172a !important; }
+html.theme-light .qcard-fr,
+html.theme-light .qcard-artist { color: #64748b !important; }
+html.theme-light .qcard-ar { color: #b91c1c !important; }
+html.theme-light #search-qacid {
+  background: #fff;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+html.theme-light .filter-btn.bg-white {
+  background: #fff !important;
+  border-color: #e2e8f0 !important;
+  color: #334155 !important;
+}
+/* live-bar light handled in main live-bar block */
+html.theme-light section.bg-gray-50 { background: #f1f5f9 !important; }
+html.theme-light section.bg-white { background: #fff !important; }
+html.theme-light #mobile-menu {
+  background: #fff !important;
+  border-color: #e2e8f0 !important;
+}
+html.theme-light #mobile-menu a { color: #0f172a; }
+html.theme-light #mobile-menu a:hover { background: #f1f5f9 !important; }
+
+/* Stats likes / vues sur cartes */
+.qcard-stats {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-inline-start: auto;
+  margin-inline-end: 0.5rem;
+  font-size: 0.72rem;
+  opacity: 0.85;
+}
+.qcard-stat { display: inline-flex; align-items: center; gap: 0.25rem; }
+.qcard-like {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.15rem 0.35rem;
+  border-radius: 999px;
+  transition: color .15s, background .15s;
+}
+.qcard-like:hover, .qcard-like.is-liked { color: #e11d48; background: rgba(225,29,72,.12); }
+.qcard-like i { font-size: 0.75rem; }
+
+/* Toasts (haut droite) — qacidates */
+.toast-host {
+  position: fixed;
+  top: max(0.85rem, env(safe-area-inset-top, 0px));
+  right: max(0.85rem, env(safe-area-inset-right, 0px));
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  max-width: min(360px, calc(100vw - 1.5rem));
+  pointer-events: none;
+}
+.chaabi-toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 0.9rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, rgba(16,185,129,.95), rgba(5,120,90,.95));
+  box-shadow: 0 12px 32px rgba(0,0,0,.35);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity .28s, transform .28s;
+}
+.chaabi-toast.is-in { opacity: 1; transform: translateY(0); }
+.chaabi-toast.is-out { opacity: 0; transform: translateY(-8px); }
+.chaabi-toast--error { background: linear-gradient(135deg, rgba(220,38,38,.95), rgba(153,27,27,.95)); }
+
+/* Bouton thème */
+.q-theme-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: .75rem;
+  border: 1px solid rgba(148,163,184,.35);
+  background: rgba(148,163,184,.12);
+  color: inherit;
+  cursor: pointer;
+  transition: background .15s, border-color .15s, transform .15s;
+}
+.q-theme-btn:hover {
+  background: rgba(245,158,11,.2);
+  border-color: rgba(245,158,11,.45);
+  transform: translateY(-1px);
+}
+html.dark .q-theme-btn { color: #fbbf24; border-color: rgba(251,191,36,.35); }
+html.theme-light .q-theme-btn { color: #1e3a5f; }
+html.theme-ios .q-theme-btn { color: #007aff; }
+
+/* Hero sous thèmes */
+html.theme-light .hero-qacid,
+html.theme-light section.hero-bg {
+  filter: none;
+}
+
+/* ── Thème sombre ── */
+html.dark body { background:linear-gradient(135deg,#0b1220 0%,#0f172a 100%); color:#e5e7eb; }
+html.dark nav.bg-white\/90 { background:rgba(15,23,42,.9) !important; border-color:#1f2937 !important; }
+html.dark #mobile-menu { background:#0f172a !important; border-color:#1f2937 !important; }
+html.dark #mobile-menu a { color:#e5e7eb; }
+html.dark #mobile-menu a:hover { background:#1e293b !important; }
+html.dark #mobile-menu a.bg-stone-100 { background:#1e293b !important; }
+html.dark section.bg-gray-50 { background:#0b1220 !important; }
+html.dark section.bg-white   { background:#0f172a !important; }
+html.dark .text-gray-900 { color:#f1f5f9 !important; }
+html.dark .text-gray-700 { color:#cbd5e1 !important; }
+html.dark .text-gray-600, html.dark .text-gray-500 { color:#94a3b8 !important; }
+
+html.dark .qcard { background:#1e293b; border-color:#334155; box-shadow:0 1px 4px rgba(0,0,0,.4); }
+html.dark .qcard:hover { border-color:#3b82f6; box-shadow:0 8px 24px -6px rgba(59,130,246,.35); }
+html.dark .qcard-title, html.dark .qcard-title a { color:#f1f5f9; }
+html.dark .qcard-ar { color:#f87171; }
+html.dark .qcard-fr { color:#94a3b8; }
+html.dark .qcard-artist { color:#cbd5e1; }
+html.dark .qcard-avatar, html.dark .qcard-avatar-gradient { border-color:#334155; }
+
+html.dark #search-qacid { background:#1e293b; border-color:#334155; color:#e5e7eb; }
+html.dark #search-qacid::placeholder { color:#64748b; }
+html.dark .filter-btn.bg-white { background:#1e293b !important; border-color:#334155 !important; color:#cbd5e1 !important; }
+html.dark #search-suggestions { background:#1e293b; border-color:#334155; }
+html.dark #search-suggestions .suggestion-item { border-color:#334155; color:#e5e7eb; }
+html.dark #search-suggestions .suggestion-item:hover,
+html.dark #search-suggestions .suggestion-item.active { background:#334155; }
+
+/* Cartes "Paroles de Maîtres" */
+html.dark section.bg-white .rounded-2xl { background:#1e293b !important; }
+html.dark section.bg-white .rounded-2xl .text-gray-700 { color:#e2e8f0 !important; }
+
+/* Bouton bascule thème — icône toujours visible */
+[id^="theme-toggle"] i,
+.q-theme-btn i {
+  display: inline-block !important;
+  font-size: 1rem;
+  line-height: 1;
+}
+html.dark [id^="theme-toggle"],
+html.dark .q-theme-btn { color: #fbbf24; }
+html.theme-light [id^="theme-toggle"],
+html.theme-light .q-theme-btn { color: #1e3a5f; }
+html.theme-ios [id^="theme-toggle"],
+html.theme-ios .q-theme-btn { color: #007aff; }
+
+/* ── OVERRIDE THÈME "NIGHT RADIO" (Chaabi Music) ── */
+body { background:#0d1117 !important; color:#e6edf3; }
+html.dark body { background:radial-gradient(1200px 500px at 85% -10%, rgba(245,185,66,.10), transparent 60%), linear-gradient(180deg,#07090d,#0d1117 55%,#100d06) !important; }
+html.dark nav.bg-white\/90 { background:rgba(7,9,13,.9) !important; border-color:#23292f !important; }
+html.dark #mobile-menu { background:#0d1117 !important; border-color:#23292f !important; }
+html.dark #mobile-menu a { color:#e6edf3; }
+html.dark #mobile-menu a:hover { background:#1c2128 !important; }
+html.dark #mobile-menu a.bg-stone-100 { background:#23292f !important; }
+html.dark section.bg-gray-50 { background:rgba(13,17,23,.55) !important; }
+html.dark .text-gray-900 { color:#f0f6fc !important; }
+html.dark .text-gray-700 { color:#c9d1d9 !important; }
+html.dark .text-gray-600, html.dark .text-gray-500 { color:#8b949e !important; }
+html.dark .title-shimmer { background:linear-gradient(90deg,#f5b942 0%,#ffd97a 25%,#e8912d 50%,#ffd97a 75%,#f5b942 100%); background-size:200% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; }
+html.dark .stat-counter { background:linear-gradient(135deg,#fff,#f5b942); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+html.dark .qcard { background:#161b22; border-color:#242b33; box-shadow:0 10px 30px -12px rgba(0,0,0,.7); }
+html.dark .qcard:hover { border-color:#3b82f6; box-shadow:0 18px 44px -12px rgba(37,99,235,.28); }
+html.dark .qcard-title, html.dark .qcard-title a { color:#f0f6fc; }
+html.dark .qcard-title a:hover { color:#60a5fa; }
+html.dark .qcard-ar { color:#f5b942; }
+html.dark .qcard-fr { color:#8b949e; }
+html.dark .qcard-artist { color:#c9d1d9; }
+html.dark .qcard-btn { background:linear-gradient(135deg,#2563eb,#1d4ed8); color:#fff; box-shadow:0 4px 14px -2px rgba(37,99,235,.4); }
+html.dark .qcard-btn:hover { box-shadow:0 6px 18px -2px rgba(245,185,66,.55); }
+html.dark .filter-btn.active { background:linear-gradient(135deg,#2563eb,#1d4ed8) !important; color:#fff !important; border-color:#2563eb !important; }
+html.dark .filter-btn.bg-white { background:#161b22 !important; border-color:#242b33 !important; color:#c9d1d9 !important; }
+html.dark .filter-btn.bg-white:hover { border-color:#3b82f6; color:#60a5fa; }
+html.dark #search-qacid { background:#161b22; border-color:#242b33; color:#e6edf3; }
+html.dark #search-qacid::placeholder { color:#6e7681; }
+html.dark #search-suggestions { background:#161b22; border-color:#242b33; }
+html.dark #search-suggestions .suggestion-item { border-color:#242b33; color:#e6edf3; }
+html.dark #search-suggestions .suggestion-item:hover, html.dark #search-suggestions .suggestion-item.active { background:#21262d; }
+html.dark #live-bar { background:linear-gradient(90deg,#1d4ed8,#2563eb) !important; }
+html.dark #live-bar-track span { color:rgba(255,246,220,.92); font-weight:700; }
+html.dark nav a[aria-current="page"] button { background:linear-gradient(135deg,#2563eb,#1d4ed8) !important; color:#fff !important; }
+#back-to-top { background:linear-gradient(135deg,#2563eb,#1d4ed8) !important; color:#fff !important; }
+html.dark footer, html.dark footer.bg-gray-900 { background:#07090d !important; }
+html.dark footer a.text-blue-400, html.dark footer a.text-green-400, html.dark footer a.text-purple-400, html.dark footer a.text-indigo-400, html.dark footer a.text-pink-400, html.dark footer a.text-teal-400 { color:#60a5fa !important; }
+html.dark footer .bg-blue-600, html.dark footer .bg-blue-700, html.dark footer .bg-sky-500 { background:linear-gradient(135deg,#2563eb,#1d4ed8) !important; }
+
+/* ── Align Chaabi Pro : glass + thème iOS ── */
+/* PERF iOS qacidates */
+html.theme-ios .qcard {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(255,255,255,0.88) !important;
+    contain: layout style paint;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 72px;
+}
+html.theme-ios nav.bg-white\/90 {
+    backdrop-filter: saturate(130%) blur(10px) !important;
+    -webkit-backdrop-filter: saturate(130%) blur(10px) !important;
+}
+@media (max-width: 768px) {
+    html.theme-ios nav.bg-white\/90 {
+        backdrop-filter: blur(6px) !important;
+        -webkit-backdrop-filter: blur(6px) !important;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    html.theme-ios nav.bg-white\/90 {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(255,255,255,0.95) !important;
+    }
+    .qcard:hover { transform: none !important; }
+}
+html.theme-ios.reduce-glass nav.bg-white\/90 {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(255,255,255,0.95) !important;
+}
+
+html.theme-ios body {
+    background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120,180,255,.35), transparent 55%),
+                linear-gradient(180deg,#e8eef8 0%,#f0f4fa 40%,#e6ecf5 100%) !important;
+    color: #1c1c1e;
+}
+html.theme-ios nav.bg-white\/90 {
+    background: rgba(255,255,255,.55) !important;
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-color: rgba(255,255,255,.5) !important;
+}
+html.theme-ios .qcard {
+    background: rgba(255,255,255,.55) !important;
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border-color: rgba(255,255,255,.65) !important;
+}
+html.theme-ios .qcard-title, html.theme-ios .qcard-title a { color:#1c1c1e !important; }
+html.theme-ios .qcard-fr, html.theme-ios .qcard-artist { color:#636366 !important; }
+html.theme-ios #search-qacid {
+    background: rgba(255,255,255,.6) !important;
+    border-color: rgba(0,0,0,.08) !important;
+    color: #1c1c1e !important;
+}
+html.theme-ios .filter-btn.bg-white {
+    background: rgba(255,255,255,.65) !important;
+    border-color: rgba(0,0,0,.08) !important;
+    color: #1c1c1e !important;
+}
+html.theme-ios #live-bar {
+    background: linear-gradient(90deg, rgba(37,99,235,.85), rgba(29,78,216,.9)) !important;
+}
+html:not(.dark):not(.theme-ios) body {
+    background: linear-gradient(180deg, #f8fafc 0%, #eff6ff 100%) !important;
+    color: #0f172a;
+}
+/* RTL soft : pas de dir global qui décale le layout */
+html.lang-ar .arabic-text,
+html.lang-ar .qcard-ar { direction: rtl; text-align: right; }
+html.lang-ar body { font-family: 'Amiri', serif; }
+/* Glass nav dark */
+html.dark nav.bg-white\/90 {
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+}
+
+
+/* Menu complet — visible même sans Tailwind */
+nav[role="navigation"] { display:block !important; position:sticky !important; top:var(--chrome-h, 30px) !important; z-index:55 !important; }
+#q-desktop-nav { display:none !important; align-items:center !important; flex-wrap:wrap !important; gap:0.1rem !important; }
+#q-desktop-nav a { display:inline-flex !important; align-items:center !important; gap:0.35rem !important; padding:0.4rem 0.55rem !important; border-radius:0.75rem !important; font-size:0.78rem !important; font-weight:600 !important; color:#cbd5e1 !important; text-decoration:none !important; white-space:nowrap !important; }
+#q-desktop-nav a:hover { background:rgba(255,255,255,0.1) !important; color:#fff !important; }
+#q-desktop-nav a[aria-current="page"] { background:linear-gradient(135deg,#fbbf24,#f59e0b) !important; color:#0f172a !important; }
+#q-mobile-tools { display:flex !important; align-items:center !important; gap:0.25rem !important; }
+@media (min-width: 768px) {
+  #q-desktop-nav { display:flex !important; }
+  #q-mobile-tools { display:none !important; }
+  #mobile-menu { display:none !important; }
+}
+@media (max-width: 767px) {
+  #q-desktop-nav { display:none !important; }
+  #mobile-menu.q-menu-open, #mobile-menu:not(.hidden) { display:block !important; background:#0f172a !important; }
+}
+.qcard-avatar { filter:brightness(1.14) contrast(1.06) !important; object-fit:cover !important; }
+html.dark .qcard-avatar { filter:brightness(1.16) contrast(1.05) !important; }
+
+
+/* Switch langue segmenté (même style que index) */
+.lang-switch {
+  display: inline-flex !important;
+  align-items: center;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  gap: 2px;
+}
+.lang-switch .lang-opt {
+  appearance: none; border: 0; cursor: pointer;
+  min-width: 2rem; height: 1.75rem; padding: 0 0.55rem;
+  border-radius: 999px; font-size: 0.7rem; font-weight: 800;
+  letter-spacing: 0.04em; color: rgba(226,232,240,0.65);
+  background: transparent;
+  transition: background .2s, color .2s, transform .15s, box-shadow .2s;
+}
+.lang-switch .lang-opt:hover { color: #fff; background: rgba(255,255,255,0.08); }
+.lang-switch .lang-opt.is-active {
+  color: #0f172a;
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  box-shadow: 0 2px 8px rgba(59,130,246,0.35);
+}
+html:not(.dark) .lang-switch, html.theme-ios .lang-switch {
+  background: rgba(15,23,42,0.06); border-color: rgba(15,23,42,0.1);
+}
+html:not(.dark) .lang-switch .lang-opt, html.theme-ios .lang-switch .lang-opt { color: rgba(15,23,42,0.55); }
+html:not(.dark) .lang-switch .lang-opt.is-active, html.theme-ios .lang-switch .lang-opt.is-active {
+  color: #fff; background: linear-gradient(135deg, #2563eb, #1d4ed8);
+}
+
+
+/* Switch langue toujours visible */
+#q-desktop-nav .lang-switch,
+#q-mobile-tools .lang-switch {
+  display: inline-flex !important;
+  flex-shrink: 0 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.lang-switch .lang-opt {
+  min-width: 2.1rem !important;
+  color: #e2e8f0 !important;
+  opacity: 1 !important;
+}
+.lang-switch .lang-opt.is-active {
+  color: #0f172a !important;
+  background: linear-gradient(135deg, #60a5fa, #3b82f6) !important;
+}
+/* Sur desktop : garder le switch à droite, hors du flux trop long */
+#q-lang-tools {
+  display: flex !important;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+  margin-left: 0.35rem;
+}
+@media (max-width: 767px) {
+  #q-lang-tools { display: flex !important; order: 2; }
+  #q-desktop-nav { display: none !important; }
+}
+/* Switch toujours visible */
+.lang-switch { display: inline-flex !important; visibility: visible !important; opacity: 1 !important; z-index: 60; }
+.lang-switch .lang-opt[data-lang="ar"] { font-family: 'Amiri', Tahoma, sans-serif; font-size: 0.85rem !important; }
+
+
+/* Lang switch (modèle rouge/or) */
+.lang-opt.is-active { background: #dc2626 !important; color: #fff !important; }
+.lang-opt { color: #6b7280; }
+.lang-switch .lang-opt.is-active { box-shadow: none; }
+
+
+/* Menu qacidates compact — anti-débordement */
+#q-desktop-nav a span {
+  height: 2.25rem !important;
+  padding-left: 0.55rem !important;
+  padding-right: 0.55rem !important;
+  font-size: 0.8rem !important;
+  gap: 0.35rem !important;
+}
+@media (max-width: 1180px) {
+  #q-desktop-nav a span .lbl,
+  #q-desktop-nav a span > span:last-child { }
+  #q-desktop-nav a i { margin: 0; }
+}
+@media (max-width: 1100px) {
+  #q-desktop-nav a span span:not([data-i18n]) { /* keep icons */ }
+  #q-desktop-nav { gap: 0 !important; }
+  #q-desktop-nav a span { padding-left: 0.45rem !important; padding-right: 0.45rem !important; font-size: 0.75rem !important; }
+}
+@media (max-width: 1023px) {
+  #q-desktop-nav { display: none !important; }
+}
+nav.sticky .flex.h-16 { flex-wrap: nowrap; overflow: visible; }
+
+
+@media (min-width: 1024px) and (max-width: 1280px) {
+  #q-desktop-nav a span[data-i18n],
+  #q-desktop-nav a span > span[data-i18n] { display: none !important; }
+  #q-desktop-nav a span { min-width: 2.25rem; justify-content: center; }
+}
+
+
+/* Menu qacidates : une seule ligne, pas de débordement */
+nav.sticky .flex.h-16 {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: 3.5rem !important;
+  min-height: 3.5rem !important;
+  gap: 0.5rem !important;
+  overflow: visible !important;
+}
+#q-desktop-nav {
+  display: none;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 0.15rem !important;
+  min-width: 0;
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+@media (min-width: 1024px) {
+  #q-desktop-nav { display: flex !important; }
+}
+#q-desktop-nav a {
+  flex-shrink: 0;
+}
+#q-desktop-nav a > span {
+  height: 2.15rem !important;
+  padding: 0 0.5rem !important;
+  font-size: 0.75rem !important;
+  gap: 0.3rem !important;
+  white-space: nowrap !important;
+}
+@media (min-width: 1024px) and (max-width: 1280px) {
+  #q-desktop-nav a > span span[data-i18n],
+  #q-desktop-nav a > span > span:not(:first-child) {
+    /* keep structure */
+  }
+  #q-desktop-nav a > span span[data-i18n] {
+    display: none !important;
+  }
+  #q-desktop-nav a > span {
+    min-width: 2.15rem;
+    justify-content: center;
+    padding: 0 0.55rem !important;
+  }
+}
+#q-lang-tools {
+  display: flex !important;
+  flex-shrink: 0 !important;
+  margin-left: 0.25rem !important;
+}
+
+
+/* Menu qacidates — visible dans tous les thèmes */
+nav.sticky.top-0 {
+  z-index: 55 !important;
+  top: var(--chrome-h, 30px) !important;
+  position: sticky !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,.1) !important;
+}
+/* Clair / défaut */
+html.theme-light nav.sticky.top-0,
+html:not(.dark):not(.theme-ios) nav.sticky.top-0 {
+  background: #ffffff !important;
+  border-bottom: 2px solid rgba(220, 38, 38, 0.35) !important;
+}
+html.theme-light #q-desktop-nav a > span,
+html:not(.dark):not(.theme-ios) #q-desktop-nav a > span {
+  color: #1c1917 !important;
+  font-weight: 600 !important;
+}
+html.theme-light #q-desktop-nav a:hover > span,
+html:not(.dark):not(.theme-ios) #q-desktop-nav a:hover > span {
+  color: #0c0a09 !important;
+}
+/* Sombre — texte CLAIR sur fond sombre */
+html.dark nav.sticky.top-0 {
+  background: rgba(7, 9, 13, 0.92) !important;
+  border-bottom: 1px solid rgba(245, 185, 66, 0.25) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+html.dark #q-desktop-nav a,
+html.dark #q-desktop-nav a > span {
+  color: #e6edf3 !important;
+  font-weight: 600 !important;
+}
+html.dark #q-desktop-nav a:hover,
+html.dark #q-desktop-nav a:hover > span {
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.08) !important;
+}
+html.dark #q-desktop-nav a[aria-current="page"] > span {
+  color: #0f172a !important;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+}
+html.dark #mobile-menu {
+  background: #0d1117 !important;
+  border-color: #23292f !important;
+}
+html.dark #mobile-menu a {
+  color: #e6edf3 !important;
+}
+html.dark #mobile-menu a:hover {
+  background: #1c2128 !important;
+}
+/* iOS */
+html.theme-ios nav.sticky.top-0 {
+  background: rgba(255,255,255,0.72) !important;
+  border-bottom: 1px solid rgba(0,0,0,0.08) !important;
+  backdrop-filter: saturate(180%) blur(18px);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+}
+html.theme-ios #q-desktop-nav a > span {
+  color: #1c1c1e !important;
+  font-weight: 600 !important;
+}
+#q-desktop-nav a[aria-current="page"] > span {
+  color: #fafaf9 !important;
+}
+nav.sticky .ctn-brand,
+nav.sticky a.text-red-600 {
+  font-weight: 800;
+}
+html.dark nav.sticky a.text-red-600,
+html.dark nav.sticky .font-amiri {
+  color: #fbbf24 !important;
+}
+
+/* Bouton Lire = bas de carte, PAS le badge thème */
+.qcard-btn {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+}
+.qcard-meta {
+  position: relative;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.qcard {
+  position: relative;
+}
+
+</style>
+
+<style id="qcard-compact">
+.qacidatte-card, .qcard, article.qacidatte-card {
+  max-width: 100%;
+}
+.qcard-avatar, .qacidatte-card img, .qcard img {
+  width: 56px !important;
+  height: 56px !important;
+  max-width: 56px !important;
+  max-height: 56px !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+}
+.qcard-title, .qacidatte-card h3 { font-size: 0.95rem !important; }
+.qcard-meta { font-size: 0.75rem !important; }
+</style>
+
+<style id="qcard-modern-polish">
+/* Liste qacidates — polish moderne */
+#grid-qacid {
+  gap: 0.85rem !important;
+}
+.qcard {
+  border-radius: 18px !important;
+  padding: 12px 14px 12px 16px !important;
+  transition: transform .25s cubic-bezier(.4,0,.2,1), box-shadow .25s, border-color .25s !important;
+}
+html.dark .qcard {
+  background: rgba(22,27,34,.9) !important;
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid rgba(255,255,255,.08) !important;
+  box-shadow: 0 10px 32px -12px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.05) !important;
+}
+html.dark .qcard:hover {
+  border-color: rgba(245,185,66,.4) !important;
+  box-shadow: 0 16px 40px -12px rgba(245,185,66,.2) !important;
+  transform: translateY(-4px) !important;
+}
+html.theme-ios .qcard {
+  background: rgba(255,255,255,.7) !important;
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255,255,255,.75) !important;
+  box-shadow: 0 8px 28px rgba(31,38,135,.1) !important;
+}
+html.theme-light .qcard {
+  background: #fff !important;
+  border: 1px solid #e8e4dc !important;
+  box-shadow: 0 4px 18px -8px rgba(28,20,16,.12) !important;
+}
+html.theme-light .qcard:hover {
+  border-color: #f5b942 !important;
+  box-shadow: 0 12px 28px -10px rgba(245,158,11,.25) !important;
+}
+.qcard-btn {
+  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 8px rgba(245,158,11,.35) !important;
+}
+.filter-btn {
+  backdrop-filter: blur(8px);
+  border-radius: 999px !important;
+  transition: transform .15s, box-shadow .15s !important;
+}
+.filter-btn:hover { transform: translateY(-1px); }
+.filter-btn.active {
+  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  color: #0f172a !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 14px rgba(245,158,11,.35) !important;
+}
+#search-qacid {
+  border-radius: 999px !important;
+  transition: box-shadow .2s, border-color .2s !important;
+}
+#search-qacid:focus {
+  box-shadow: 0 0 0 3px rgba(245,158,11,.25) !important;
+  border-color: #f59e0b !important;
+}
+@media (max-width: 640px) {
+  .qcard { padding: 10px 12px !important; }
+  .qcard-avatar { width: 48px !important; height: 48px !important; max-width: 48px !important; max-height: 48px !important; }
+}
+</style>
+
+
+<style id="hero-rounded-shadow">
+#q-hero.hero-qacid,
+section.hero-qacid,
+.hero-bg, header.hero-bg, section.hero-bg {
+  margin: 0.85rem clamp(0.75rem, 2.5vw, 1.75rem) 1.35rem !important;
+  border-radius: 1.4rem !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  box-shadow: 0 18px 50px rgba(0,0,0,.34), 0 6px 16px rgba(0,0,0,.14) !important;
+  border: 1px solid rgba(245,185,66,.28) !important;
+}
+html.theme-ios #q-hero.hero-qacid,
+html.theme-ios .hero-bg {
+  box-shadow: 0 16px 44px rgba(31,38,135,.18), 0 6px 16px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,.7) !important;
+  border: 1px solid rgba(255,255,255,.65) !important;
+}
+.hero-banner { border-radius: 0 !important; }
+@media (max-width: 640px) {
+  #q-hero.hero-qacid, .hero-bg, header.hero-bg {
+    margin: 0.55rem 0.7rem 1rem !important;
+    border-radius: 1.15rem !important;
+  }
+}
+</style>
+
+<style id="q-below-hero-css">
+#q-below-hero {
+  margin: 0 clamp(0.75rem, 2.5vw, 1.75rem) 1rem;
+}
+.q-defs-card {
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: #334155;
+}
+.q-hero-lead {
+  font-size: 0.85rem !important;
+  line-height: 1.45 !important;
+  margin: 0 0 0.65rem !important;
+  color: #1e293b;
+  font-weight: 500;
+}
+html.dark .q-hero-lead { color: #e2e8f0; }
+html.theme-ios .q-hero-lead { color: #1c1c1e !important; }
+html.dark .q-defs-card {
+  background: rgba(245, 185, 66, 0.08);
+  border-color: rgba(245, 185, 66, 0.22);
+  color: #cbd5e1;
+}
+.q-defs-title {
+  font-weight: 700;
+  font-size: 0.82rem;
+  margin: 0 0 0.4rem;
+  color: #b45309;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+html.dark .q-defs-title { color: #f5b942; }
+html.theme-ios .q-defs-title { color: #007aff !important; }
+.q-defs-card p { margin: 0.25rem 0; }
+.q-defs-card strong { color: #1e293b; }
+html.dark .q-defs-card strong { color: #f1f5f9; }
+html.theme-ios .q-defs-card {
+  background: rgba(255, 255, 255, 0.72) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  color: #1c1c1e !important;
+  box-shadow: 0 8px 24px rgba(31, 38, 135, 0.1);
+}
+html.theme-ios .q-defs-card strong { color: #1c1c1e !important; }
+
+.q-stat-card {
+  background: rgba(15, 23, 42, 0.04);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  border-radius: 10px;
+  padding: 0.45rem 0.3rem;
+  text-align: center;
+}
+html.dark .q-stat-card {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.q-stat-card .stat-counter {
+  font-size: 1rem !important;
+  font-weight: 800;
+  color: #b45309 !important;
+  -webkit-text-fill-color: #b45309 !important;
+  background: none !important;
+}
+html.dark .q-stat-card .stat-counter {
+  color: #f5b942 !important;
+  -webkit-text-fill-color: #f5b942 !important;
+}
+html.theme-ios .q-stat-card {
+  background: rgba(255, 255, 255, 0.75) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 14px rgba(31, 38, 135, 0.08);
+}
+html.theme-ios .q-stat-card .stat-counter {
+  color: #007aff !important;
+  -webkit-text-fill-color: #007aff !important;
+  background: none !important;
+}
+.q-stat-card p {
+  font-size: 0.62rem !important;
+  margin: 0.15rem 0 0 !important;
+  color: #64748b !important;
+  line-height: 1.2;
+}
+html.dark .q-stat-card p { color: #94a3b8 !important; }
+html.theme-ios .q-stat-card p { color: #3a3a3c !important; }
+.q-stat-card .ar-lbl { opacity: 0.65; font-size: 0.55rem !important; }
+.q-stats-wrap h3 { color: #1e293b; }
+html.dark .q-stats-wrap h3 { color: #e2e8f0; }
+html.theme-ios .q-stats-wrap h3 { color: #1c1c1e !important; }
+.q-stats-wrap .opacity-70 { color: #64748b; }
+html.theme-ios .q-stats-wrap .opacity-70 { color: #636366 !important; }
+</style>
+
+<style id="q-hero-image-fix">
+#q-hero.hero-qacid {
+  min-height: min(48vw, 360px) !important;
+  aspect-ratio: auto !important;
+}
+#q-hero .absolute.inset-0 > div:first-child {
+  filter: brightness(1.18) contrast(1.04) saturate(1.06) !important;
+}
+#q-hero .absolute.inset-0 > div:last-child {
+  background: linear-gradient(90deg, rgba(7,9,13,0.26) 0%, rgba(7,9,13,0.1) 55%, rgba(7,9,13,0.04) 100%) !important;
+}
+#grid-qacid {
+  grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+}
+@media (min-width: 640px) {
+  #grid-qacid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+@media (min-width: 768px) {
+  #grid-qacid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+}
+@media (min-width: 1024px) {
+  #grid-qacid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+}
+</style>
+
+<style id="q-cites-css">
+.q-cites-section {
+  background: #f8fafc;
+}
+html.dark .q-cites-section {
+  background: #0d1117;
+}
+html.theme-ios .q-cites-section {
+  background: transparent;
+}
+.q-cites-section h2 {
+  color: #0f172a;
+}
+html.dark .q-cites-section h2 { color: #f0f6fc; }
+html.theme-ios .q-cites-section h2 { color: #1c1c1e; }
+.cite-card {
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 16px;
+  padding: 1.1rem 1.15rem 1rem;
+  box-shadow: 0 8px 24px -12px rgba(15, 23, 42, 0.12);
+  transition: transform .2s ease, box-shadow .2s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.cite-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px -12px rgba(15, 23, 42, 0.18);
+}
+html.dark .cite-card {
+  background: rgba(22, 27, 34, 0.92);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 28px -12px rgba(0, 0, 0, 0.5);
+}
+html.theme-ios .cite-card {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 8px 24px rgba(31, 38, 135, 0.1);
+  backdrop-filter: blur(12px);
+}
+.cite-ico {
+  color: #2563eb;
+  font-size: 1.15rem;
+  margin-bottom: 0.55rem;
+  opacity: 0.85;
+}
+html.dark .cite-ico { color: #f5b942; }
+html.theme-ios .cite-ico { color: #007aff; }
+.cite-quote {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin: 0 0 0.45rem;
+  color: #1e293b;
+  text-align: right;
+}
+html.dark .cite-quote { color: #e6edf3; }
+html.theme-ios .cite-quote { color: #1c1c1e; }
+.cite-trans {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: #64748b;
+  margin: 0 0 0.85rem;
+  font-style: italic;
+}
+html.dark .cite-trans { color: #8b949e; }
+html.theme-ios .cite-trans { color: #636366; }
+.cite-author {
+  margin-top: auto;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.65rem;
+}
+.cite-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid rgba(245, 185, 66, 0.45);
+  background: #1a1a1a;
+}
+.cite-author-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+html.dark .cite-author { border-color: rgba(255, 255, 255, 0.08); }
+html.theme-ios .cite-author { border-color: rgba(0, 0, 0, 0.06); }
+.cite-name {
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: #0f172a;
+}
+html.dark .cite-name { color: #f0f6fc; }
+html.theme-ios .cite-name { color: #1c1c1e; }
+.cite-work {
+  font-size: 0.7rem;
+  color: #64748b;
+}
+html.dark .cite-work { color: #8b949e; }
+html.theme-ios .cite-work { color: #636366; }
+</style>
+
+<style id="q-nav-tools-compact">
+/* Langue + thème : taille alignée, pas trop grands */
+.lang-switch,
+#q-lang-tools {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 2px !important;
+  border-radius: 999px !important;
+  gap: 0 !important;
+  height: 2rem !important;
+  max-height: 2rem !important;
+}
+.lang-opt {
+  padding: 0.2rem 0.55rem !important;
+  font-size: 0.68rem !important;
+  line-height: 1 !important;
+  min-height: 0 !important;
+  height: 1.55rem !important;
+  border-radius: 999px !important;
+}
+.q-theme-btn,
+#theme-toggle,
+#theme-toggle-mobile {
+  width: 2rem !important;
+  height: 2rem !important;
+  min-width: 2rem !important;
+  min-height: 2rem !important;
+  border-radius: 0.55rem !important;
+  padding: 0 !important;
+  font-size: 0.8rem !important;
+  flex-shrink: 0 !important;
+}
+.q-theme-btn i {
+  font-size: 0.8rem !important;
+  line-height: 1 !important;
+}
+#q-desktop-nav {
+  gap: 0.15rem !important;
+}
+#q-desktop-nav .q-theme-btn {
+  margin-left: 0.35rem !important;
+}
+</style>
+
+<style id="q-auteurs-css">
+.q-auteurs-section { background: #fff; }
+html.dark .q-auteurs-section { background: #0d1117; }
+html.theme-ios .q-auteurs-section { background: transparent; }
+.q-auteurs-section h2 { color: #0f172a; }
+html.dark .q-auteurs-section h2 { color: #f0f6fc; }
+html.theme-ios .q-auteurs-section h2 { color: #1c1c1e; }
+.auteur-card {
+  background: #f8fafc;
+  border: 1px solid rgba(15,23,42,.08);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+}
+html.dark .auteur-card {
+  background: rgba(22,27,34,.9);
+  border-color: rgba(255,255,255,.08);
+}
+html.theme-ios .auteur-card {
+  background: rgba(255,255,255,.72);
+  border: 1px solid rgba(255,255,255,.85);
+  box-shadow: 0 8px 24px rgba(31,38,135,.08);
+}
+.auteur-badge {
+  display: inline-block;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #b45309;
+  background: rgba(245,185,66,.15);
+  padding: .2rem .5rem;
+  border-radius: 999px;
+  margin-bottom: .4rem;
+}
+html.dark .auteur-badge { color: #f5b942; }
+html.theme-ios .auteur-badge { color: #007aff; background: rgba(0,122,255,.1); }
+.auteur-head h3 {
+  margin: .2rem 0;
+  font-size: 1.05rem;
+  color: #0f172a;
+}
+html.dark .auteur-head h3 { color: #f0f6fc; }
+html.theme-ios .auteur-head h3 { color: #1c1c1e; }
+.auteur-meta { font-size: .72rem; color: #64748b; margin: 0 0 .5rem; }
+html.dark .auteur-meta { color: #8b949e; }
+.auteur-bio { font-size: .8rem; line-height: 1.5; color: #334155; margin: 0 0 .6rem; }
+html.dark .auteur-bio { color: #cbd5e1; }
+html.theme-ios .auteur-bio { color: #3a3a3c; }
+.auteur-works {
+  margin: 0; padding-left: 1.1rem;
+  font-size: .75rem; line-height: 1.55; color: #475569;
+}
+html.dark .auteur-works { color: #94a3b8; }
+.auteur-works strong { color: #b45309; }
+html.dark .auteur-works strong { color: #f5b942; }
+html.theme-ios .auteur-works strong { color: #007aff; }
+
+.khezna-box {
+  border-radius: 16px;
+  border: 1px solid rgba(245,185,66,.3);
+  background: linear-gradient(160deg, rgba(245,185,66,.08), rgba(37,99,235,.05));
+  padding: 1.25rem 1.35rem;
+}
+html.dark .khezna-box {
+  background: linear-gradient(160deg, rgba(245,185,66,.1), rgba(22,27,34,.6));
+  border-color: rgba(245,185,66,.25);
+}
+html.theme-ios .khezna-box {
+  background: rgba(255,255,255,.75);
+  border-color: rgba(0,122,255,.2);
+}
+.khezna-title {
+  font-size: 1.15rem;
+  margin: 0 0 .5rem;
+  color: #92400e;
+  display: flex; align-items: center; gap: .5rem;
+}
+html.dark .khezna-title { color: #f5b942; }
+html.theme-ios .khezna-title { color: #007aff; }
+.khezna-intro { font-size: .85rem; line-height: 1.5; color: #475569; margin: 0 0 1rem; }
+html.dark .khezna-intro { color: #94a3b8; }
+.khezna-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 900px) {
+  .khezna-grid { grid-template-columns: 1.05fr 1fr; }
+}
+.khezna-verse {
+  background: rgba(255,255,255,.7);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid rgba(15,23,42,.06);
+}
+html.dark .khezna-verse {
+  background: rgba(0,0,0,.25);
+  border-color: rgba(255,255,255,.06);
+}
+.kv-ar {
+  font-size: 1.15rem;
+  line-height: 1.85;
+  text-align: right;
+  margin: 0 0 .75rem;
+  color: #1e293b;
+}
+html.dark .kv-ar { color: #e6edf3; }
+html.theme-ios .kv-ar { color: #1c1c1e; }
+.kv-fr {
+  font-size: .82rem;
+  line-height: 1.5;
+  font-style: italic;
+  color: #64748b;
+  margin: 0 0 .5rem;
+}
+html.dark .kv-fr { color: #8b949e; }
+.kv-src { font-size: .7rem; color: #b45309; margin: 0; font-weight: 600; }
+html.dark .kv-src { color: #f5b942; }
+.khezna-notes h4 {
+  font-size: .85rem;
+  margin: .85rem 0 .35rem;
+  color: #0f172a;
+}
+html.dark .khezna-notes h4 { color: #f0f6fc; }
+html.theme-ios .khezna-notes h4 { color: #1c1c1e; }
+.khezna-notes h4:first-child { margin-top: 0; }
+.khezna-notes ol {
+  margin: 0 0 .5rem;
+  padding-left: 1.15rem;
+  font-size: .78rem;
+  line-height: 1.5;
+  color: #334155;
+}
+html.dark .khezna-notes ol { color: #cbd5e1; }
+html.theme-ios .khezna-notes ol { color: #3a3a3c; }
+.khezna-notes p {
+  font-size: .78rem;
+  line-height: 1.5;
+  color: #475569;
+  margin: 0 0 .4rem;
+}
+html.dark .khezna-notes p { color: #94a3b8; }
+.cite-quote-2 { margin-top: .55rem !important; font-size: .98rem !important; }
+.cite-more { margin: 0.35rem 0 0.5rem; font-size: 0.72rem; }
+.cite-more a { color: #b45309; text-decoration: none; font-weight: 600; }
+html.dark .cite-more a { color: #f5b942; }
+html.theme-ios .cite-more a { color: #007aff; }
+.cite-more a:hover { text-decoration: underline; }
+</style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
+
+<a href="#qacidates-grid" class="skip-link">Aller au contenu principal</a>
+
+<!-- ══ LIVE BAR + DÉDICACES (fixed) ════════════════════════════ -->
+<div id="site-top-chrome">
+<div id="live-bar" class="live-bar" role="marquee" aria-label="Médias en lecture">
+  <div class="live-bar-inner">
+    <div style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:0 10px;border-right:1px solid rgba(255,255,255,.2)">
+      <img class="live-logo" src="/music/img_hero/radiochaabi_emissions_1920x600.jpg" alt="ON AIR"
+           onerror="this.style.display='none'">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span class="live-label" data-i18n="onair" style="color:#fff;font-weight:800;font-size:.6rem;letter-spacing:.8px;text-transform:uppercase;white-space:nowrap">ON AIR</span>
+    </div>
+    <div id="live-bar-track-wrap">
+      <div id="live-bar-track">
+        <span>🎵 Chaabi Music — Musique chaabi algérienne — قصائد الشعبي الجزائري — El Anka • Guerouabi • Ezzahi • Hadj Mrizek ★ </span>
+        <span aria-hidden="true">🎵 Chaabi Music — Musique chaabi algérienne — قصائد الشعبي الجزائري — El Anka • Guerouabi • Ezzahi • Hadj Mrizek ★ </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="dedicaces-bar" class="dedicaces-bar" aria-label="Dédicaces">
+  <div id="dedicaces-bar-inner">
+    <span class="ded-label" data-i18n="dedicaces">✦ Dédicaces</span>
+    <div id="dedicaces-track-wrap">
+      <div id="dedicaces-ticker-items">
+        <span>✦ Chargement des dédicaces…</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ NAVBAR ════════════════════════════════════════════════════ -->
+<nav class="sticky top-0 z-40 bg-white border-b border-stone-200 shadow-sm" role="navigation" style="font-family:'Inter',system-ui,sans-serif">
+  <div class="max-w-screen-xl mx-auto px-4 md:px-8">
+    <div class="flex h-16 justify-between items-center gap-2">
+      <a href="index.html#home" class="text-red-600 text-xl font-bold flex items-center hover:text-red-700 shrink-0">
+        <div class="flex items-center justify-center bg-gradient-to-br from-red-600 to-yellow-600 h-8 w-8 rounded-xl shadow">
+          <i class="fas fa-broadcast-tower text-white text-sm"></i>
+        </div>
+        <span class="hidden md:block ml-2 font-amiri text-lg" style="font-family:'Amiri',serif">الشعبي الجزائري</span>
+      </a>
+      <div class="flex items-center gap-2 md:hidden">
+        <div class="lang-switch flex bg-gray-100 rounded-full border border-gray-200 p-0.5" role="group" aria-label="Langue">
+          <button type="button" class="lang-opt px-2.5 py-1 rounded-full text-xs font-bold transition-all" data-lang="fr" onclick="setLangQ('fr')">FR</button>
+          <button type="button" class="lang-opt px-2.5 py-1 rounded-full text-xs font-bold transition-all" data-lang="ar" onclick="setLangQ('ar')">عر</button>
+        </div>
+        <button type="button" id="theme-toggle-mobile" class="q-theme-btn md:hidden" onclick="toggleTheme()" aria-label="Thème"><i class="fas fa-moon" style="display:inline-block"></i></button>
+        <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center h-10 w-10 rounded-xl text-sm hover:bg-yellow-500" aria-label="Menu" aria-expanded="false">
+          <i class="fas fa-bars text-lg"></i>
+        </button>
+      </div>
+      <div id="q-desktop-nav" class="hidden md:flex items-center space-x-1" style="font-family:'Inter',sans-serif;">
+        <a href="index.html#home" class="inline"><span class="flex items-center justify-center h-10 px-3 py-2 rounded-xl text-sm font-medium gap-2 hover:bg-yellow-500 transition-colors"><i class="fas fa-home h-4 w-4"></i><span data-i18n="home">Accueil</span></span></a>
+        <a href="index.html#artistes" class="inline"><span class="flex items-center justify-center h-10 px-3 py-2 rounded-xl text-sm font-medium gap-2 hover:bg-yellow-500 transition-colors"><i class="fas fa-user-circle h-4 w-4"></i><span data-i18n="artists">Artistes</span></span></a>
+        <a href="index.html#chansons" class="inline"><span class="flex items-center justify-center h-10 px-3 py-2 rounded-xl text-sm font-medium gap-2 hover:bg-yellow-500 transition-colors"><i class="fas fa-music h-4 w-4"></i><span data-i18n="songs">Chansons</span></span></a>
+        <a href="index.html#emissions" class="inline"><span class="flex items-center justify-center h-10 px-3 py-2 rounded-xl text-sm font-medium gap-2 hover:bg-yellow-500 transition-colors"><i class="fas fa-podcast h-4 w-4"></i><span data-i18n="shows">Émissions</span></span></a>
+        <a href="index.html#interviews" class="inline"><span class="flex items-center justify-center h-10 px-3 py-2 rounded-xl text-sm font-medium gap-2 hover:bg-yellow-500 transition-colors"><i class="fas fa-microphone h-4 w-4"></i><span data-i18n="interviews">Interviews</span></span></a>
+        <a href="qacidates.html" aria-current="page" class="inline"><span class="flex items-center justify-center h-10 px-3 py-2 rounded-xl text-sm font-medium gap-2 text-zinc-50 bg-gradient-to-br from-red-600 to-yellow-600 shadow"><i class="fas fa-scroll h-4 w-4"></i><span data-i18n="qacidates">Qacidates</span></span></a>
+        <a href="index.html#bouqalla" class="inline"><span class="flex items-center justify-center h-10 px-3 py-2 rounded-xl text-sm font-medium gap-2 hover:bg-yellow-500 transition-colors"><i class="fas fa-language h-4 w-4"></i><span data-i18n="proverbs">Bouqalla</span></span></a>
+        <a href="index.html#dedicaces" class="inline"><span class="flex items-center justify-center h-10 px-3 py-2 rounded-xl text-sm font-medium gap-2 hover:bg-yellow-500 transition-colors"><i class="fas fa-heart h-4 w-4"></i><span data-i18n="dedicaces">Dédicaces</span></span></a>
+        <div id="q-lang-tools" class="flex bg-gray-100 rounded-full border border-gray-200 p-0.5 ml-2">
+          <button type="button" class="lang-opt px-2.5 py-1 rounded-full text-xs font-bold transition-all" data-lang="fr" id="q-lang-fr" onclick="setLangQ('fr')">FR</button>
+          <button type="button" class="lang-opt px-2.5 py-1 rounded-full text-xs font-bold transition-all" data-lang="ar" id="q-lang-ar" onclick="setLangQ('ar')">عر</button>
+        </div>
+        <button type="button" id="theme-toggle" class="q-theme-btn ml-2" onclick="toggleTheme()" aria-label="Changer de thème" title="Thème">
+          <i class="fas fa-moon" style="display:inline-block"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-stone-200" style="font-family:'Inter',sans-serif;">
+    <div class="px-4 py-3 space-y-1">
+      <a href="index.html#home" class="flex items-center px-4 py-3 rounded-lg hover:bg-stone-100 text-sm gap-2"><i class="fas fa-home text-red-500"></i><span data-i18n="home">Accueil</span></a>
+      <a href="index.html#artistes" class="flex items-center px-4 py-3 rounded-lg hover:bg-stone-100 text-sm gap-2"><i class="fas fa-user-circle text-red-500"></i><span data-i18n="artists">Artistes</span></a>
+      <a href="index.html#chansons" class="flex items-center px-4 py-3 rounded-lg hover:bg-stone-100 text-sm gap-2"><i class="fas fa-music text-red-500"></i><span data-i18n="songs">Chansons</span></a>
+      <a href="index.html#emissions" class="flex items-center px-4 py-3 rounded-lg hover:bg-stone-100 text-sm gap-2"><i class="fas fa-podcast text-red-500"></i><span data-i18n="shows">Émissions</span></a>
+      <a href="index.html#interviews" class="flex items-center px-4 py-3 rounded-lg hover:bg-stone-100 text-sm gap-2"><i class="fas fa-microphone text-red-500"></i><span data-i18n="interviews">Interviews</span></a>
+      <a href="qacidates.html" class="flex items-center px-4 py-3 rounded-lg bg-stone-100 text-sm gap-2"><i class="fas fa-scroll text-red-500"></i><span data-i18n="qacidates">Qacidates</span></a>
+      <a href="index.html#bouqalla" class="flex items-center px-4 py-3 rounded-lg hover:bg-stone-100 text-sm gap-2"><i class="fas fa-language text-red-500"></i><span data-i18n="proverbs">Bouqalla</span></a>
+      <a href="index.html#dedicaces" class="flex items-center px-4 py-3 rounded-lg hover:bg-stone-100 text-sm gap-2"><i class="fas fa-heart text-red-500"></i><span data-i18n="dedicaces">Dédicaces</span></a>
+    </div>
+  </div>
+</nav>
+<!-- ══ HERO (image seule + titre) ══════════════════════════════════ -->
+<section id="q-hero" class="hero-qacid relative overflow-hidden text-white"
+         style="margin:0.85rem clamp(0.75rem,2.5vw,1.75rem) 0.75rem;border-radius:15px;overflow:hidden;isolation:isolate;box-shadow:0 14px 40px rgba(0,0,0,.32),0 4px 12px rgba(0,0,0,.12);border:1px solid rgba(245,185,66,.25);background:#0a0c10;min-height:min(42vw,320px);">
+  <div class="absolute inset-0">
+    <div class="absolute inset-0"
+         style="background-image:url('/music/img_hero/qacidate.2026.webp');background-size:cover;background-position:center center;background-repeat:no-repeat;filter:brightness(1.15) contrast(1.04) saturate(1.05);"></div>
+    <div class="absolute inset-0" style="background:linear-gradient(90deg,rgba(7,9,13,0.28) 0%,rgba(7,9,13,0.12) 50%,rgba(7,9,13,0.06) 100%);"></div>
+  </div>
+  <div class="relative max-w-7xl mx-auto px-4 py-10 md:py-14 animate-fade-in" style="min-height:min(42vw,320px);display:flex;align-items:flex-end;">
+    <div id="q-hero-main">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="bg-white/20 backdrop-blur rounded-xl p-2">
+          <i class="fas fa-scroll text-yellow-300 text-lg"></i>
+        </div>
+        <div>
+          <h1 class="text-xl md:text-2xl font-bold leading-tight hero-shimmer" data-i18n="hero_title">Qacidates Chaabi</h1>
+          <p class="text-blue-200 text-xs font-amiri">قصائد الشعبي الجزائري</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <a href="#qacidates-grid" class="bg-white text-blue-700 px-4 py-1.5 rounded-full font-bold text-xs hover:bg-blue-50 transition-all shadow-lg flex items-center gap-2">
+          <i class="fas fa-scroll"></i><span data-i18n="explore">Explorer</span>
+        </a>
+        <a href="index.html" class="border border-white/50 text-white px-4 py-1.5 rounded-full font-bold text-xs hover:bg-white/20 transition-all flex items-center gap-2">
+          <i class="fas fa-radio"></i><span data-i18n="back_radio">Retour Radio</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SOUS L’IMAGE : Définitions + Stats ══════════════════════════ -->
+<section id="q-below-hero" class="q-below-hero">
+  <div class="max-w-7xl mx-auto px-4 py-4">
+    <div class="lg:flex lg:items-start lg:gap-8">
+      <div class="q-defs flex-1 mb-4 lg:mb-0">
+        <div class="q-defs-card">
+          <p class="q-hero-lead" id="hero-desc" data-i18n="hero_desc">Poésie Chaâbi — les QAÇAYD — en arabe et en français, avec explications détaillées.</p>
+          <p class="q-defs-title"><i class="fas fa-book-open"></i> <span data-i18n="defs_title">Définitions</span></p>
+          <p><strong data-i18n="def_bayt_t">Bayt :</strong> <span data-i18n="def_bayt">couplet de vers chantés dans le Chaâbi-melhûn.</span></p>
+          <p><strong data-i18n="def_siyah_t">Çiyâh / istikhbâr :</strong> <span data-i18n="def_siyah">prélude improvisé qui installe le mode du chant.</span></p>
+        </div>
+      </div>
+      <div class="q-stats-wrap flex-1">
+        <div class="flex items-center gap-3 mb-3">
+          <img src="/music/img_hero/qacidate.2026.webp" alt="" width="48" height="48"
+               class="w-12 h-12 object-cover rounded-full border border-amber-400/40 shadow flex-shrink-0"
+               onerror="this.style.display='none'">
+          <div>
+            <h3 class="font-bold text-sm m-0" data-i18n="patrimoine">Patrimoine Musical</h3>
+            <p class="text-xs opacity-70 m-0" data-i18n="preserve">Préservons notre héritage</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-4 gap-2">
+          <div class="q-stat-card">
+            <div class="stat-counter" data-target="44">0</div>
+            <p data-i18n="stat_qacidates">Qacidates</p>
+            <p class="ar-lbl">قصائد</p>
+          </div>
+          <div class="q-stat-card">
+            <div class="stat-counter" data-target="8">0</div>
+            <p data-i18n="stat_artists">Artistes</p>
+            <p class="ar-lbl">فنانون</p>
+          </div>
+          <div class="q-stat-card">
+            <div class="stat-counter" data-target="120">0</div>
+            <p data-i18n="stat_songs">Chansons</p>
+            <p class="ar-lbl">أغاني</p>
+          </div>
+          <div class="q-stat-card">
+            <div class="stat-counter" data-target="400">0</div>
+            <p data-i18n="stat_visitors">Visiteurs</p>
+            <p class="ar-lbl">زوار</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COLLECTION ════════════════════════════════════════════════ -->
+<section class="py-10 bg-gray-50" id="qacidates-grid">
+  <div class="max-w-7xl mx-auto px-4">
+
+    <div class="text-center mb-8">
+      <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-2 title-shimmer reveal-title" data-i18n="coll_title">Collection des Qacidates</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto text-sm" data-i18n="coll_sub">Explorez notre riche collection de poèmes chaabi</p>
+      <div class="w-20 h-1 bg-gradient-to-r from-blue-600 to-yellow-400 mx-auto mt-4 rounded-full title-underline"></div>
+    </div>
+
+    <!-- Recherche -->
+    <div class="flex justify-center mb-6">
+      <form class="relative w-full max-w-md" role="search" onsubmit="return false;">
+        <label for="search-qacid" class="sr-only">Rechercher une qacidate</label>
+        <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none" aria-hidden="true"></i>
+        <input id="search-qacid" type="text" placeholder="Rechercher… (Ctrl+K)" autocomplete="off" data-i18n="search_ph"
+               role="combobox" aria-expanded="false" aria-controls="search-suggestions" aria-autocomplete="list"
+               class="w-full pl-10 pr-10 py-2.5 rounded-full border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all text-gray-700 bg-white shadow-sm text-sm">
+        <button id="search-clear" type="button" aria-label="Effacer la recherche" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 hidden">
+          <i class="fas fa-times text-sm" aria-hidden="true"></i>
+        </button>
+        <div id="search-suggestions" role="listbox" aria-label="Suggestions"></div>
+      </form>
+    </div>
+
+    <p id="results-count" class="text-center text-xs text-gray-500 mb-4" aria-live="polite"></p>
+
+    <!-- Filtres (générés depuis la BDD) -->
+    <div id="filter-bar" class="flex flex-wrap justify-center gap-2 mb-8" role="group" aria-label="Filtrer par interprète">
+      <button type="button" class="filter-btn active px-4 py-2 rounded-full font-medium text-xs border transition-all duration-200 hover:shadow-md" data-filter="all">
+        <i class="fas fa-th-large mr-1" aria-hidden="true"></i><span data-i18n="f_all">Tous</span> <span class="filter-count ml-1 opacity-70">…</span>
+      </button>
+    </div>
+
+    <!-- GRILLE dynamique BDD chaabi_music_qacidats_v1 -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3" id="grid-qacid" aria-label="Liste des qacidates" aria-busy="true">
+      <p class="col-span-full text-center text-gray-500 py-12 text-sm" id="grid-loading">Chargement des qacidates…</p>
+    </div>
+
+    <div id="no-results" class="hidden text-center py-16 text-gray-400">
+      <i class="fas fa-search text-5xl mb-4 block opacity-20"></i>
+      <p class="text-lg font-medium">Aucune qacidate trouvée</p>
+      <p class="text-sm mt-2">Essayez un autre mot-clé ou sélectionnez "Tous"</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ CITATIONS POÈTES ══════════════════════════════════════════ -->
+<section id="citations-poetes" class="py-10 q-cites-section">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center mb-7">
+      <h2 class="text-2xl lg:text-3xl font-bold mb-2 title-shimmer reveal-title" data-i18n="cite_title">Paroles de Maîtres</h2>
+      <p class="max-w-2xl mx-auto text-sm opacity-75" data-i18n="cite_sub">La sagesse et la beauté des vers de nos grands poètes du Chaâbi</p>
+      <div class="w-20 h-1 bg-gradient-to-r from-blue-600 to-yellow-400 mx-auto mt-4 rounded-full title-underline"></div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      <article class="cite-card">
+        <i class="fas fa-quote-left cite-ico"></i>
+        <p class="cite-quote font-amiri" dir="rtl" lang="ar">يا ضيف الله، يا صاحب الكرم…</p>
+        <p class="cite-trans">« Ô hôte de Dieu, ô maître de la générosité… »</p>
+        <div class="cite-author">
+          <img class="cite-avatar" src="/music/img_artistes/el hadj mrizek.png" alt="El Hadj M'rizek" width="40" height="40" loading="lazy">
+          <div class="cite-author-text">
+            <span class="cite-name">El Hadj M&#39;rizek</span>
+            <span class="cite-role">Interprète</span>
+            <span class="cite-work">Yadif Allah · يا ضيف الله</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="cite-card">
+        <i class="fas fa-quote-left cite-ico"></i>
+        <p class="cite-quote font-amiri" dir="rtl" lang="ar">يوم الجمعة خرجوا الريام…</p>
+        <p class="cite-trans">« Le vendredi, les gazelles sont sorties… »</p>
+        <div class="cite-author">
+          <img class="cite-avatar" src="/music/img_artistes/el hadj el anka_5.jpg" alt="El Hadj El Anka" width="40" height="40" loading="lazy" onerror="this.onerror=null;this.src='/music/img_artistes/el hadj el anka_2.jpeg'">
+          <div class="cite-author-text">
+            <span class="cite-name">El Hadj El Anka</span>
+            <span class="cite-role">Interprète</span>
+            <span class="cite-work">Youm El Djemaa · يوم الجمعة</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="cite-card">
+        <i class="fas fa-quote-left cite-ico"></i>
+        <p class="cite-quote font-amiri" dir="rtl" lang="ar">بلّغ سلامي إلى الجزائر…</p>
+        <p class="cite-trans">« Transmets mes salutations à l&#39;Algérie… »</p>
+        <div class="cite-author">
+          <img class="cite-avatar" src="/music/img_artistes/el hachmi guerouabi.jpg" alt="El Hachemi Guerouabi" width="40" height="40" loading="lazy">
+          <div class="cite-author-text">
+            <span class="cite-name">El Hachemi Guerouabi</span>
+            <span class="cite-role">Interprète</span>
+            <span class="cite-work">Belagh Slami · بلّغ سلامي</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="cite-card cite-card--auteur">
+        <i class="fas fa-quote-left cite-ico"></i>
+        <p class="cite-quote font-amiri" dir="rtl" lang="ar">يا محمد أنت سيدي صلّى الله عليك لابدا</p>
+        <p class="cite-trans">« Ô Mohamed, tu es mon Seigneur — que la prière de Dieu soit sur toi à jamais. »</p>
+        <p class="cite-more"><a href="#analyse-khezna">Voir la Khezna complète →</a></p>
+        <div class="cite-author">
+          <div class="cite-avatar cite-avatar--auteur" aria-hidden="true"><i class="fas fa-feather-alt"></i></div>
+          <div class="cite-author-text">
+            <span class="cite-name">Sidi Lakhdar Ben Khlouf</span>
+            <span class="cite-role">Auteur · شاعر الملحون</span>
+            <span class="cite-work">Petite khezna · الخزنة</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="cite-card">
+        <i class="fas fa-quote-left cite-ico"></i>
+        <p class="cite-quote font-amiri" dir="rtl" lang="ar">يا قلبي لا تحزن… الدنيا دوّارة</p>
+        <p class="cite-trans">« Ô mon cœur, ne t&#39;afflige pas… le monde tourne. »</p>
+        <div class="cite-author">
+          <img class="cite-avatar" src="/music/img_artistes/Amar-Ezzahi.jpg" alt="Amar Ezzahi" width="40" height="40" loading="lazy">
+          <div class="cite-author-text">
+            <span class="cite-name">Amar Ezzahi</span>
+            <span class="cite-role">Interprète</span>
+            <span class="cite-work">Chaâbi · الشعبي</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="cite-card">
+        <i class="fas fa-quote-left cite-ico"></i>
+        <p class="cite-quote font-amiri" dir="rtl" lang="ar">العلم نور والجهل ظلام…</p>
+        <p class="cite-trans">« La science est lumière, l&#39;ignorance est ténèbres… »</p>
+        <div class="cite-author">
+          <img class="cite-avatar" src="/music/img_artistes/nador.png" alt="Cheikh Nador" width="40" height="40" loading="lazy">
+          <div class="cite-author-text">
+            <span class="cite-name">Cheikh Nador</span>
+            <span class="cite-role">Interprète</span>
+            <span class="cite-work">Melhoun · الملحون</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ AUTEURS DU MELHOUN + KHEZNA ═══════════════════════════════ -->
+<section id="auteurs-melhoun" class="py-10 q-auteurs-section">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center mb-7">
+      <h2 class="text-2xl lg:text-3xl font-bold mb-2">Auteurs du melhoun</h2>
+      <p class="max-w-2xl mx-auto text-sm opacity-75">Poètes-auteurs dont les qasidas nourrissent le répertoire chaâbi — distincts des interprètes</p>
+      <div class="w-20 h-1 bg-gradient-to-r from-amber-500 to-red-500 mx-auto mt-4 rounded-full"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+      <article class="auteur-card">
+        <div class="auteur-head">
+          <span class="auteur-badge">XVIe s.</span>
+          <h3>Sidi Lakhdar Ben Khlouf</h3>
+          <p class="auteur-meta">Mostaganem · Dahra · Fondateur du melhoun</p>
+        </div>
+        <p class="auteur-bio">Louangeur du Prophète, combattant de Mazagran (1558). Corpus de madîh, épopées et sagesse encore chantés en chaâbi.</p>
+        <ul class="auteur-works">
+          <li><strong>Grande khezna</strong> — <em>Salla Allah alik ya Mohamed nabina</em></li>
+          <li><strong>Petite khezna</strong> — <em>Ya Mohamed ya sidi</em></li>
+          <li><strong>Qassat Mazagran</strong> — épopée de 1558</li>
+          <li><strong>Ibqaou bissalama</strong> — testament poétique</li>
+        </ul>
+      </article>
+
+      <article class="auteur-card">
+        <div class="auteur-head">
+          <span class="auteur-badge">XVIIe–XVIIIe</span>
+          <h3>Saïd El Mendassi</h3>
+          <p class="auteur-meta">Tlemcen · Élévation du melhoun</p>
+        </div>
+        <p class="auteur-bio">Figure majeure qui a raffiné la forme du melhoun ; influence durable sur les qasidas citadines et le style savant.</p>
+        <ul class="auteur-works">
+          <li>Qasidas de louange et de sagesse</li>
+          <li>Référence de l’école tlemcénienne</li>
+        </ul>
+      </article>
+
+      <article class="auteur-card">
+        <div class="auteur-head">
+          <span class="auteur-badge">Tradition</span>
+          <h3>Autres maîtres</h3>
+          <p class="auteur-meta">Chaîne orale maghrébine</p>
+        </div>
+        <p class="auteur-bio">Le melhoun se transmet de génération en génération : auteurs anonymes ou locaux, zaouïas, veillées. Le chaâbi interprète ce fonds.</p>
+        <ul class="auteur-works">
+          <li>Madîh, ghazal, sagesse, épopée</li>
+          <li>Répertoires El Anka, M’rizek, Guerouabi…</li>
+        </ul>
+      </article>
+    </div>
+
+    <!-- Analyse Khezna -->
+    <div class="khezna-box" id="analyse-khezna">
+      <h3 class="khezna-title"><i class="fas fa-scroll"></i> Analyse — La Khezna de Sidi Lakhdar</h3>
+      <p class="khezna-intro">Deux qasidas jumelles, dites <strong>grande</strong> et <strong>petite khezna</strong> (« trésor »), concentrent le madîh prophétique de Ben Khlouf. Elles ouvrent souvent les séances de chaâbi et de bédoui.</p>
+
+      <div class="khezna-grid">
+        <div class="khezna-verse">
+          <p class="kv-ar font-amiri" dir="rtl" lang="ar">أحسن ما يُقال عندي بسم الله وبك نبدأ<br>حبّك في سلطان جسدي ما أعزّك يا عين واحدةة<br>قدر النحلة اللي تسدي تبني شهدة فوق شهدة<br>يا محمد أنت سيدي صلّى الله عليك لابدا</p>
+          <p class="kv-fr">« Le mieux que je dise commence par Bismillah, et par Toi je commence. / Ton amour règne dans mon corps ; tu m’es plus précieux qu’un œil unique. / Comme l’abeille qui bâtit rayon sur rayon, / Ô Mohamed, tu es mon Seigneur — que Dieu prie sur toi à jamais. »</p>
+          <p class="kv-src">Ouverture de la <em>petite khezna</em> — <em>Ya Mohamed ya sidi</em></p>
+        </div>
+        <div class="khezna-notes">
+          <h4>Lecture des vers</h4>
+          <ol>
+            <li><strong>Exorde sacral</strong> — Commencer par le Nom de Dieu et par le Prophète ancre le poème dans le madîh, non dans le divertissement.</li>
+            <li><strong>« Œil unique »</strong> — Hyperbole de l’amour spirituel : le bien-aimé (le Prophète) vaut plus que la vue elle-même.</li>
+            <li><strong>Abeille / miel</strong> — Image soufie et populaire : patience, travail, accumulation de douceur (rayon sur rayon = louange sur louange).</li>
+            <li><strong>Refrain</strong> — « Ya Mohamed… salla Allah alik » : litanie qui rythme la qasida et le chant chaâbi.</li>
+          </ol>
+          <h4>Place dans le chaâbi</h4>
+          <p>Ces strophes forment un <strong>seuil rituel</strong> : elles placent l’auditeur dans la dévotion avant les thèmes amoureux ou sociaux. D’où leur permanence chez les maîtres (El Anka, M’rizek, et la tradition orale).</p>
+          <h4>Grande vs petite khezna</h4>
+          <p><em>Salla Allah alik ya Mohamed nabina</em> (grande) développe un madîh plus ample ; <em>Ya Mohamed ya sidi</em> (petite) est plus concise, d’où sa diffusion en ouverture de séances.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="footer-root"></div>
+
+<!-- ══ BOUTON RETOUR EN HAUT ══════════════════════════════════════ -->
+<button id="back-to-top" type="button" aria-label="Revenir en haut de la page" class="fixed bottom-8 right-8 w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 opacity-0 invisible z-50 flex items-center justify-center">
+  <i class="fas fa-chevron-up" aria-hidden="true"></i>
+</button>
+
+<!-- ══ SCRIPTS ════════════════════════════════════════════════════ -->
+<script>
+// ── Mobile menu ───────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+    var mobileMenu = document.getElementById('mobile-menu');
+    var toggleBtn  = document.getElementById('mobile-menu-button');
+    if (mobileMenu && toggleBtn) {
+        toggleBtn.addEventListener('click', function() {
+            var open = mobileMenu.classList.toggle('hidden') === false;
+            mobileMenu.classList.toggle('q-menu-open', open);
+            toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            toggleBtn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+            var icon = toggleBtn.querySelector('i');
+            if (icon) icon.className = open ? 'fas fa-times text-lg' : 'fas fa-bars text-lg';
+        });
+    }
+});
+
+// ── Live bar + Dédicaces ─────────────────────────────────────────
+(function() {
+    var API = (window.CHAABI_API || 'api/radiochaabi.php').split('?')[0];
+    function api(action) { return API + '?action=' + encodeURIComponent(action) + '&_=' + Date.now(); }
+    function esc(s) {
+        return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+    function doubleTrack(el) {
+        if (!el) return;
+        var html = el.innerHTML;
+        el.innerHTML = html + html;
+    }
+    function syncChromeHeight() {
+        var chrome = document.getElementById('site-top-chrome');
+        var h = chrome ? chrome.offsetHeight : 30;
+        document.documentElement.style.setProperty('--chrome-h', h + 'px');
+        document.body.classList.toggle('has-dedicaces-bar', !!document.querySelector('#dedicaces-bar.is-on'));
+        document.body.style.paddingTop = h + 'px';
+    }
+
+    // Live bar
+    var track = document.getElementById('live-bar-track');
+    var fail = 0, MAX = 4, iv = null;
+    function updateLive() {
+        fetch(api('get_live_bar') + '&minutes=15')
+            .then(function(r) { return r.json(); })
+            .then(function(d) {
+                var items = (d && Array.isArray(d.data)) ? d.data : [];
+                var parts = items.map(function(i) {
+                    var title = (i.title || i.titre || '').trim();
+                    var artist = (i.artist || i.artiste || i.artiste_nom || '').trim();
+                    var num = (i.numero || '').toString().trim();
+                    var invite = (i.invite || '').trim();
+                    var label = '';
+                    if (i.media_type === 'emission') {
+                        label = '📻 Émission' + (num ? ' #' + num : '');
+                        if (invite) label += ' — ' + invite;
+                        else if (title) label += ' — ' + title;
+                    } else if (i.media_type === 'interview') {
+                        label = '🎤 ' + (artist && title ? artist + ' — ' + title : (artist || title || 'Interview'));
+                    } else {
+                        label = artist && title ? '🎵 ' + title + ' — ' + artist : '🎵 ' + (title || artist || 'Chaabi');
+                    }
+                    return esc(label);
+                }).filter(Boolean);
+                // Fallback : objet radio (data souvent vide)
+                if (!parts.length && d && d.radio) {
+                    var rt = (d.radio.last_title || d.radio.title || '').trim();
+                    var ra = (d.radio.last_artist || d.radio.artist || '').trim();
+                    if (rt && ra) parts.push(esc('🎵 ' + rt + ' — ' + ra));
+                    else if (rt) parts.push(esc('🎵 ' + rt));
+                    else if (ra) parts.push(esc('🎵 ' + ra));
+                }
+                if (!parts.length || !track) return;
+                fail = 0;
+                var sep = ' <span style="opacity:.65;padding:0 14px">★</span> ';
+                var txt = parts.join(sep) + sep;
+                track.innerHTML = '<span>' + txt + '</span><span aria-hidden="true">' + txt + '</span>';
+            })
+            .catch(function() { if (++fail >= MAX && iv) clearInterval(iv); });
+    }
+    updateLive();
+    iv = setInterval(updateLive, 30000);
+
+    // Dédicaces bar
+    function updateDedicaces() {
+        var bar = document.getElementById('dedicaces-bar');
+        var items = document.getElementById('dedicaces-ticker-items');
+        if (!bar || !items) return;
+        fetch(api('get_last_dedicaces'))
+            .then(function(r) { return r.json(); })
+            .then(function(d) {
+                var list = (d && d.data) ? d.data : (d.dedicaces || []);
+                if (!list.length) {
+                    items.innerHTML = '<span>✦ Aucune dédicace pour le moment</span>';
+                    bar.classList.add('is-on');
+                    syncChromeHeight();
+                    return;
+                }
+                var html = list.map(function(x) {
+                    var from = x.nom || x.from || '';
+                    var to = x.pour || x.to || '';
+                    var msg = x.description || x.message || '';
+                    return '<span>✦ <strong>' + esc(from) + '</strong>' +
+                        (to ? ' → ' + esc(to) : '') +
+                        (msg ? ' — ' + esc(msg) : '') + '</span>';
+                }).join('');
+                items.innerHTML = html;
+                doubleTrack(items);
+                bar.classList.add('is-on');
+                syncChromeHeight();
+            })
+            .catch(function() {
+                items.innerHTML = '<span>✦ Dédicaces indisponibles</span>';
+                bar.classList.add('is-on');
+                syncChromeHeight();
+            });
+    }
+    updateDedicaces();
+    setInterval(updateDedicaces, 60000);
+    window.addEventListener('resize', syncChromeHeight);
+    setTimeout(syncChromeHeight, 100);
+})();
+
+// ── Compteurs animés ──────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+    var counters = document.querySelectorAll('.stat-counter');
+    if (!counters.length) return;
+    function animateCounter(el) {
+        var target = parseInt(el.dataset.target, 10);
+        var start  = performance.now();
+        var dur    = 1500;
+        function step(now) {
+            var p = Math.min((now - start) / dur, 1);
+            var e = 1 - Math.pow(1 - p, 3);
+            el.textContent = Math.floor(e * target) + (target >= 100 ? '+' : '');
+            if (p < 1) requestAnimationFrame(step);
+            else el.textContent = target + (target >= 100 ? '+' : '');
+        }
+        requestAnimationFrame(step);
+    }
+    if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) { if (e.isIntersecting) { animateCounter(e.target); obs.unobserve(e.target); } });
+        }, { threshold:.5 });
+        counters.forEach(function(c) { obs.observe(c); });
+    } else { counters.forEach(animateCounter); }
+});
+
+// ── Filtres + Recherche + Suggestions ────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+
+  /* ═══ Chargement BDD qacidates (API) ═══ */
+  (function() {
+    var API = 'api/qacidates_api.php';
+    var DETAIL = 'poemes/q/';   /* liste du site -> module dynamique (texte arabe, traduction, chapitres, manuscrits) */
+    var LANG = (document.documentElement.lang === 'ar' || document.documentElement.classList.contains('lang-ar')) ? 'ar' : 'fr';
+    var ALL_ROWS = []; window.ALL_ROWS = ALL_ROWS; window.ALL_ROWS = ALL_ROWS; window.ALL_ROWS = ALL_ROWS;
+
+    function esc(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;');
+    }
+    function normalizeArtist(name) {
+      var n = String(name || '').trim();
+      if (!n) return 'Autre';
+      var l = n.toLowerCase().replace(/[''`´ʼ’]/g,"'").replace(/[îíī]/g,'i');
+      if (/anka|anqa|العنقى/.test(l)) return 'El Hadj El Anka';
+      if (/rizeq|rizek|مريزق|mrize/.test(l)) return "El Hadj M'rizeq";
+      if (/guerou|قروابي/.test(l)) return 'El Hachemi Guerouabi';
+      if (/ezzahi|zahi|الزاهي/.test(l) && !/anka|anqa/.test(l)) return 'Amar Ezzahi';
+      if (/doumaz/.test(l)) return 'Reda Doumaz';
+      if (/hsissen|sissen/.test(l)) return 'Cheikh Hsissen';
+      if (/mahfoud|محفوظ/.test(l)) return 'El Hadj Mahfoud';
+      return n;
+    }
+    function catKey(name) {
+      var n = normalizeArtist(name);
+      if (n.indexOf('Anka') >= 0) return 'anka';
+      if (n.indexOf("M'rizeq") >= 0 || n.indexOf('Mrize') >= 0) return 'mrizek';
+      if (n.indexOf('Guerouabi') >= 0) return 'guerouabi';
+      if (n.indexOf('Ezzahi') >= 0) return 'ezzahi';
+      if (n.indexOf('Doumaz') >= 0) return 'doumaz';
+      if (n.indexOf('Hsissen') >= 0) return 'hsissen';
+      if (n.indexOf('Mahfoud') >= 0) return 'mahfoud';
+      return 'others';
+    }
+    function themeClass(theme) {
+      var t = (theme || '').toLowerCase();
+      if (/spirit|relig|dieu|divin/.test(t)) return 'bg-teal-500 text-white';
+      if (/amour|beauté|beaut/.test(t)) return 'bg-rose-500 text-white';
+      if (/nostalg|mémoire|patriot/.test(t)) return 'bg-amber-600 text-white';
+      if (/justice|sagesse/.test(t)) return 'bg-indigo-500 text-white';
+      if (/voyage|ruse/.test(t)) return 'bg-sky-500 text-white';
+      if (/souffrance|bataille|sépar/.test(t)) return 'bg-red-600 text-white';
+      return 'bg-yellow-400 text-gray-900';
+    }
+    function fixImg(src) {
+      if (!src) return '/music/images/radiochabidialna.jpg';
+      src = String(src).trim();
+      if (/^https?:\/\//i.test(src) || src.charAt(0) === '/') return src;
+      return '/' + src.replace(/^\.\//, '');
+    }
+
+    function buildCard(r) {
+      var artist = normalizeArtist(r.interprete || r.artiste || '');
+      var cat = catKey(artist);
+      var titre = (LANG === 'ar' && r.titre_ar) ? r.titre_ar : (r.titre || r.slug || '');
+      var titreAr = r.titre_ar || '';
+      var sous = r.sous_titre || '';
+      var slug = r.slug || '';
+      var href = DETAIL + encodeURIComponent(slug);
+      var img = fixImg(r.image || r.thumbnail);
+      var theme = r.theme || r.genre || 'Chaabi';
+      var searchBlob = [r.titre, r.titre_ar, r.sous_titre, artist, r.auteur, slug, theme].join(' ').toLowerCase();
+      return (
+        '<article class="qacidatte-card qcard" data-category="' + esc(cat) + '" data-slug="' + esc(slug) + '" data-title="' + esc(searchBlob) + '" data-desc="' + esc(sous) + '">' +
+          '<span class="qcard-theme ' + themeClass(theme) + '">' + esc(theme) + '</span>' +
+          '<img src="' + esc(img) + '" alt="' + esc(artist) + '" class="qcard-avatar" loading="lazy" decoding="async" width="52" height="52" onerror="this.onerror=null;this.src=\'/music/images/radiochabidialna.jpg\'">' +
+          '<div class="qcard-body">' +
+            (titreAr ? '<p class="qcard-ar">' + esc(titreAr) + '</p>' : '') +
+            '<p class="qcard-title"><a href="' + esc(href) + '">' + esc(titre) + '</a></p>' +
+            (sous ? '<p class="qcard-fr">' + esc(sous) + '</p>' : '') +
+            '<div class="qcard-meta">' +
+              '<span class="qcard-artist"><i class="fas fa-user-circle"></i> ' + esc(artist) + '</span>' +
+              '<span class="qcard-stats">' +
+                (r.views != null ? '<span class="qcard-stat" title="Vues"><i class="fas fa-eye"></i> <span class="view-count">' + (r.views|0) + '</span></span>' : '') +
+                (r.id ? '<button type="button" class="qcard-like" data-id="' + (r.id|0) + '" onclick="event.preventDefault();event.stopPropagation();likeQacidate(' + (r.id|0) + ',this)" title="Like"><i class="fas fa-heart"></i> <span class="like-count">' + (r.likes != null ? (r.likes|0) : 0) + '</span></button>' : '') +
+              '</span>' +
+              '<a href="' + esc(href) + '" class="qcard-btn">Lire <i class="fas fa-arrow-right"></i></a>' +
+            '</div>' +
+          '</div>' +
+        '</article>'
+      );
+    }
+
+    function buildFilters(rows) {
+      window.buildFilters = buildFilters;
+      var counts = { all: rows.length };
+      rows.forEach(function(r) {
+        var c = catKey(r.interprete || r.artiste || '');
+        counts[c] = (counts[c] || 0) + 1;
+      });
+      var labelsFr = {
+        all: 'Tous', anka: 'El Hadj El Anka', guerouabi: 'El Hachemi Guerouabi',
+        ezzahi: 'Amar Ezzahi', mrizek: "El Hadj M'rizeq", doumaz: 'Reda Doumaz',
+        hsissen: 'Cheikh Hsissen', mahfoud: 'El Hadj Mahfoud', others: 'Autres'
+      };
+      var labelsAr = {
+        all: 'الكل', anka: 'الحاج العنقة', guerouabi: 'الهاشمي قروابي',
+        ezzahi: 'عمار الزاهي', mrizek: 'الحاج مريزق', doumaz: 'رضا دوماز',
+        hsissen: 'الشيخ حسين', mahfoud: 'الحاج محفوظ', others: 'آخرون'
+      };
+      var labels = (typeof currentQlang !== 'undefined' && currentQlang === 'ar') ? labelsAr : labelsFr;
+      var order = ['all','anka','guerouabi','ezzahi','mrizek','doumaz','hsissen','mahfoud','others'];
+      var bar = document.getElementById('filter-bar');
+      if (!bar) return;
+      var html = '';
+      order.forEach(function(k) {
+        if (k !== 'all' && !counts[k]) return;
+        var active = k === 'all' ? ' active' : ' bg-white text-gray-700 border border-gray-300';
+        var n = counts[k] || 0;
+        html += '<button type="button" class="filter-btn' + active + ' px-4 py-2 rounded-full font-medium text-xs border transition-all duration-200 hover:shadow-md" data-filter="' + k + '">' +
+          '<i class="fas fa-' + (k==='all'?'th-large':'user') + ' mr-1"></i>' + esc(labels[k] || k) +
+          ' <span class="filter-count ml-1 opacity-70">(' + n + ')</span></button>';
+      });
+      bar.innerHTML = html;
+    }
+
+    function wireUI() {
+      var filterButtons  = document.querySelectorAll('.filter-btn');
+      var cards          = document.querySelectorAll('.qacidatte-card');
+      var noResults      = document.getElementById('no-results');
+      var searchInput    = document.getElementById('search-qacid');
+      var searchClear    = document.getElementById('search-clear');
+      var suggestionsBox = document.getElementById('search-suggestions');
+      var resultsCount   = document.getElementById('results-count');
+      var currentFilter  = 'all';
+      var activeSug      = -1;
+      var TOTAL          = cards.length;
+
+      var heroStat = document.querySelector('.stat-counter[data-target]');
+      if (heroStat) heroStat.dataset.target = String(TOTAL);
+      document.querySelectorAll('[data-total-qacidates]').forEach(function(el){ el.textContent = TOTAL; });
+
+      function applyFilter() {
+        var term = searchInput ? searchInput.value.toLowerCase().trim() : '';
+        var vis  = 0;
+        cards = document.querySelectorAll('.qacidatte-card');
+        cards.forEach(function(card) {
+          var catOk  = currentFilter === 'all' || card.dataset.category === currentFilter;
+          var termOk = !term || (card.dataset.title||'').toLowerCase().indexOf(term) >= 0 || (card.dataset.desc||'').toLowerCase().indexOf(term) >= 0;
+          if (catOk && termOk) { card.style.display = 'flex'; vis++; }
+          else card.style.display = 'none';
+        });
+        if (noResults) noResults.classList.toggle('hidden', vis > 0);
+        if (resultsCount) {
+          resultsCount.textContent = (term || currentFilter !== 'all')
+            ? (vis + ' / ' + TOTAL + ' qacidate(s)')
+            : (TOTAL + ' qacidates');
+        }
+      }
+
+      filterButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+          currentFilter = this.dataset.filter;
+          document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+          this.classList.add('active');
+          applyFilter();
+          hideSuggestions();
+        });
+      });
+
+      function hideSuggestions() {
+        if (suggestionsBox) suggestionsBox.style.display = 'none';
+        activeSug = -1;
+        if (searchInput) searchInput.setAttribute('aria-expanded', 'false');
+      }
+      function showSuggestions() {
+        if (!searchInput || !suggestionsBox) return;
+        var term = searchInput.value.toLowerCase().trim();
+        if (term.length < 1) { hideSuggestions(); return; }
+        var matches = [];
+        ALL_ROWS.forEach(function(r) {
+          var blob = [r.titre, r.titre_ar, r.interprete, r.slug].join(' ').toLowerCase();
+          if (blob.indexOf(term) >= 0) {
+            matches.push({
+              href: DETAIL + encodeURIComponent(r.slug||''),
+              label: r.titre || r.slug,
+              artist: normalizeArtist(r.interprete||''),
+              ar: r.titre_ar || ''
+            });
+          }
+        });
+        if (!matches.length) { hideSuggestions(); return; }
+        suggestionsBox.innerHTML = matches.slice(0, 8).map(function(m) {
+          return '<a href="'+esc(m.href)+'" role="option" class="suggestion-item"><i class="fas fa-scroll text-blue-400 text-xs"></i><span>'+esc(m.label)+' <span class="text-gray-400 text-xs ml-1">'+esc(m.artist)+'</span></span><span class="sug-ar">'+esc(m.ar)+'</span></a>';
+        }).join('');
+        suggestionsBox.style.display = 'block';
+        if (searchInput) searchInput.setAttribute('aria-expanded', 'true');
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener('input', function() {
+          if (searchClear) searchClear.classList.toggle('hidden', !this.value);
+          applyFilter();
+          showSuggestions();
+        });
+        searchInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') { hideSuggestions(); this.blur(); }
+        });
+      }
+      if (searchClear) {
+        searchClear.addEventListener('click', function() {
+          if (searchInput) searchInput.value = '';
+          this.classList.add('hidden');
+          applyFilter();
+          hideSuggestions();
+        });
+      }
+      document.addEventListener('click', function(e) {
+        if (suggestionsBox && !suggestionsBox.contains(e.target) && e.target !== searchInput) hideSuggestions();
+      });
+
+      applyFilter();
+      // re-trigger counter animation if present
+      try {
+        var counters = document.querySelectorAll('.stat-counter');
+        counters.forEach(function(c) {
+          var target = parseInt(c.dataset.target || '0', 10);
+          if (!target) return;
+          var cur = 0, step = Math.max(1, Math.floor(target / 40));
+          var t = setInterval(function() {
+            cur += step;
+            if (cur >= target) { cur = target; clearInterval(t); }
+            c.textContent = cur;
+          }, 30);
+        });
+      } catch (e) {}
+    }
+
+    function render(rows) {
+      ALL_ROWS = rows || []; window.ALL_ROWS = ALL_ROWS;
+      var grid = document.getElementById('grid-qacid');
+      if (!grid) return;
+      if (!ALL_ROWS.length) {
+        grid.innerHTML = '<p class="col-span-full text-center text-red-600 py-12">Aucune qacidate en BDD.</p>';
+        return;
+      }
+      // Tri : par interprète normalisé puis titre
+      ALL_ROWS.sort(function(a, b) {
+        var aa = normalizeArtist(a.interprete||'');
+        var bb = normalizeArtist(b.interprete||'');
+        if (aa !== bb) return aa.localeCompare(bb, 'fr');
+        return String(a.titre||'').localeCompare(String(b.titre||''), 'fr');
+      });
+      buildFilters(ALL_ROWS);
+      grid.innerHTML = ALL_ROWS.map(buildCard).join('');
+      grid.setAttribute('aria-busy', 'false');
+      wireUI();
+    }
+
+    fetch(API + '?action=list&limit=100&_t=' + Date.now(), { credentials: 'same-origin' })
+      .then(function(r) { return r.json(); })
+      .then(function(j) {
+        if (j && j.error) throw new Error(j.error);
+        render((j && j.data) ? j.data : (Array.isArray(j) ? j : []));
+      })
+      .catch(function(err) {
+        var grid = document.getElementById('grid-qacid');
+        if (grid) grid.innerHTML = '<p class="col-span-full text-center text-red-600 py-12">Erreur API : ' + esc(err.message || err) + '</p>';
+      });
+  })();
+
+
+    // Animation titres : désactivée en mode API (cartes dynamiques)
+    // reduceMotion / titleLinks gérés après chargement si besoin
+// ── Retour en haut ────────────────────────────────────────────────
+var backBtn = document.getElementById('back-to-top');
+window.addEventListener('scroll', function() {
+    if (!backBtn) return;
+    if (window.pageYOffset > 300) { backBtn.classList.remove('opacity-0','invisible'); backBtn.classList.add('opacity-100','visible'); }
+    else { backBtn.classList.add('opacity-0','invisible'); backBtn.classList.remove('opacity-100','visible'); }
+});
+if (backBtn) backBtn.addEventListener('click', function() { window.scrollTo({top:0,behavior:'smooth'}); });
+
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) { e.preventDefault(); var t=document.querySelector(this.getAttribute('href')); if(t) t.scrollIntoView({behavior:'smooth'}); });
+});
+
+// ── Langue FR/AR (drapeaux) — traduction réelle de l'interface ────
+var QLANG = {
+    fr: { home: "Accueil", artists: "Artistes", songs: "Chansons", shows: "Émissions", interviews: "Interviews", qacidates: "Qacidates", proverbs: "Bouqalla", dedicaces: "Dédicaces", comments: "Commentaires", contacts: "Contacts", hero_title: "Qacidates Chaabi", hero_desc: "Poésie Chaâbi — les QAÇAYD — en arabe et en français, avec explications détaillées.", defs_title: "Définitions", def_bayt_t: "Bayt :", def_bayt: "couplet de vers chantés dans le Chaâbi-melhûn.", def_siyah_t: "Çiyâh / istikhbâr :", def_siyah: "prélude improvisé qui installe le mode du chant.", explore: "Explorer", back_radio: "Retour Radio", patrimoine: "Patrimoine Musical", preserve: "Préservons notre héritage", stat_qacidates: "Qacidates", stat_artists: "Artistes", stat_songs: "Chansons", stat_visitors: "Visiteurs", coll_title: "Collection des Qacidates", coll_sub: "Explorez notre riche collection de poèmes chaabi", search_ph: "Rechercher… (Ctrl+K)", f_all: "Tous", f_ezzahi: "Ezzahi", f_anka: "El Anka", f_guerouabi: "Guerouabi", f_mrizek: "Hadj Mrizek", f_doumaz: "Doumaz", f_mahfoud: "El Hadj Mahfoud", f_hsissen: "Hsissen", f_others: "Autres", read: "Lire", onair: "On Air", theme_spirituel: "Spirituel", theme_amour: "Amour", theme_sagesse: "Sagesse", theme_nature: "Nature", theme_patriotique: "Patriotique", theme_autre: "Autre", nav_title: "Navigation", others: "Autres", follow: "Suivez-nous :", admin: "Administration", cite_title: "Paroles de Maîtres", cite_sub: "La sagesse et la beauté des vers de nos grands poètes" },
+    ar: { home: "الرئيسية", artists: "فنانون", songs: "أغانٍ", shows: "برامج", interviews: "مقابلات", qacidates: "قصائد", proverbs: "أمثال", dedicaces: "هدايا", comments: "تعليقات", contacts: "اتصل بنا", hero_title: "قصائد الشعبي", hero_desc: "الشعر الشعبي الجزائري — أجمل قصائد الملحون بالعربية والفرنسية مع شروحات مفصّلة.", defs_title: "تعريفات", def_bayt_t: "البيت :", def_bayt: "بيت من الشعر يُغنّى في الشعبي الملحون.", def_siyah_t: "الصياح / الاستخبار :", def_siyah: "مقدّمة ارتجالية تُمهّد لطريقة الغناء.", explore: "استكشف", back_radio: "العودة إلى الراديو", patrimoine: "تراث موسيقي", preserve: "نحافظ على إرثنا", stat_qacidates: "قصيدة", stat_artists: "فنّانون", stat_songs: "أغانٍ", stat_visitors: "زوّار", coll_title: "مجموعة القصائد", coll_sub: "استكشف مجموعتنا الغنية من قصائد الشعبي", search_ph: "ابحث… (Ctrl+K)", f_all: "الكل", f_ezzahi: "الزاهي", f_anka: "العنقة", f_guerouabi: "قروابي", f_mrizek: "الحاج مريزق", f_doumaz: "دوماز", f_mahfoud: "الحاج محفوظ", f_hsissen: "حسّين", f_others: "آخرون", read: "اقرأ", onair: "على الهواء", theme_spirituel: "روحي", theme_amour: "غزل", theme_sagesse: "حكمة", theme_nature: "طبيعة", theme_patriotique: "وطني", theme_autre: "أخرى", nav_title: "التنقّل", others: "أخرى", follow: "تابعونا :", admin: "الإدارة", cite_title: "كلمات الشيوخ", cite_sub: "حكمة وجمال أشعار كبار شعرائنا" }
+};
+var currentQlang = 'fr';
+try {
+    var savedQ = localStorage.getItem('chaabi_lang') || localStorage.getItem('rc_lang');
+    if (savedQ === 'ar' || savedQ === 'fr') currentQlang = savedQ;
+} catch (e) {}
+function qT(k) { return QLANG[currentQlang] && QLANG[currentQlang][k] ? QLANG[currentQlang][k] : (QLANG.fr[k] || k); }
+function applyQlang() {
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var k = el.getAttribute('data-i18n');
+        var v = QLANG[currentQlang] && QLANG[currentQlang][k] ? QLANG[currentQlang][k] : null;
+        if (!v) return;
+        if (el.tagName === 'INPUT') el.placeholder = v;
+        else el.textContent = v;
+    });
+    
+    /* Rebuild filter tree with current language */
+    try {
+      if (typeof ALL_ROWS !== 'undefined' && ALL_ROWS.length && typeof buildFilters === 'function') {
+        buildFilters(ALL_ROWS);
+        /* re-wire filter clicks after rebuild */
+        if (typeof wireUI === 'function') { /* skip full wire */ }
+        document.querySelectorAll('.filter-btn').forEach(function(button) {
+          button.addEventListener('click', function() {
+            var currentFilter = this.dataset.filter;
+            document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+            this.classList.add('active');
+            var term = (document.getElementById('search-qacid')||{}).value || '';
+            term = String(term).toLowerCase().trim();
+            var vis = 0, cards = document.querySelectorAll('.qacidatte-card');
+            cards.forEach(function(card) {
+              var catOk = currentFilter === 'all' || card.dataset.category === currentFilter;
+              var termOk = !term || (card.dataset.title||'').toLowerCase().indexOf(term) >= 0;
+              card.style.display = (catOk && termOk) ? 'flex' : 'none';
+              if (catOk && termOk) vis++;
+            });
+            var noResults = document.getElementById('no-results');
+            if (noResults) noResults.classList.toggle('hidden', vis > 0);
+          });
+        });
+      }
+    } catch (e) {}
+
+    document.querySelectorAll('.qcard-btn').forEach(function(b) {
+        b.innerHTML = qT('read') + ' <i class="fas fa-arrow-' + (currentQlang === 'ar' ? 'left' : 'right') + '"></i>';
+    });
+    /* Thèmes des cartes */
+    var themeMap = {
+        'Spirituel': 'theme_spirituel', 'روحي': 'theme_spirituel',
+        'Amour': 'theme_amour', 'غزل': 'theme_amour',
+        'Sagesse': 'theme_sagesse', 'حكمة': 'theme_sagesse',
+        'Nature': 'theme_nature', 'طبيعة': 'theme_nature',
+        'Patriotique': 'theme_patriotique', 'وطني': 'theme_patriotique',
+        'Autre': 'theme_autre', 'أخرى': 'theme_autre'
+    };
+
+    var THEME_AR = {
+        'Spirituel':'روحي','Classique':'كلاسيكي','Émotion':'عاطفة','Sagesse':'حكمة','Philo':'فلسفة',
+        'Amour':'غزل','Métaphore':'استعارة','Aube':'فجر','Poétique':'شعري','Religieux':'ديني',
+        'Bohème':'بوهيمي','Soucis':'هموم','Humilité':'تواضع','Moderne':'حديث','Tradition':'تراث',
+        'Passion':'شغف','Question':'سؤال','Nostalgie':'حنين','Patriotique':'وطني','Nature':'طبيعة',
+        'Autre':'أخرى'
+    };
+
+    document.querySelectorAll('.qcard-theme').forEach(function(el) {
+        if (!el.getAttribute('data-theme-fr')) {
+            el.setAttribute('data-theme-fr', (el.textContent || '').trim());
+        }
+        var fr = el.getAttribute('data-theme-fr');
+        var key = themeMap[fr];
+        if (currentQlang === 'ar') {
+            el.textContent = (key && qT(key) !== key) ? qT(key) : (THEME_AR[fr] || fr);
+        } else {
+            el.textContent = fr;
+        }
+    });
+    /* Titres cartes : en AR privilégier le titre arabe */
+    document.querySelectorAll('.qcard').forEach(function(card) {
+        var ar = card.querySelector('.qcard-ar');
+        var title = card.querySelector('.qcard-title');
+        var fr = card.querySelector('.qcard-fr');
+        if (currentQlang === 'ar') {
+            if (ar) { ar.style.display = ''; ar.style.fontSize = '1.15rem'; ar.style.fontWeight = '700'; }
+            if (title) { title.style.opacity = '0.75'; title.style.fontSize = '0.85rem'; }
+            if (fr) fr.style.display = 'none';
+        } else {
+            if (ar) { ar.style.fontSize = ''; ar.style.fontWeight = ''; }
+            if (title) { title.style.opacity = ''; title.style.fontSize = ''; }
+            if (fr) fr.style.display = '';
+        }
+    });
+
+    /* Noms d'interprètes (arabe) + taille */
+    var ARTIST_AR = {
+        'Ezzahi': 'الزاهي',
+        'El Anka': 'العنقّة',
+        'El Anqa': 'العنقّة',
+        'Guerouabi': 'القروابي',
+        'Hadj Mrizek': 'الحاج مريزق',
+        'Mrizek': 'مريزق',
+        'Doumaz': 'دوماز',
+        'Reda Doumaz': 'رضا دوماز',
+        'El Hadj Mahfoud': 'الحاج محفوظ',
+        'Hadj Mahfoud': 'الحاج محفوظ',
+        'H. Mahfoud': 'الحاج محفوظ',
+        'Hsissen': 'حسين',
+        'Amar Ezzahi': 'عمار الزاهي'
+    };
+    document.querySelectorAll('.qcard-artist').forEach(function(el) {
+        if (!el.getAttribute('data-artist-fr')) {
+            var c = el.cloneNode(true);
+            var ics = c.querySelectorAll('i, svg');
+            for (var i = 0; i < ics.length; i++) if (ics[i].parentNode) ics[i].parentNode.removeChild(ics[i]);
+            el.setAttribute('data-artist-fr', (c.textContent || '').replace(/\s+/g, ' ').trim());
+        }
+        var fr = el.getAttribute('data-artist-fr') || '';
+        var ar = ARTIST_AR[fr] || fr;
+        var ic = el.querySelector('i');
+        var name = (currentQlang === 'ar') ? ar : fr;
+        el.innerHTML = (ic ? ic.outerHTML + ' ' : '') + name;
+    });
+    /* Citations artistes */
+    document.querySelectorAll('.cite-artist-name').forEach(function(el) {
+        if (!el.getAttribute('data-artist-fr')) el.setAttribute('data-artist-fr', (el.textContent || '').trim());
+        var fr = el.getAttribute('data-artist-fr');
+        el.textContent = (currentQlang === 'ar' && ARTIST_AR[fr]) ? ARTIST_AR[fr] : fr;
+    });
+
+    
+    /* Citations bilingues */
+    document.querySelectorAll('.cite-quote, .cite-trans, .cite-song').forEach(function(el) {
+        var fr = el.getAttribute('data-fr');
+        var ar = el.getAttribute('data-ar');
+        if (!fr && !ar) return;
+        el.textContent = (currentQlang === 'ar' && ar) ? ar : (fr || el.textContent);
+        if (el.classList.contains('cite-quote')) {
+            el.setAttribute('dir', currentQlang === 'ar' ? 'rtl' : 'auto');
+            el.style.textAlign = currentQlang === 'ar' ? 'right' : '';
+        }
+    });
+    /* Hero : contenu textuel à droite en arabe */
+    var heroRow = document.getElementById('q-hero-row');
+    var heroMain = document.getElementById('q-hero-main');
+    if (heroRow) {
+        if (currentQlang === 'ar') {
+            heroRow.style.flexDirection = 'row-reverse';
+            if (heroMain) {
+                heroMain.style.textAlign = 'right';
+                heroMain.style.direction = 'rtl';
+            }
+        } else {
+            heroRow.style.flexDirection = '';
+            if (heroMain) {
+                heroMain.style.textAlign = '';
+                heroMain.style.direction = '';
+            }
+        }
+    }
+
+    document.documentElement.lang = currentQlang;
+    document.documentElement.classList.toggle('lang-ar', currentQlang === 'ar');
+    document.documentElement.setAttribute('dir', 'ltr');
+    updateQFlags();
+    if (window.refreshFooter) try { refreshFooter(); } catch (e) {}
+}
+function setLangQ(l) {
+    if (l !== 'fr' && l !== 'ar') return;
+    if (l === currentQlang) {
+        applyQlang();
+        return;
+    }
+    currentQlang = l;
+    try {
+        localStorage.setItem('chaabi_lang', l);
+        localStorage.setItem('rc_lang', l);
+    } catch (e) {}
+    // Bascule instantanée sans rechargement
+    applyQlang();
+    try {
+        if (typeof applyFilter === 'function') applyFilter();
+    } catch (e) {}
+}
+function updateQFlags() {
+    document.querySelectorAll('.lang-switch .lang-opt').forEach(function(btn) {
+        var on = btn.getAttribute('data-lang') === currentQlang;
+        btn.classList.toggle('is-active', on);
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        btn.style.display = 'inline-flex';
+        btn.style.visibility = 'visible';
+        btn.style.opacity = '1';
+    });
+    document.querySelectorAll('.lang-switch').forEach(function(sw) {
+        sw.style.display = 'inline-flex';
+        sw.style.visibility = 'visible';
+        sw.style.opacity = '1';
+    });
+}
+applyQlang();
+
+// ── Thèmes : dark | light | ios (sync Chaabi Pro) ─────────────────
+function getQTheme() {
+    var h = document.documentElement;
+    if (h.classList.contains('theme-ios')) return 'ios';
+    if (h.classList.contains('dark')) return 'dark';
+    return 'light';
+}
+function applyThemeState(theme) {
+    if (theme === true) theme = 'dark';
+    if (theme === false) theme = 'light';
+    if (theme !== 'dark' && theme !== 'light' && theme !== 'ios') theme = 'dark';
+    var h = document.documentElement;
+    h.classList.remove('dark', 'theme-ios', 'theme-light');
+    if (theme === 'dark') h.classList.add('dark');
+    else if (theme === 'ios') h.classList.add('theme-ios');
+    else h.classList.add('theme-light');
+    h.setAttribute('data-theme', theme);
+    document.querySelectorAll('[id^="theme-toggle"], .q-theme-btn').forEach(function(b) {
+        b.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+        var labels = { dark: 'Thème sombre', light: 'Thème clair', ios: 'Thème iOS' };
+        b.setAttribute('aria-label', labels[theme] || 'Thème');
+        b.title = labels[theme] || 'Thème';
+        var icon = b.querySelector('i');
+        if (!icon) {
+            icon = document.createElement('i');
+            b.appendChild(icon);
+        }
+        if (theme === 'dark') icon.className = 'fas fa-moon';
+        else if (theme === 'light') icon.className = 'fas fa-sun';
+        else icon.className = 'fas fa-mobile-screen-button';
+        icon.style.display = 'inline-block';
+        icon.setAttribute('aria-hidden', 'true');
+    });
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0d1117' : (theme === 'ios' ? '#e8eef8' : '#eff6ff'));
+    try {
+        localStorage.setItem('chaabi_theme', theme);
+        localStorage.setItem('rc_theme', theme);
+    } catch (e) {}
+    if (window.refreshFooter) try { refreshFooter(); } catch (e) {}
+    if (window.applyFooterTheme) try { applyFooterTheme(theme); } catch (e) {}
+}
+function toggleTheme() {
+    var cur = getQTheme();
+    var next = cur === 'dark' ? 'light' : (cur === 'light' ? 'ios' : 'dark');
+    applyThemeState(next);
+}
+window.toggleTheme = toggleTheme;
+window.applyThemeState = applyThemeState;
+
+/* Toast local (pages qacidates hors SPA) */
+function showToast(message, type) {
+    type = type || 'success';
+    var root = document.getElementById('toast-root');
+    if (!root) {
+        root = document.createElement('div');
+        root.id = 'toast-root';
+        root.className = 'toast-host';
+        root.setAttribute('aria-live', 'polite');
+        document.body.appendChild(root);
+    }
+    var el = document.createElement('div');
+    el.className = 'chaabi-toast chaabi-toast--' + type;
+    el.textContent = message || '';
+    root.appendChild(el);
+    requestAnimationFrame(function () { el.classList.add('is-in'); });
+    setTimeout(function () {
+        el.classList.remove('is-in');
+        el.classList.add('is-out');
+        setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 280);
+    }, 3000);
+}
+window.showToast = showToast;
+
+async function likeQacidate(id, btn) {
+    id = parseInt(id, 10) || 0;
+    if (!id) return;
+    var isAr = (document.documentElement.lang === 'ar' || document.documentElement.classList.contains('lang-ar'));
+    try {
+        if (btn) { btn.disabled = true; btn.classList.add('opacity-70'); }
+        var res = await fetch('api/qacidates_api.php?action=like', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: id })
+        });
+        var data = await res.json();
+        if (btn) {
+            btn.disabled = false;
+            btn.classList.remove('opacity-70');
+            btn.classList.add('is-liked');
+            var cnt = btn.querySelector('.like-count');
+            if (cnt && data && data.likes != null) cnt.textContent = data.likes;
+            else if (cnt) {
+                var n = parseInt(cnt.textContent, 10);
+                if (!isNaN(n)) cnt.textContent = n + 1;
+            }
+        }
+        if (data && data.error) showToast(data.error, 'error');
+        else showToast(isAr ? '❤️ شكراً!' : '❤️ Merci !', 'success');
+    } catch (e) {
+        if (btn) { btn.disabled = false; btn.classList.remove('opacity-70'); }
+        showToast(isAr ? 'تعذر تسجيل الإعجاب' : "Impossible d'enregistrer le like", 'error');
+    }
+}
+window.likeQacidate = likeQacidate;
+window.setLangQ = setLangQ;
+document.addEventListener('DOMContentLoaded', function() {
+    var t = 'dark';
+    try {
+        var s = localStorage.getItem('chaabi_theme') || localStorage.getItem('rc_theme');
+        if (s === 'light' || s === 'dark' || s === 'ios') t = s;
+    } catch (e) {}
+    applyThemeState(t);
+});
+
+
+}); // fin DOMContentLoaded Filtres+Recherche+API
+
+// ── Apparition animée des titres au défilement ───────────────────
+document.addEventListener('DOMContentLoaded', function(){
+    var titles = document.querySelectorAll('.reveal-title, .title-underline');
+    if (!titles.length) return;
+    if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function(entries){
+            entries.forEach(function(e){
+                if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+            });
+        }, { threshold:.4 });
+        titles.forEach(function(t){ obs.observe(t); });
+    } else {
+        titles.forEach(function(t){ t.classList.add('in-view'); });
+    }
+});
+</script>
+<!-- ══ DONNÉES STRUCTURÉES (SEO) ══════════════════════════════════ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Qacidates Chaabi — Poésie algérienne",
+  "description": "Collection des plus beaux textes du chaabi algérien, en arabe et en français.",
+  "inLanguage": "fr",
+  "isPartOf": { "@type": "WebSite", "name": "Chaabi Music" },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "/index.html" },
+      { "@type": "ListItem", "position": 2, "name": "Qacidates", "item": "/qacidates.html" }
+    ]
+  }
+}
+</script>
+<script src="assets/js/footer.js"></script>
+</body>
+</html>

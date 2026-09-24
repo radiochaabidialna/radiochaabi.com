@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Contenu public
+Allow: /index.html
+Allow: /qacidates.html
+Allow: /qacid/
+Allow: /assets/
+Allow: /music/
+
+# Zones privées
+Disallow: /api/
+Disallow: /admin/
+Disallow: /*.php$
+Disallow: /sql/
+
+Sitemap: https://radiochaabi.com/sitemap.xml

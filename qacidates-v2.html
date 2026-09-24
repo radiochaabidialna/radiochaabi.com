@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qacidate — Chaabi Music</title>
+<meta name="theme-color" content="#0d1117">
+<link rel="preload" as="image" href="/music/img_hero/qacidate.2026.webp" type="image/jpeg" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="assets/css/qacidates-detail.css">
+<link rel="stylesheet" href="assets/css/qacidates-livebar.css">
+<script>
+(function(){
+  try {
+    var t = localStorage.getItem('chaabi_theme') || localStorage.getItem('rc_theme') || 'dark';
+    var h = document.documentElement;
+    h.classList.remove('dark','theme-ios','theme-light');
+    if (t === 'ios') h.classList.add('theme-ios');
+    else if (t === 'light') h.classList.add('theme-light');
+    else h.classList.add('dark');
+  } catch(e) { document.documentElement.classList.add('dark'); }
+})();
+</script>
+<style id="critical-v2">
+/* Fallback design si CSS externe absent */
+:root {
+  --c-bg:#0d1117; --c-text:#e6edf3; --c-muted:#8b949e; --c-card:#161b22;
+  --c-accent:#f5b942; --c-border:rgba(255,255,255,.1);
+}
+html.theme-light { --c-bg:#f4f0e8; --c-text:#1c1410; --c-muted:#57534e; --c-card:#fffdf8; --c-border:rgba(0,0,0,.1); }
+html.theme-ios { --c-bg:#e8eef8; --c-text:#1c1c1e; --c-muted:#636366; --c-card:rgba(255,255,255,.75); }
+* { box-sizing:border-box; }
+body { margin:0; font-family:Inter,system-ui,sans-serif; background:var(--c-bg); color:var(--c-text); min-height:100vh; }
+#site-chrome { position:sticky; top:0; z-index:9000; }
+.live-bar { background:linear-gradient(90deg,#1a1208,#1d4ed8 50%,#2563eb); color:#fff; font-size:.78rem; }
+.live-bar-inner { display:flex; align-items:center; gap:8px; padding:6px 12px; min-height:32px; max-width:1200px; margin:0 auto; }
+.live-logo { height:18px; border-radius:3px; }
+.live-dot { width:8px; height:8px; border-radius:50%; background:#ef4444; flex-shrink:0; animation:pulse 1.4s infinite; }
+@keyframes pulse { 50%{opacity:.6} }
+.live-label { font-weight:800; font-size:.65rem; letter-spacing:.06em; color:#fca5a5; flex-shrink:0; }
+.live-ticker { flex:1; overflow:hidden; white-space:nowrap; min-width:0; }
+.live-ticker-inner { display:inline-block; white-space:nowrap; animation:marquee 40s linear infinite; }
+@keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+.dedicaces-bar { display:none; background:#2a1810; color:#fde68a; font-size:.75rem; }
+.dedicaces-bar.is-on { display:block; }
+.dedicaces-inner { overflow:hidden; padding:4px 12px; }
+.topnav { background:rgba(22,27,34,.95); border-bottom:1px solid var(--c-border); backdrop-filter:blur(12px); }
+html.theme-light .topnav { background:rgba(255,255,255,.95); }
+.topnav-inner { display:flex; align-items:center; gap:10px; max-width:1200px; margin:0 auto; padding:8px 14px; }
+.brand { display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--c-text); font-weight:800; font-family:Amiri,serif; }
+.brand-ico { width:32px; height:32px; border-radius:10px; display:grid; place-items:center; background:linear-gradient(135deg,#dc2626,#f59e0b); color:#fff; }
+.nav-links { display:none; flex:1; gap:4px; justify-content:flex-end; flex-wrap:wrap; }
+.nav-links a { color:var(--c-muted); text-decoration:none; font-size:.78rem; font-weight:600; padding:6px 10px; border-radius:999px; }
+.nav-links a.active, .nav-links a:hover { color:#0f172a; background:linear-gradient(135deg,#fbbf24,#f59e0b); }
+.nav-tools { display:flex; gap:6px; margin-left:auto; }
+.tool-btn { width:38px; height:38px; border-radius:10px; border:1px solid var(--c-border); background:rgba(148,163,184,.12); color:var(--c-text); cursor:pointer; display:inline-flex; align-items:center; justify-content:center; }
+#btn-menu { display:inline-flex; }
+@media(min-width:960px){ #btn-menu{display:none} .nav-links{display:flex} .nav-tools{margin-left:0} }
+#mobile-menu { display:none; background:var(--c-card); border-top:1px solid var(--c-border); padding:8px 12px 14px; }
+#mobile-menu.open { display:block !important; }
+#mobile-menu a { display:flex; align-items:center; gap:10px; padding:12px 14px; color:var(--c-text); text-decoration:none; font-weight:600; border-radius:10px; min-height:44px; }
+#mobile-menu a:hover, #mobile-menu a.active { background:rgba(245,185,66,.15); }
+.hero-bg { position:relative; background:#07cfef; overflow:hidden; margin:0.85rem clamp(0.75rem,2.5vw,1.75rem) 1.25rem; border-radius:15px !important; box-shadow:0 14px 40px rgba(0,0,0,.32),0 4px 12px rgba(0,0,0,.12); border:1px solid rgba(245,185,66,.25); }
+.hero-banner { display:block; width:100%; max-height:min(38vh,360px); object-fit:cover; }
+.hero-shade { position:absolute; inset:0; background:linear-gradient(180deg,transparent 25%,rgba(7,9,13,.9)); pointer-events:none; }
+.hero-inner { position:relative; z-index:2; max-width:1100px; margin:-3.5rem auto 0; padding:0 16px 20px; display:flex; gap:16px; flex-wrap:wrap; align-items:flex-end; }
+.hero-medallion { width:88px; height:88px; border-radius:50%; padding:3px; background:linear-gradient(135deg,#f5b942,#dc2626,#2563eb); flex-shrink:0; box-shadow:0 8px 28px rgba(0,0,0,.4); }
+.hero-medallion img { width:100%; height:100%; border-radius:50%; object-fit:cover; display:block; }
+.hero-text { flex:1; min-width:180px; }
+.hero-text .back { color:var(--c-muted); text-decoration:none; font-size:.85rem; font-weight:600; display:inline-flex; gap:6px; align-items:center; margin-bottom:4px; }
+.arabic-title { font-family:Amiri,serif; font-size:clamp(1.3rem,3vw,1.8rem); direction:rtl; color:var(--c-accent); margin:0 0 4px; font-weight:700; }
+#h-title { font-family:Cinzel,Georgia,serif; font-size:clamp(1.2rem,2.5vw,1.65rem); margin:0 0 8px; }
+.hero-meta { display:flex; flex-wrap:wrap; gap:8px 14px; font-size:.85rem; color:var(--c-muted); }
+.hero-meta i { color:var(--c-accent); }
+.anchor-nav { position:sticky; top:0; z-index:40; background:var(--c-card); border-bottom:1px solid var(--c-border); padding:8px 12px; }
+.anchor-nav-inner { max-width:1100px; margin:0 auto; display:flex; flex-wrap:wrap; gap:6px; }
+.anchor-nav a { padding:5px 12px; border-radius:999px; font-size:.72rem; font-weight:700; text-decoration:none; color:var(--c-muted); background:rgba(148,163,184,.12); border:1px solid var(--c-border); }
+.anchor-nav a:hover { background:linear-gradient(135deg,#fbbf24,#f59e0b); color:#0f172a; }
+.wrap { max-width:1100px; margin:0 auto; padding:20px 16px 80px; }
+.loading { text-align:center; padding:48px 16px; color:var(--c-muted); }
+.part-block { margin-bottom:28px; scroll-margin-top:120px; }
+.part-label { font-family:Cinzel,Georgia,serif; font-size:.95rem; color:var(--c-accent); border-bottom:2px solid rgba(245,185,66,.35); padding-bottom:6px; margin:0 0 12px; }
+.part-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media(max-width:800px){ .part-grid{grid-template-columns:1fr} }
+.col-fr { background:#f7f1e3; color:#1c1410; border-radius:16px; padding:18px; font-family:Georgia,serif; font-size:1.12rem; line-height:1.75; border:1px solid rgba(0,0,0,.06); }
+.col-ar { background:linear-gradient(160deg,#1c1610,#2a2018); color:#f5e6c8; border-radius:16px; padding:18px; font-family:Amiri,serif; font-size:1.45rem; line-height:1.95; direction:rtl; text-align:right; border:1px solid rgba(245,185,66,.2); }
+html.theme-light .col-ar { background:#faf6ef; color:#1c1410; }
+.fr-block { margin-bottom:10px; }
+.fr-block.refrain, .refrain { background:rgba(245,185,66,.12); border-left:3px solid #f5b942; padding:8px 12px; border-radius:0 8px 8px 0; font-style:italic; }
+.ms-img { width:100%; border-radius:10px; cursor:zoom-in; border:1px solid rgba(245,185,66,.25); margin-bottom:8px; }
+.q-noms-block { margin-top:14px; padding:14px; border-radius:12px; background:rgba(245,185,66,.08); border:1px solid rgba(245,185,66,.25); }
+.q-noms-block h3 { margin:0 0 10px; color:var(--c-accent); font-family:Cinzel,Georgia,serif; font-size:1rem; }
+.q-noms-block ul { list-style:none; margin:0; padding:0; }
+.q-noms-block li { padding:6px 0; border-bottom:1px solid rgba(148,163,184,.12); font-size:.95rem; }
+.facts-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin:20px 0; }
+.fact-card { padding:12px; border-radius:12px; background:var(--c-card); border:1px solid var(--c-border); }
+.fact-card i { color:var(--c-accent); }
+.nav-prevnext { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:24px; }
+.nav-prevnext a { display:block; padding:14px; border-radius:12px; background:var(--c-card); border:1px solid var(--c-border); text-decoration:none; color:var(--c-text); }
+.nav-prevnext .np-lbl { font-size:.7rem; text-transform:uppercase; color:var(--c-muted); font-weight:700; }
+/* Mini-player — compact pill */
+.q-mini-player {
+  position:sticky; bottom:12px; z-index:50;
+  max-width:min(480px, calc(100% - 24px));
+  margin:24px auto 0;
+  display:flex; align-items:center; gap:10px;
+  padding:8px 12px; min-height:52px;
+  border-radius:999px;
+  background:linear-gradient(135deg, rgba(22,27,34,.95), rgba(30,20,10,.95));
+  border:1px solid rgba(245,185,66,.35);
+  box-shadow:0 10px 40px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.04);
+  backdrop-filter:blur(16px);
+}
+html.theme-light .q-mini-player {
+  background:linear-gradient(135deg,#fff,#faf6ef);
+  border-color:rgba(180,120,30,.3);
+  box-shadow:0 10px 30px rgba(0,0,0,.12);
+}
+.q-mini-player img { width:40px; height:40px; border-radius:50%; object-fit:cover; flex-shrink:0; border:2px solid rgba(245,185,66,.4); }
+.q-mini-player .mp-info { flex:1; min-width:0; overflow:hidden; }
+.q-mini-player .mp-title { font-size:.8rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.q-mini-player .mp-sub { font-size:.7rem; color:var(--c-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.q-mini-player .mp-controls { display:flex; align-items:center; gap:6px; flex-shrink:0; }
+.q-mini-player button {
+  width:34px; height:34px; border-radius:50%; border:0; cursor:pointer;
+  background:linear-gradient(135deg,#fbbf24,#f59e0b); color:#0f172a;
+  display:grid; place-items:center; font-size:.8rem;
+}
+.q-mini-player input[type=range] { width:70px; accent-color:#f5b942; }
+.q-mini-player audio { display:none; }
+#btn-reading-mode {
+  position:fixed; bottom:14px; left:14px; z-index:90;
+  border:0; border-radius:999px; padding:8px 14px; font-weight:700; font-size:.78rem;
+  background:linear-gradient(135deg,#f59e0b,#d97706); color:#0f172a; cursor:pointer;
+  box-shadow:0 6px 20px rgba(245,158,11,.4);
+}
+#back-to-top {
+  position:fixed; bottom:14px; right:14px; z-index:80;
+  width:42px; height:42px; border-radius:50%; border:0; cursor:pointer;
+  background:linear-gradient(135deg,#2563eb,#1d4ed8); color:#fff;
+  opacity:0; visibility:hidden; display:grid; place-items:center;
+  box-shadow:0 6px 20px rgba(37,99,235,.4);
+}
+#back-to-top.is-on { opacity:1; visibility:visible; }
+#ms-lightbox { position:fixed; inset:0; z-index:10050; background:rgba(0,0,0,.92); display:none; flex-direction:column; align-items:center; justify-content:center; }
+#ms-lightbox:not([hidden]) { display:flex; }
+#ms-lightbox-img { max-width:90vw; max-height:75vh; object-fit:contain; }
+.ms-close { position:absolute; top:16px; right:16px; width:44px; height:44px; border-radius:50%; border:0; background:rgba(255,255,255,.15); color:#fff; cursor:pointer; }
+/* ── Live bar + Dédicaces (fixed stack) ── */
+#site-top-chrome {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 60;
+    width: 100%;
+}
+#live-bar {
+    background: linear-gradient(90deg, #1a1208 0%, #1d4ed8 40%, #2563eb 100%);
+    height: 30px;
+    overflow: hidden;
+    width: 100%;
+    border-bottom: 1px solid rgba(245,185,66,.25);
+}
+#live-bar .live-bar-inner {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    max-width: 100%;
+}
+#live-bar .live-logo {
+    height: 18px; width: auto; max-width: 48px;
+    object-fit: contain; flex-shrink: 0;
+    margin-right: 4px; border-radius: 3px;
+}
+.live-listeners {
+  flex-shrink: 0;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #fde68a;
+  white-space: nowrap;
+  padding: 0 8px;
+  border-right: 1px solid rgba(255,255,255,.15);
+}
+#live-bar .live-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #fff; flex-shrink: 0;
+    box-shadow: 0 0 0 0 rgba(255,255,255,.5);
+    animation: ping 1.5s infinite;
+}
+#live-bar-track-wrap {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    position: relative;
+    height: 30px;
+}
+#live-bar-track {
+    display: inline-flex;
+    align-items: center;
+    height: 30px;
+    white-space: nowrap;
+    width: max-content;
+    will-change: transform;
+    animation: scroll-left 40s linear infinite;
+}
+#live-bar-track:hover { animation-play-state: paused; }
+#live-bar-track span {
+    color: rgba(255,255,255,.95);
+    font-size: .72rem;
+    padding: 0 6px;
+    white-space: nowrap;
+    font-weight: 600;
+}
+/* Dédicaces bar */
+#dedicaces-bar {
+    display: none;
+    width: 100%;
+    height: 26px;
+    overflow: hidden;
+    background: linear-gradient(90deg, #2a1810, #3d2414 50%, #2a1810);
+    border-bottom: 1px solid rgba(245,185,66,.3);
+    color: #fde68a;
+}
+#dedicaces-bar.is-on { display: block; }
+#dedicaces-bar-inner {
+    display: flex; align-items: center; height: 26px;
+}
+#dedicaces-bar .ded-label {
+    flex-shrink: 0; padding: 0 10px;
+    font-size: .65rem; font-weight: 800;
+    letter-spacing: .04em; color: #fbbf24;
+    border-right: 1px solid rgba(245,185,66,.25);
+    white-space: nowrap;
+}
+#dedicaces-track-wrap {
+    flex: 1; min-width: 0; overflow: hidden; height: 26px; position: relative;
+}
+#dedicaces-ticker-items {
+    display: inline-flex; align-items: center;
+    height: 26px; white-space: nowrap; width: max-content;
+    animation: scroll-left 50s linear infinite;
+    font-size: .72rem;
+}
+#dedicaces-ticker-items:hover { animation-play-state: paused; }
+#dedicaces-ticker-items span { padding: 0 1rem; white-space: nowrap; }
+body { padding-top: 30px; } /* live only; JS bumps if dedicaces on */
+body.has-dedicaces-bar { padding-top: 56px; }
+
+/* Live/dedicaces — thème clair */
+html.theme-light #live-bar {
+    background: linear-gradient(90deg, #fff8eb, #fde68a, #fff8eb) !important;
+    border-bottom-color: rgba(180,120,30,.35) !important;
+}
+html.theme-light #live-bar-track span,
+html.theme-light #live-bar .live-label { color: #1c1410 !important; font-weight: 700; }
+html.theme-light .live-listeners {
+  flex-shrink: 0;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #fde68a;
+  white-space: nowrap;
+  padding: 0 8px;
+  border-right: 1px solid rgba(255,255,255,.15);
+}
+#live-bar .live-dot { background: #dc2626; }
+html.theme-light #dedicaces-bar {
+    background: linear-gradient(90deg, #fffbeb, #fef3c7, #fffbeb) !important;
+    color: #1c1410 !important;
+    border-bottom-color: rgba(180,120,30,.25) !important;
+}
+html.theme-light #dedicaces-bar .ded-label { color: #92400e !important; }
+
+/* Live — iOS glass */
+html.theme-ios #live-bar {
+    background: linear-gradient(90deg, rgba(37,99,235,.75), rgba(29,78,216,.85)) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+html.theme-ios #dedicaces-bar {
+    background: rgba(255,251,235,.85) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #1c1410 !important;
+}
+html.theme-ios #dedicaces-bar .ded-label { color: #b45309 !important; }
+
+/* Glass cards / nav renforcé */
+html.dark .qcard {
+    background: rgba(22,27,34,.82) !important;
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    border-color: rgba(255,255,255,.08) !important;
+    box-shadow: 0 8px 28px -10px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.06) !important;
+}
+html.theme-ios .qcard {
+    background: rgba(255,255,255,.62) !important;
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(255,255,255,.7) !important;
+    box-shadow: 0 8px 32px rgba(31,38,135,.1), inset 0 1px 0 rgba(255,255,255,.8) !important;
+}
+html.theme-ios nav.bg-white\/90,
+html.theme-ios nav.sticky {
+    background: rgba(255,255,255,.55) !important;
+    backdrop-filter: saturate(180%) blur(20px) !important;
+    -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+    border-bottom: 1px solid rgba(255,255,255,.5) !important;
+}
+html.dark nav.sticky {
+    background: rgba(7,9,13,.78) !important;
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border-bottom-color: rgba(245,185,66,.2) !important;
+}
+
+
+
+
+/* h-title visible sur tous les thèmes */
+#h-title {
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor !important;
+  background: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+html.theme-ios #h-title,
+html.theme-ios .arabic-title,
+html.theme-ios .hero-meta {
+  color: #1c1c1e !important;
+  -webkit-text-fill-color: #1c1c1e !important;
+}
+html.theme-ios .arabic-title { color: #b45309 !important; -webkit-text-fill-color: #b45309 !important; }
+html.dark #h-title { color: #f0f6fc !important; -webkit-text-fill-color: #f0f6fc !important; }
+html.theme-light #h-title { color: #1c1410 !important; -webkit-text-fill-color: #1c1410 !important; }
+
+/* iOS glassmorphism réel */
+html.theme-ios body {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120,180,255,.4), transparent 55%),
+    linear-gradient(180deg, #dfe8f5 0%, #eef2f8 45%, #e4eaf3 100%) !important;
+}
+html.theme-ios .topnav {
+  background: rgba(255,255,255,.55) !important;
+  backdrop-filter: saturate(180%) blur(20px) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+  border-bottom: 1px solid rgba(255,255,255,.65) !important;
+  box-shadow: 0 4px 24px rgba(31,38,135,.08) !important;
+}
+html.theme-ios .col-fr,
+html.theme-ios .col-ar,
+html.theme-ios .fact-card,
+html.theme-ios .q-noms-block,
+html.theme-ios .nav-prevnext a,
+html.theme-ios .q-mini-player {
+  background: rgba(255,255,255,.55) !important;
+  backdrop-filter: blur(18px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(160%) !important;
+  border: 1px solid rgba(255,255,255,.7) !important;
+  box-shadow: 0 8px 32px rgba(31,38,135,.1), inset 0 1px 0 rgba(255,255,255,.8) !important;
+}
+html.theme-ios .col-ar {
+  color: #1c1410 !important;
+  background: rgba(255,248,235,.65) !important;
+}
+html.theme-ios .col-fr { color: #1c1410 !important; }
+html.theme-ios .anchor-nav {
+  background: rgba(255,255,255,.5) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+}
+html.theme-ios .hero-shade {
+  background: linear-gradient(180deg, transparent 30%, rgba(232,238,248,.92) 100%) !important;
+}
+html.theme-ios .tool-btn {
+  background: rgba(255,255,255,.5) !important;
+  border-color: rgba(0,0,0,.08) !important;
+  backdrop-filter: blur(8px);
+}
+
+
+/* v2: chrome sticky, pas de padding-top body forcé */
+body { padding-top: 0 !important; }
+#site-top-chrome { position: relative; }
+#live-bar {
+  position: relative !important;
+  top: auto !important;
+}
+nav.topnav { position: relative; }
+
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+#live-bar-track, #dedicaces-ticker-items {
+  display: inline-flex !important;
+  width: max-content !important;
+  white-space: nowrap !important;
+  animation: scroll-left 40s linear infinite !important;
+}
+#live-bar-track-wrap, #dedicaces-track-wrap {
+  overflow: hidden !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+</style>
+
+
+<style id="v2-hero-round">
+/* Même traitement que les autres heroes : arrondi + ombre */
+.hero-bg {
+  margin: 0.85rem clamp(0.75rem, 2.5vw, 1.75rem) 1.25rem !important;
+  border-radius: 15px !important;
+  overflow: hidden !important;
+  box-shadow: 0 14px 40px rgba(0,0,0,.32), 0 4px 12px rgba(0,0,0,.12) !important;
+  border: 1px solid rgba(245,185,66,.25) !important;
+}
+/* Contenu hero un peu moins remonté pour rester dans le cadre arrondi */
+.hero-inner {
+  margin-top: -2.5rem !important;
+}
+@media (max-width: 640px) {
+  .hero-inner { margin-top: -1.75rem !important; }
+}
+</style>
+</head>
+<body>
+<div id="reading-progress" style="position:fixed;top:0;left:0;height:3px;width:0;z-index:10001;background:linear-gradient(90deg,#f5b942,#2563eb);pointer-events:none"></div>
+
+<div id="site-chrome">
+<!-- ══ LIVE BAR + DÉDICACES (fixed) ════════════════════════════ -->
+<div id="site-top-chrome">
+<div id="live-bar" class="live-bar" role="marquee" aria-label="Médias en lecture">
+  <div class="live-bar-inner">
+    <div style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:0 10px;border-right:1px solid rgba(255,255,255,.2)">
+      <img class="live-logo" src="/music/img_hero/qacidate.2026.webp" alt="ON AIR"
+           onerror="this.style.display='none'">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span id="live-listeners" class="live-listeners" hidden style="flex-shrink:0;font-size:.65rem;font-weight:700;opacity:.95;white-space:nowrap;padding:0 6px"></span>
+      <span class="live-label" data-i18n="onair" style="color:#fff;font-weight:800;font-size:.6rem;letter-spacing:.8px;text-transform:uppercase;white-space:nowrap">ON AIR</span>
+    </div>
+    <div id="live-bar-track-wrap">
+      <div id="live-bar-track">
+        <span>⏳ Chargement des médias en cours…</span>
+        <span aria-hidden="true">⏳ Chargement des médias en cours…</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="dedicaces-bar" class="dedicaces-bar" aria-label="Dédicaces">
+  <div id="dedicaces-bar-inner">
+    <span class="ded-label" data-i18n="dedicaces">✦ Dédicaces</span>
+    <div id="dedicaces-track-wrap">
+      <div id="dedicaces-ticker-items">
+        <span>✦ Chargement des dédicaces…</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+    <div class="topnav-inner">
+      <a class="brand" href="index.html#home">
+        <span class="brand-ico"><i class="fas fa-broadcast-tower"></i></span>
+        <span>الشعبي الجزائري</span>
+      </a>
+      <button type="button" class="tool-btn" id="btn-menu" aria-label="Menu" aria-expanded="false"><i class="fas fa-bars"></i></button>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html#home" data-i18n-nav="home"><i class="fas fa-home"></i> Accueil</a>
+        <a href="index.html#artistes" data-i18n-nav="artists"><i class="fas fa-user-circle"></i> Artistes</a>
+        <a href="index.html#chansons" data-i18n-nav="songs"><i class="fas fa-music"></i> Chansons</a>
+        <a href="index.html#emissions" data-i18n-nav="shows"><i class="fas fa-podcast"></i> Émissions</a>
+        <a href="index.html#interviews" data-i18n-nav="interviews"><i class="fas fa-microphone"></i> Interviews</a>
+        <a href="qacidates.html" class="active" data-i18n-nav="qacidates"><i class="fas fa-scroll"></i> Qacidates</a>
+        <a href="index.html#bouqalla" data-i18n-nav="proverbs"><i class="fas fa-language"></i> Bouqalla</a>
+      </div>
+      <div class="nav-tools">
+        <button type="button" class="tool-btn" id="btn-theme" title="Thème"><i class="fas fa-sun"></i></button>
+        <button type="button" class="tool-btn" id="btn-lang" title="Langue">ع</button>
+      </div>
+    </div>
+    <div id="mobile-menu" role="navigation" aria-label="Menu mobile">
+      <a href="index.html#home"><i class="fas fa-home"></i> Accueil</a>
+      <a href="index.html#artistes"><i class="fas fa-user-circle"></i> Artistes</a>
+      <a href="index.html#chansons"><i class="fas fa-music"></i> Chansons</a>
+      <a href="index.html#emissions"><i class="fas fa-podcast"></i> Émissions</a>
+      <a href="index.html#interviews"><i class="fas fa-microphone"></i> Interviews</a>
+      <a href="qacidates.html" class="active"><i class="fas fa-scroll"></i> Qacidates</a>
+      <a href="index.html#bouqalla"><i class="fas fa-language"></i> Bouqalla</a>
+    </div>
+  </nav>
+</div>
+
+<header class="hero-bg" id="hero">
+  <picture>
+    <source type="image/jpeg" srcset="/music/img_hero/qacidate.2026.webp">
+    <img class="hero-banner" src="/music/img_hero/qacidate.2026.webp" alt="" width="1920" height="800"
+         onerror="this.onerror=null;this.src='/music/img_hero/qacidate.2026.webppg'">
+  </picture>
+  <div class="hero-shade"></div>
+  <div class="hero-inner">
+    <div class="hero-medallion">
+      <img id="hero-photo" src="/music/images/radiochabidialna.jpg" alt="" width="88" height="88">
+    </div>
+    <div class="hero-text">
+      <a class="back" href="qacidates.html" data-i18n-nav="back"><i class="fas fa-arrow-left"></i> Retour aux qacidates</a>
+      <p class="arabic-title" id="h-ar"></p>
+      <h1 id="h-title">…</h1>
+      <div class="hero-meta" id="h-meta"></div>
+    </div>
+  </div>
+</header>
+
+<nav class="anchor-nav" id="anchor-nav" hidden>
+  <div class="anchor-nav-inner" id="anchor-links"></div>
+</nav>
+
+<main class="wrap">
+  <p class="loading" id="status">Chargement…</p>
+  <div id="content" hidden></div>
+</main>
+
+<div id="ms-lightbox" hidden>
+  <button type="button" class="ms-close" id="ms-close" aria-label="Fermer"><i class="fas fa-times"></i></button>
+  <img id="ms-lightbox-img" src="" alt="Manuscrit">
+</div>
+
+<button type="button" id="btn-reading-mode" aria-pressed="false">Mode lecture</button>
+<button type="button" id="back-to-top" aria-label="Haut"><i class="fas fa-arrow-up"></i></button>
+
+<script src="assets/js/qacidates-detail.js"></script>
+<script>
+/* Menu mobile + live-bar + thème + lecture — inline pour fiabilité */
+(function(){
+  var d = document, w = window;
+
+  /* Menu mobile */
+  var btn = d.getElementById('btn-menu');
+  var menu = d.getElementById('mobile-menu');
+  if (btn && menu) {
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var open = menu.classList.toggle('open');
+      menu.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      var ic = btn.querySelector('i');
+      if (ic) ic.className = open ? 'fas fa-times' : 'fas fa-bars';
+    });
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        menu.classList.remove('open','is-open');
+        btn.setAttribute('aria-expanded','false');
+        var ic = btn.querySelector('i');
+        if (ic) ic.className = 'fas fa-bars';
+      });
+    });
+    d.addEventListener('click', function(e){
+      if (!menu.classList.contains('open')) return;
+      if (menu.contains(e.target) || btn.contains(e.target)) return;
+      menu.classList.remove('open','is-open');
+      btn.setAttribute('aria-expanded','false');
+      var ic = btn.querySelector('i');
+      if (ic) ic.className = 'fas fa-bars';
+    });
+  }
+
+  /* Live-bar: voir script dédié plus bas */
+    /* Thème */
+  var themeBtn = d.getElementById('btn-theme');
+  function syncIcon(){
+    if (!themeBtn) return;
+    var h = d.documentElement, ic = themeBtn.querySelector('i');
+    if (!ic) { ic = d.createElement('i'); themeBtn.appendChild(ic); }
+    if (h.classList.contains('theme-ios')) ic.className = 'fas fa-wand-magic-sparkles';
+    else if (h.classList.contains('theme-light')) ic.className = 'fas fa-moon';
+    else ic.className = 'fas fa-sun';
+  }
+  syncIcon();
+  if (themeBtn) themeBtn.addEventListener('click', function(){
+    var h = d.documentElement;
+    var cur = h.classList.contains('theme-ios') ? 'ios' : (h.classList.contains('theme-light') ? 'light' : 'dark');
+    var next = cur === 'dark' ? 'light' : (cur === 'light' ? 'ios' : 'dark');
+    h.classList.remove('dark','theme-ios','theme-light');
+    h.classList.add(next === 'dark' ? 'dark' : (next === 'ios' ? 'theme-ios' : 'theme-light'));
+    try { localStorage.setItem('chaabi_theme', next); } catch(e){}
+    syncIcon();
+  });
+
+  /* Mode lecture */
+  var rb = d.getElementById('btn-reading-mode');
+  function setReading(on){
+    d.documentElement.classList.toggle('reading-mode', on);
+    if (rb) { rb.textContent = on ? 'Quitter la lecture' : 'Mode lecture'; rb.setAttribute('aria-pressed', on?'true':'false'); }
+    try { localStorage.setItem('chaabi_reading_mode', on?'1':'0'); } catch(e){}
+  }
+  if (rb) {
+    try { setReading(localStorage.getItem('chaabi_reading_mode')==='1'); } catch(e){}
+    rb.addEventListener('click', function(){ setReading(!d.documentElement.classList.contains('reading-mode')); });
+  }
+  d.addEventListener('keydown', function(e){
+    if (e.key==='Escape' && d.documentElement.classList.contains('reading-mode')) setReading(false);
+  });
+
+  /* Back top */
+  var topBtn = d.getElementById('back-to-top');
+  if (topBtn) {
+    w.addEventListener('scroll', function(){
+      if (w.pageYOffset > 400) topBtn.classList.add('is-on'); else topBtn.classList.remove('is-on');
+    }, {passive:true});
+    topBtn.onclick = function(){ w.scrollTo({top:0,behavior:'smooth'}); };
+  }
+})();
+</script>
+<script>
+// ── Live bar + Dédicaces (DYNAMIQUE — format radiochaabi réel) ──
+(function () {
+  'use strict';
+  var API = (window.CHAABI_API || 'api/radiochaabi.php').split('?')[0];
+
+  function qs(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function apiUrl(action) {
+    return API + '?action=' + encodeURIComponent(action) + '&minutes=30&_=' + Date.now();
+  }
+
+  function mediaLabel(i) {
+    if (!i || typeof i !== 'object') return '';
+    var title = (i.title || i.titre || i.nom || i.name || i.label || i.last_title || '').toString().trim();
+    var artist = (i.artist || i.artiste || i.artiste_nom || i.interprete || i.last_artist || '').toString().trim();
+    var num = (i.numero != null ? i.numero : '').toString().trim();
+    var invite = (i.invite || i.guest || '').toString().trim();
+    var mt = (i.media_type || i.type || i.kind || i.categorie || 'chanson').toString().toLowerCase();
+
+    if (mt.indexOf('emission') >= 0 || mt === 'show' || mt === 'programme') {
+      var lab = '📻 Émission' + (num ? ' #' + num : '');
+      if (invite) lab += ' — ' + invite;
+      else if (title) lab += ' — ' + title;
+      return lab;
+    }
+    if (mt.indexOf('interview') >= 0) {
+      return '🎤 ' + (artist && title ? artist + ' — ' + title : (artist || title || 'Interview'));
+    }
+    if (artist && title) return '🎵 ' + title + ' — ' + artist;
+    if (title) return '🎵 ' + title;
+    if (artist) return '🎵 ' + artist;
+    return '';
+  }
+
+  /** data[] + fallback radio.last_title / last_artist */
+  function extractLiveLabels(d) {
+    var parts = [];
+    if (!d) return parts;
+
+    // 1) data[] uniquement (comme qacidates.html)
+    var arr = [];
+    if (Array.isArray(d.data)) arr = d.data;
+    else if (Array.isArray(d.items)) arr = d.items;
+    else if (Array.isArray(d.live)) arr = d.live;
+    else if (Array.isArray(d)) arr = d;
+
+    for (var i = 0; i < arr.length; i++) {
+      var lab = mediaLabel(arr[i]);
+      if (lab) parts.push(lab);
+    }
+
+    // 2) radio SEULEMENT si data est vide (pas de mélange)
+    if (!parts.length) {
+      var radio = d.radio || null;
+      if (radio && typeof radio === 'object') {
+        var rt = (radio.last_title || radio.title || radio.titre || '').toString().trim();
+        var ra = (radio.last_artist || radio.artist || radio.artiste || '').toString().trim();
+        if (rt && ra) parts.push('🎵 ' + rt + ' — ' + ra);
+        else if (rt) parts.push('🎵 ' + rt);
+        else if (ra) parts.push('🎵 ' + ra);
+      }
+    }
+
+    return parts;
+  }
+
+  function updateListenersFixed(d) {
+    var n = (d && d.listeners != null) ? Number(d.listeners) : 0;
+    var el = qs('live-listeners');
+    if (!el) return;
+    if (n > 0) {
+      el.textContent = '👥 ' + n + ' auditeur' + (n > 1 ? 's' : '');
+      el.hidden = false;
+      el.style.display = '';
+    } else {
+      el.textContent = '';
+      el.hidden = true;
+    }
+  }
+
+  function paintTrack(labels) {
+    var track = qs('live-bar-track');
+    if (!track) return;
+    var sep = ' <span style="opacity:.65;padding:0 14px">★</span> ';
+    if (!labels.length) {
+      var fb = '🎵 Chaabi Music — Radio en ligne ★ ';
+      track.innerHTML = '<span>' + fb + '</span><span aria-hidden="true">' + fb + '</span>';
+      track.removeAttribute('data-live');
+      return;
+    }
+    var safe = labels.map(esc);
+    var txt = safe.join(sep) + sep;
+    track.innerHTML = '<span>' + txt + '</span><span aria-hidden="true">' + txt + '</span>';
+    track.setAttribute('data-live', '1');
+  }
+
+  function updateLive() {
+    if (!qs('live-bar-track')) return;
+    fetch(apiUrl('get_live_bar'), { credentials: 'same-origin', cache: 'no-store' })
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.text();
+      })
+      .then(function (text) {
+        var d;
+        try { d = JSON.parse(text); } catch (e) { throw new Error('JSON'); }
+        var labels = extractLiveLabels(d);
+        paintTrack(labels);
+        updateListenersFixed(d);
+        if (window.console && console.debug) console.debug('[live-bar]', labels, d);
+      })
+      .catch(function (err) {
+        if (window.console) console.warn('[live-bar]', err);
+      });
+  }
+
+  function updateDedicaces() {
+    var bar = qs('dedicaces-bar');
+    var el = qs('dedicaces-ticker-items');
+    if (!el) return;
+    fetch(API + '?action=get_last_dedicaces&_=' + Date.now(), { credentials: 'same-origin', cache: 'no-store' })
+      .then(function (r) { return r.text(); })
+      .then(function (text) {
+        var d;
+        try { d = JSON.parse(text); } catch (e) { d = {}; }
+        var list = [];
+        if (Array.isArray(d.data)) list = d.data;
+        else if (Array.isArray(d.dedicaces)) list = d.dedicaces;
+        else if (Array.isArray(d.items)) list = d.items;
+
+        if (!list.length) {
+          el.innerHTML = '<span>✦ Aucune dédicace pour le moment</span>';
+        } else {
+          var html = list.map(function (x) {
+            var from = x.nom || x.from || x.name || '';
+            var to = x.pour || x.to || '';
+            var msg = x.description || x.message || x.msg || '';
+            return '<span>✦ <strong>' + esc(from) + '</strong>' +
+              (to ? ' → ' + esc(to) : '') +
+              (msg ? ' — ' + esc(msg) : '') + '</span>';
+          }).join('');
+          el.innerHTML = html + html;
+        }
+        if (bar) bar.classList.add('is-on');
+      })
+      .catch(function () {
+        el.innerHTML = '<span>✦ Dédicaces indisponibles</span>';
+        if (bar) bar.classList.add('is-on');
+      });
+  }
+
+  function boot() {
+    updateLive();
+    updateDedicaces();
+    setInterval(updateLive, 15000);
+    setInterval(updateDedicaces, 40000);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+  window.chaabiRefreshBars = function () { updateLive(); updateDedicaces(); };
+})();
+
+
+
+
+
+</script>
+<div id="footer-root"></div>
+<script src="assets/js/footer.js"></script>
+
+<script>
+/* Pont langue → footer (qacidates-v2) */
+(function(){
+  function applyFooterLang(lang) {
+    lang = lang || (localStorage.getItem('chaabi_lang') || localStorage.getItem('rc_lang') || 'fr');
+    if (typeof window.refreshFooter === 'function') {
+      try { window.refreshFooter(lang); return; } catch(e) {}
+      try { window.refreshFooter(); } catch(e) {}
+    }
+    if (typeof window.initFooter === 'function') {
+      try { window.initFooter(lang); } catch(e) {}
+    }
+    var root = document.getElementById('footer-root');
+    if (!root) return;
+    root.setAttribute('data-lang', lang);
+    root.querySelectorAll('[data-i18n-ar],[data-i18n-fr],[data-i18n]').forEach(function(el){
+      var ar = el.getAttribute('data-i18n-ar');
+      var fr = el.getAttribute('data-i18n-fr') || el.getAttribute('data-i18n');
+      if (lang === 'ar' && ar) el.textContent = ar;
+      else if (fr) el.textContent = fr;
+    });
+  }
+  window.addEventListener('chaabi:langchange', function(ev){
+    applyFooterLang(ev.detail && ev.detail.lang);
+  });
+  // Si footer.js se charge après, retenter
+  document.addEventListener('DOMContentLoaded', function(){
+    setTimeout(function(){ applyFooterLang(); }, 400);
+  });
+})();
+</script>
+
+</body>
+</html>
