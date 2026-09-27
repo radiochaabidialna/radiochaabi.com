@@ -484,7 +484,7 @@ $SPEC = [
         'search' => "AND (a.nom LIKE :q OR a.nom_ar LIKE :q)",
         'list' => "SELECT a.*, c.nom AS categorie_nom FROM artistes a LEFT JOIN categories c ON c.id = a.categorie_id WHERE a.is_deleted = 0 :q ORDER BY a.id DESC",
         'count' => "SELECT COUNT(*) FROM artistes a WHERE a.is_deleted = 0 :q",
-        'fields' => ['nom','nom_ar','bio','bio_ar','image','categorie_id','status','published_at'],
+        'fields' => ['nom','nom_ar','bio','bio_ar','image','thumbnail','categorie_id','slug','meta_title','meta_title_ar','meta_description','meta_description_ar'],
         'slugTable' => 'artistes', 'slugField' => 'nom'
     ],
     'chansons' => [
@@ -578,9 +578,22 @@ function respond($spec, $table, $page, $limit) {
     $extra = [];
     $searchSql = $spec['search'];
     if ($q !== '') {
-        $params['q'] = "%$q%";
-        $listSql = str_replace(':q', $searchSql, $spec['list']);
-        $countSql = str_replace(':q', $searchSql, $spec['count']);
+        /* PDO MySQL : ne pas réutiliser :q — placeholders uniques :q0, :q1, … */
+        $like = '%' . $q . '%';
+        $n = 0;
+        $searchExpanded = preg_replace_callback('/:q\b/', function () use (&$n, &$params, $like) {
+            $key = 'q' . $n;
+            $params[$key] = $like;
+            $n++;
+            return ':' . $key;
+        }, $searchSql);
+        /* Remplacer UNIQUEMENT le jeton " :q" du template (pas les :q0 déjà créés) */
+        $listSql = str_replace(' :q', ' ' . $searchExpanded, $spec['list']);
+        $countSql = str_replace(' :q', ' ' . $searchExpanded, $spec['count']);
+        if ($n === 0) {
+            /* search sans :q — injecter un param générique */
+            $params['q0'] = $like;
+        }
     } else {
         $listSql = str_replace(' :q', '', $spec['list']);
         $countSql = str_replace(' :q', '', $spec['count']);
@@ -593,11 +606,13 @@ function respond($spec, $table, $page, $limit) {
     if ($table === 'emission_invites' && isset($_GET['emission_id'])) {
         $extra['emission_id'] = intval($_GET['emission_id']);
     }
+    try {
     $countSt = $pdo->prepare($countSql);
     $countSt->execute($params + $extra);
     $total = (int)$countSt->fetchColumn();
-    $offset = ($page - 1) * $limit;
-    $st = $pdo->prepare($listSql . " LIMIT $offset, $limit");
+    $offset = (int)(($page - 1) * $limit);
+    $lim = (int)$limit;
+    $st = $pdo->prepare($listSql . " LIMIT $offset, $lim");
     $st->execute($params + $extra);
     $rows = [];
     while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
@@ -608,8 +623,18 @@ function respond($spec, $table, $page, $limit) {
         }
         $rows[] = $row;
     }
-    echo json_encode(["ok" => true, "data" => $rows, "total" => $total, "page" => $page, "pages" => max(1, (int)ceil($total / $limit))]);
+    echo json_encode(["ok" => true, "data" => $rows, "total" => $total, "page" => $page, "pages" => max(1, (int)ceil($total / max(1, (int)$limit)))]);
     exit;
+    } catch (Throwable $e) {
+        http_response_code(500);
+        echo json_encode([
+            "ok" => false,
+            "error" => "Erreur liste SQL",
+            "message" => $e->getMessage(),
+            "table" => $table ?? null,
+        ], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
 }
 
 function getOne($pdo, $table, $id) {
