@@ -1,0 +1,3 @@
+<?php
+// Copier vers visitors.local.php et choisir une clé secrète
+return ['stats_key' => '^Bologhine&Sainteugene_'];
