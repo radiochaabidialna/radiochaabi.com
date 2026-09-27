@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin — Qacidates | Chaabi</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+  --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#e6edf3; --muted:#8b949e;
+  --primary:#2563eb; --amber:#f59e0b; --danger:#ef4444; --ok:#22c55e;
+}
+* { box-sizing:border-box; }
+body { margin:0; font-family:system-ui,sans-serif; background:var(--bg); color:var(--text); }
+a { color:#93c5fd; }
+.wrap { max-width:1100px; margin:0 auto; padding:1rem 1rem 3rem; }
+.top { display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; justify-content:space-between; margin-bottom:1rem; }
+h1 { font-size:1.25rem; margin:0; }
+.btn {
+  display:inline-flex; align-items:center; gap:.35rem; padding:.45rem .8rem;
+  border-radius:.5rem; border:1px solid var(--border); background:var(--card);
+  color:var(--text); font-size:.85rem; font-weight:600; cursor:pointer;
+}
+.btn:hover { border-color:#58a6ff; }
+.btn-primary { background:var(--primary); border-color:transparent; color:#fff; }
+.btn-amber { background:var(--amber); border-color:transparent; color:#1c1410; }
+.btn-danger { background:transparent; border-color:var(--danger); color:#fca5a5; }
+.btn-sm { padding:.3rem .55rem; font-size:.75rem; }
+input, textarea, select {
+  width:100%; padding:.55rem .7rem; border-radius:.5rem;
+  border:1px solid var(--border); background:#0d1117; color:var(--text); font:inherit;
+}
+textarea { min-height:110px; resize:vertical; line-height:1.5; }
+label { display:block; font-size:.75rem; font-weight:600; color:var(--muted); margin:0 0 .3rem; }
+.field { margin-bottom:.85rem; }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:.85rem; }
+@media(max-width:720px){ .grid2 { grid-template-columns:1fr; } }
+.card {
+  background:var(--card); border:1px solid var(--border); border-radius:.75rem;
+  padding:1rem; margin-bottom:.75rem;
+}
+.table-wrap { overflow:auto; border:1px solid var(--border); border-radius:.75rem; }
+table { width:100%; border-collapse:collapse; font-size:.85rem; }
+th, td { padding:.55rem .65rem; border-bottom:1px solid var(--border); text-align:left; vertical-align:middle; }
+th { color:var(--muted); font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; }
+tr:hover td { background:rgba(255,255,255,.03); }
+.badge { font-size:.65rem; padding:.15rem .4rem; border-radius:999px; background:#1e3a5f; color:#93c5fd; }
+.part-card {
+  border:1px solid rgba(245,158,11,.35); border-radius:.75rem;
+  padding:1rem; margin-bottom:.85rem; background:rgba(245,158,11,.05);
+}
+.part-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:.75rem; }
+.part-head strong { color:var(--amber); }
+.hidden { display:none !important; }
+.err { color:#fca5a5; }
+.ok { color:#86efac; }
+.hint { font-size:.75rem; color:var(--muted); margin:.25rem 0 .75rem; }
+.login-box { max-width:360px; margin:4rem auto; }
+.thumb { width:40px; height:40px; border-radius:8px; object-fit:cover; background:#21262d; }
+.file-row { display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+.file-row input[type=text] { flex:1; min-width:140px; }
+.file-row input[type=file] { max-width:220px; font-size:.75rem; }
+.preview { width:56px; height:56px; border-radius:8px; object-fit:cover; border:1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p id="db-hint" class="hint" style="margin:.5rem 0 1rem;padding:.5rem .75rem;background:#161b22;border:1px solid #30363d;border-radius:.5rem">Base dédiée : <strong>chaabi_music_qacidats_v1</strong> (config/qacidates.local.php) — indépendante de la BDD radio.</p>
+
+  <div id="login-view" class="login-box card">
+    <h1 style="margin-bottom:1rem">Admin Qacidates</h1>
+    <div class="field"><label>Email</label><input type="email" id="login-email" autocomplete="username"></div>
+    <div class="field"><label>Mot de passe</label><input type="password" id="login-pass" autocomplete="current-password"></div>
+    <button type="button" class="btn btn-primary" id="btn-login" style="width:100%">Connexion</button>
+    <p id="login-err" class="err hint"></p>
+    <p class="hint"><a href="dashboard.html">← Dashboard</a></p>
+  </div>
+
+  <div id="app-view" class="hidden">
+    <div class="top">
+      <div>
+        <h1 title="BDD chaabi_music_qacidats_v1"><i class="fas fa-scroll" style="color:var(--amber)"></i> Qacidates</h1>
+        <p class="hint" style="margin:0">CRUD · parties FR / AR · upload images · <a href="dashboard.html">Dashboard</a></p>
+      </div>
+      <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+        <button type="button" class="btn" id="btn-refresh"><i class="fas fa-sync"></i></button>
+        <button type="button" class="btn btn-amber" id="btn-new"><i class="fas fa-plus"></i> Nouvelle</button>
+        <button type="button" class="btn" id="btn-logout">Déconnexion</button>
+      </div>
+    </div>
+
+    <div id="list-view">
+      <div class="field" style="max-width:320px">
+        <input type="search" id="q-search" placeholder="Rechercher…">
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th></th><th>ID</th><th>Titre</th><th>Interprète</th><th>Auteur</th><th>Thème</th><th>Statut</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <p id="list-msg" class="hint"></p>
+    </div>
+
+        <div id="form-view" class="hidden">
+      <button type="button" class="btn btn-sm" id="btn-cancel">← Liste</button>
+      <h2 id="form-title" style="font-size:1.1rem;margin:1rem 0">Édition</h2>
+      <input type="hidden" id="f-id" value="0">
+
+      <div class="card">
+        <h3 style="margin:0 0 .75rem;font-size:.95rem;color:var(--amber)">1. Identité</h3>
+        <div class="grid2">
+          <div class="field"><label>Titre (FR) *</label><input id="f-titre" required></div>
+          <div class="field"><label>Titre (AR)</label><input id="f-titre_ar" dir="rtl"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>Sous-titre (FR)</label><input id="f-sous_titre"></div>
+          <div class="field"><label>Sous-titre (AR)</label><input id="f-sous_titre_ar" dir="rtl"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>Slug (URL, auto si vide)</label><input id="f-slug" placeholder="youmeldjema"></div>
+          <div class="field"><label>Statut</label>
+            <select id="f-status">
+              <option value="published">published</option>
+              <option value="draft">draft</option>
+              <option value="archived">archived</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>Genre</label><input id="f-genre" placeholder="Chaabi" value="Chaabi"></div>
+          <div class="field"><label>Thème</label><input id="f-theme" placeholder="Amour, Spirituel…"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0 0 .75rem;font-size:.95rem;color:var(--amber)">2. Auteur & interprète</h3>
+        <div class="grid2">
+          <div class="field"><label>Interprète (FR)</label><input id="f-interprete" placeholder="Amar Ezzahi"></div>
+          <div class="field"><label>Interprète (AR)</label><input id="f-interprete_ar" dir="rtl"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>Auteur / poète (FR)</label><input id="f-auteur"></div>
+          <div class="field"><label>Auteur (AR)</label><input id="f-auteur_ar" dir="rtl"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0 0 .75rem;font-size:.95rem;color:var(--amber)">3. Médias</h3>
+        <div class="grid2">
+          <div class="field">
+            <label>Image interprète / pochette</label>
+            <img id="prev-image" class="thumb" style="display:block;margin-bottom:.4rem;max-width:80px;max-height:80px;border-radius:8px" alt="" onerror="this.style.opacity=.3">
+            <input type="text" id="f-image" placeholder="/music/img_artistes/…">
+            <input type="file" id="up-image" accept="image/*">
+            <button type="button" class="btn btn-sm" data-up="image">Uploader</button>
+          </div>
+          <div class="field">
+            <label>Miniature (thumbnail)</label>
+            <img id="prev-thumbnail" class="thumb" style="display:block;margin-bottom:.4rem;max-width:80px;max-height:80px;border-radius:8px" alt="" onerror="this.style.opacity=.3">
+            <input type="text" id="f-thumbnail" placeholder="optionnel">
+            <input type="file" id="up-thumbnail" accept="image/*">
+            <button type="button" class="btn btn-sm" data-up="thumbnail">Uploader</button>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>Audio (chemin)</label><input id="f-audio" placeholder="/music/audio_chaabi/…"></div>
+          <div class="field"><label>Durée</label><input id="f-duree" placeholder="12:30"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>Dossier images manuscrits (img_folder)</label><input id="f-img_folder" placeholder="djemaa, hikma…"></div>
+          <div class="field"><label>Chemin web (web_path)</label><input id="f-web_path" placeholder="optionnel"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0 0 .75rem;font-size:.95rem;color:var(--amber)">4. Refrains (optionnel)</h3>
+        <div class="grid2">
+          <div class="field"><label>Refrain FR</label><textarea id="f-refrain_fr" rows="4"></textarea></div>
+          <div class="field"><label>Refrain AR</label><textarea id="f-refrain_ar" rows="4" dir="rtl"></textarea></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0 0 .75rem;font-size:.95rem;color:var(--amber)">5. SEO</h3>
+        <div class="grid2">
+          <div class="field"><label>Meta title FR</label><input id="f-meta_title"></div>
+          <div class="field"><label>Meta title AR</label><input id="f-meta_title_ar" dir="rtl"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>Meta description FR</label><textarea id="f-meta_description" rows="2"></textarea></div>
+          <div class="field"><label>Meta description AR</label><textarea id="f-meta_description_ar" rows="2" dir="rtl"></textarea></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="top" style="margin:0 0 .5rem">
+          <h3 style="margin:0;font-size:.95rem;color:var(--amber)">6. Parties du texte (sections)</h3>
+          <button type="button" class="btn btn-sm btn-primary" id="btn-add-part"><i class="fas fa-plus"></i> Ajouter une partie</button>
+        </div>
+        <p class="hint">Chaque partie = label + <strong>texte FR</strong> + <strong>texte AR</strong> (+ image manuscrit AR si pas de texte arabe).</p>
+        <div id="parts-box"></div>
+      </div>
+
+
+      <div class="card">
+        <div class="top" style="margin:0 0 .5rem">
+          <h3 style="margin:0;font-size:.95rem;color:var(--amber)">7. Faits / infos (facts)</h3>
+          <button type="button" class="btn btn-sm btn-primary" id="btn-add-fact"><i class="fas fa-plus"></i> Ajouter</button>
+        </div>
+        <p class="hint">Ex. : icône FA, titre « Instruments », valeur « Rebab, oud… »</p>
+        <div id="facts-box"></div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0 0 .75rem;font-size:.95rem;color:var(--amber)">8. Navigation (précédent / suivant)</h3>
+        <div class="grid2">
+          <div class="field"><label>Slug précédent</label>
+            <select id="f-prev_slug"><option value="">—</option></select>
+          </div>
+          <div class="field"><label>Titre précédent</label><input id="f-prev_titre"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>Slug suivant</label>
+            <select id="f-next_slug"><option value="">—</option></select>
+          </div>
+          <div class="field"><label>Titre suivant</label><input id="f-next_titre"></div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem">
+        <button type="button" class="btn btn-primary" id="btn-save"><i class="fas fa-save"></i> Enregistrer</button>
+        <button type="button" class="btn btn-danger hidden" id="btn-delete"><i class="fas fa-trash"></i> Supprimer</button>
+      </div>
+      <p id="form-msg" class="hint"></p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  var API = '_api.php';
+  var ROWS = [];
+
+  function $(id) { return document.getElementById(id); }
+  function setVal(id, v) { var el = $(id); if (el) el.value = v != null ? v : ''; }
+  function val(id) { var el = $(id); return el ? String(el.value || '').trim() : ''; }
+  function esc(s) {
+    return String(s || '').replace(/[&<>"']/g, function (c) {
+      return ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[c];
+    });
+  }
+  function setPreview(inputId, imgId) {
+    var inp = $(inputId), img = $(imgId);
+    if (!img) return;
+    var src = inp ? inp.value.trim() : '';
+    if (src) { img.src = src; img.style.opacity = 1; }
+    else { img.removeAttribute('src'); img.style.opacity = 0.3; }
+  }
+
+  async function api(qs, body) {
+    var opt = { credentials: 'same-origin', headers: {} };
+    if (body !== undefined) {
+      opt.method = 'POST';
+      opt.headers['Content-Type'] = 'application/json';
+      opt.body = JSON.stringify(body);
+    }
+    var res = await fetch(API + qs, opt);
+    var text = await res.text();
+    var data = {};
+    try { data = JSON.parse(text); } catch (e) {
+      throw new Error('Réponse non JSON (' + res.status + '): ' + text.slice(0, 140));
+    }
+    if (!res.ok || data.error) throw new Error(data.error || ('HTTP ' + res.status));
+    return data;
+  }
+
+  async function uploadFile(fileInput, pathInput, prevId) {
+    if (!fileInput || !fileInput.files || !fileInput.files[0]) throw new Error('Choisir un fichier');
+    var fd = new FormData();
+    fd.append('file', fileInput.files[0]);
+    fd.append('folder', 'img_artistes');
+    var res = await fetch(API + '?action=upload', { method: 'POST', body: fd, credentials: 'same-origin' });
+    var data = await res.json();
+    if (!res.ok || data.error) throw new Error(data.error || 'Upload échoué');
+    var path = data.path || data.url || '';
+    if (pathInput) pathInput.value = path;
+    if (prevId) setPreview(pathInput.id, prevId);
+    return path;
+  }
+
+  function showLogin() {
+    $('login-view').classList.remove('hidden');
+    $('app-view').classList.add('hidden');
+  }
+  function showApp() {
+    $('login-view').classList.add('hidden');
+    $('app-view').classList.remove('hidden');
+    loadList();
+  }
+  function showList() {
+    $('list-view').classList.remove('hidden');
+    $('form-view').classList.add('hidden');
+  }
+  function showForm() {
+    $('list-view').classList.add('hidden');
+    $('form-view').classList.remove('hidden');
+  }
+
+  function emptyPart(n) {
+    n = n || 1;
+    return { numero: n, label_fr: 'Partie ' + n, label_ar: '', texte_fr: '', texte_ar: '', image_ar: '' };
+  }
+
+  function renderParts(parts) {
+    if (!parts || !parts.length) parts = [emptyPart(1)];
+    var box = $('parts-box');
+    box.innerHTML = parts.map(function (p, i) {
+      var n = p.numero || (i + 1);
+      return '<div class="card part-card" data-idx="' + i + '" style="margin-bottom:.6rem">' +
+        '<div class="top" style="margin:0 0 .5rem"><strong>Partie ' + n + '</strong>' +
+        '<button type="button" class="btn btn-sm btn-danger" data-rm-part="' + i + '">Retirer</button></div>' +
+        '<div class="grid2">' +
+          '<div class="field"><label>Label FR</label><input class="p-label_fr" value="' + esc(p.label_fr || ('Partie ' + n)) + '"></div>' +
+          '<div class="field"><label>Label AR</label><input class="p-label_ar" dir="rtl" value="' + esc(p.label_ar || '') + '"></div>' +
+        '</div>' +
+        '<div class="grid2">' +
+          '<div class="field"><label>Texte FR</label><textarea class="p-texte_fr" rows="8">' + esc(p.texte_fr || '') + '</textarea></div>' +
+          '<div class="field"><label>Texte AR</label><textarea class="p-texte_ar" rows="8" dir="rtl">' + esc(p.texte_ar || '') + '</textarea></div>' +
+        '</div>' +
+        '<div class="field"><label>Image manuscrit AR (si pas de texte AR)</label>' +
+          '<input class="p-image_ar" value="' + esc(p.image_ar || '') + '" placeholder="/img_qacidates/folder/file.jpg">' +
+        '</div></div>';
+    }).join('');
+    box.querySelectorAll('[data-rm-part]').forEach(function (btn) {
+      btn.onclick = function () {
+        var parts2 = collectParts();
+        parts2.splice(parseInt(btn.getAttribute('data-rm-part'), 10), 1);
+        renderParts(parts2.length ? parts2 : [emptyPart(1)]);
+      };
+    });
+  }
+
+  function collectParts() {
+    var out = [];
+    $('parts-box').querySelectorAll('.part-card').forEach(function (card, i) {
+      out.push({
+        numero: i + 1,
+        label_fr: (card.querySelector('.p-label_fr') || {}).value || ('Partie ' + (i + 1)),
+        label_ar: (card.querySelector('.p-label_ar') || {}).value || '',
+        texte_fr: (card.querySelector('.p-texte_fr') || {}).value || '',
+        texte_ar: (card.querySelector('.p-texte_ar') || {}).value || '',
+        image_ar: (card.querySelector('.p-image_ar') || {}).value || ''
+      });
+    });
+    return out;
+  }
+
+  function renderList() {
+    var q = ($('q-search').value || '').toLowerCase();
+    var rows = ROWS.filter(function (r) {
+      if (!q) return true;
+      return [r.titre, r.titre_ar, r.interprete, r.artiste, r.auteur, r.slug, r.theme].join(' ').toLowerCase().indexOf(q) >= 0;
+    });
+    $('tbody').innerHTML = rows.map(function (r) {
+      var img = r.image || '';
+      var inter = r.interprete || r.artiste || '—';
+      return '<tr>' +
+        '<td>' + (img ? '<img class="thumb" src="' + esc(img) + '" alt="" onerror="this.remove()">' : '') + '</td>' +
+        '<td>' + r.id + '</td>' +
+        '<td><strong>' + esc(r.titre) + '</strong>' +
+          (r.titre_ar ? '<div style="font-size:.75rem;opacity:.7" dir="rtl">' + esc(r.titre_ar) + '</div>' : '') +
+        '</td>' +
+        '<td>' + esc(inter) + '</td>' +
+        '<td>' + esc(r.auteur || '—') + '</td>' +
+        '<td>' + esc(r.theme || '—') + '</td>' +
+        '<td><span class="badge">' + esc(r.status || '') + '</span></td>' +
+        '<td><button type="button" class="btn btn-sm" data-edit="' + r.id + '">Éditer</button></td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  async function loadList() {
+    $('list-msg').textContent = 'Chargement…';
+    try {
+      var r = await api('?action=qacidates&op=list&limit=500&page=1');
+      ROWS = r.data || [];
+      renderList();
+      $('list-msg').textContent = ROWS.length + ' qacidate(s)' + (r.total != null ? ' — total: ' + r.total : '');
+    } catch (e) {
+      $('list-msg').innerHTML = '<span class="err">' + esc(e.message) + '</span>';
+    }
+  }
+
+
+  function emptyFact() { return { icone: '', titre: '', valeur: '' }; }
+  function renderFacts(facts) {
+    if (!facts || !facts.length) facts = [];
+    var box = $('facts-box');
+    if (!box) return;
+    if (!facts.length) {
+      box.innerHTML = '<p class="hint">Aucun fait — clique « Ajouter ».</p>';
+      return;
+    }
+    box.innerHTML = facts.map(function (f, i) {
+      return '<div class="card fact-card" style="margin-bottom:.5rem">' +
+        '<div class="top" style="margin:0 0 .4rem"><strong>Fait ' + (i+1) + '</strong>' +
+        '<button type="button" class="btn btn-sm btn-danger" data-rm-fact="' + i + '">Retirer</button></div>' +
+        '<div class="grid2">' +
+          '<div class="field"><label>Icône FA</label><input class="f-icone" value="' + esc(f.icone||'') + '" placeholder="fa-guitar"></div>' +
+          '<div class="field"><label>Titre</label><input class="f-titre-fact" value="' + esc(f.titre||'') + '" placeholder="Instruments"></div>' +
+        '</div>' +
+        '<div class="field"><label>Valeur</label><input class="f-valeur" value="' + esc(f.valeur||'') + '"></div></div>';
+    }).join('');
+    box.querySelectorAll('[data-rm-fact]').forEach(function (btn) {
+      btn.onclick = function () {
+        var arr = collectFacts();
+        arr.splice(parseInt(btn.getAttribute('data-rm-fact'), 10), 1);
+        renderFacts(arr);
+      };
+    });
+  }
+  function collectFacts() {
+    var out = [];
+    var box = $('facts-box');
+    if (!box) return out;
+    box.querySelectorAll('.fact-card').forEach(function (card) {
+      out.push({
+        icone: (card.querySelector('.f-icone') || {}).value || '',
+        titre: (card.querySelector('.f-titre-fact') || {}).value || '',
+        valeur: (card.querySelector('.f-valeur') || {}).value || ''
+      });
+    });
+    return out;
+  }
+  function fillNavOptions(opts, prev, next) {
+    opts = opts || [];
+    ['f-prev_slug', 'f-next_slug'].forEach(function (id) {
+      var sel = $(id);
+      if (!sel) return;
+      var cur = id === 'f-prev_slug' ? (prev || '') : (next || '');
+      sel.innerHTML = '<option value="">—</option>' + opts.map(function (o) {
+        return '<option value="' + esc(o.slug) + '"' + (o.slug === cur ? ' selected' : '') + '>' + esc(o.titre || o.slug) + ' (' + esc(o.slug) + ')</option>';
+      }).join('');
+    });
+  }
+
+  function openNew() {
+    $('form-title').textContent = 'Nouvelle qacidate';
+    $('f-id').value = '0';
+    ['titre','titre_ar','sous_titre','sous_titre_ar','slug','theme','interprete','interprete_ar','auteur','auteur_ar','image','thumbnail','audio','duree','img_folder','web_path','refrain_fr','refrain_ar','meta_title','meta_title_ar','meta_description','meta_description_ar'].forEach(function (k) {
+      setVal('f-' + k, '');
+    });
+    setVal('f-status', 'published');
+    setVal('f-genre', 'Chaabi');
+    setPreview('f-image', 'prev-image');
+    setPreview('f-thumbnail', 'prev-thumbnail');
+    $('btn-delete').classList.add('hidden');
+    $('form-msg').textContent = '';
+    renderParts([emptyPart(1)]);
+    renderFacts([]);
+    fillNavOptions([], '', '');
+    setVal('f-prev_titre',''); setVal('f-next_titre','');
+    showForm();
+  }
+
+  async function openEdit(id) {
+    $('form-msg').textContent = 'Chargement…';
+    showForm();
+    try {
+      var r = await api('?action=qacidates&op=get&id=' + id);
+      var row = r.data || {};
+      $('f-id').value = row.id || 0;
+      $('form-title').textContent = 'Éditer — ' + (row.titre || row.id);
+      setVal('f-titre', row.titre);
+      setVal('f-titre_ar', row.titre_ar);
+      setVal('f-sous_titre', row.sous_titre);
+      setVal('f-sous_titre_ar', row.sous_titre_ar);
+      setVal('f-slug', row.slug);
+      setVal('f-status', row.status || 'published');
+      setVal('f-genre', row.genre || 'Chaabi');
+      setVal('f-theme', row.theme);
+      setVal('f-interprete', row.interprete || row.artiste);
+      setVal('f-interprete_ar', row.interprete_ar || row.artiste_ar);
+      setVal('f-auteur', row.auteur);
+      setVal('f-auteur_ar', row.auteur_ar);
+      setVal('f-image', row.image);
+      setVal('f-thumbnail', row.thumbnail);
+      setVal('f-audio', row.audio);
+      setVal('f-duree', row.duree);
+      setVal('f-img_folder', row.img_folder);
+      setVal('f-web_path', row.web_path);
+      setVal('f-refrain_fr', row.refrain_fr);
+      setVal('f-refrain_ar', row.refrain_ar);
+      setVal('f-meta_title', row.meta_title);
+      setVal('f-meta_title_ar', row.meta_title_ar);
+      setVal('f-meta_description', row.meta_description);
+      setVal('f-meta_description_ar', row.meta_description_ar);
+      setPreview('f-image', 'prev-image');
+      setPreview('f-thumbnail', 'prev-thumbnail');
+      var parts = row.parts_json;
+      if (typeof parts === 'string') {
+        try { parts = JSON.parse(parts); } catch (e) { parts = []; }
+      }
+      if (!Array.isArray(parts) || !parts.length) parts = [emptyPart(1)];
+      renderParts(parts);
+      renderFacts(row.facts || []);
+      var nav = row.navigation || {};
+      fillNavOptions(row.nav_options || [], nav.prev_slug, nav.next_slug);
+      setVal('f-prev_titre', nav.prev_titre);
+      setVal('f-next_titre', nav.next_titre);
+      $('btn-delete').classList.remove('hidden');
+      $('form-msg').textContent = '';
+    } catch (e) {
+      $('form-msg').innerHTML = '<span class="err">' + esc(e.message) + '</span>';
+    }
+  }
+
+  async function save() {
+    var id = parseInt($('f-id').value, 10) || 0;
+    var data = {
+      titre: val('f-titre'),
+      titre_ar: val('f-titre_ar'),
+      sous_titre: val('f-sous_titre'),
+      sous_titre_ar: val('f-sous_titre_ar'),
+      slug: val('f-slug'),
+      status: val('f-status') || 'published',
+      genre: val('f-genre'),
+      theme: val('f-theme'),
+      interprete: val('f-interprete'),
+      interprete_ar: val('f-interprete_ar'),
+      auteur: val('f-auteur'),
+      auteur_ar: val('f-auteur_ar'),
+      image: val('f-image'),
+      thumbnail: val('f-thumbnail'),
+      audio: val('f-audio'),
+      duree: val('f-duree'),
+      img_folder: val('f-img_folder'),
+      web_path: val('f-web_path'),
+      refrain_fr: val('f-refrain_fr'),
+      refrain_ar: val('f-refrain_ar'),
+      meta_title: val('f-meta_title'),
+      meta_title_ar: val('f-meta_title_ar'),
+      meta_description: val('f-meta_description'),
+      meta_description_ar: val('f-meta_description_ar'),
+      parts_json: collectParts(),
+      facts: collectFacts(),
+      navigation: {
+        prev_slug: val('f-prev_slug'),
+        prev_titre: val('f-prev_titre'),
+        next_slug: val('f-next_slug'),
+        next_titre: val('f-next_titre')
+      }
+    };
+    if (!data.titre) {
+      $('form-msg').innerHTML = '<span class="err">Titre requis</span>';
+      return;
+    }
+    $('form-msg').textContent = 'Enregistrement…';
+    try {
+      await api('?action=qacidates&op=save', { id: id, data: data });
+      $('form-msg').innerHTML = '<span class="ok">Enregistré</span>';
+      await loadList();
+      setTimeout(showList, 400);
+    } catch (e) {
+      $('form-msg').innerHTML = '<span class="err">' + esc(e.message) + '</span>';
+    }
+  }
+
+  async function del() {
+    var id = parseInt($('f-id').value, 10) || 0;
+    if (!id || !confirm('Supprimer cette qacidate ?')) return;
+    try {
+      await api('?action=qacidates&op=delete&id=' + id, {});
+      await loadList();
+      showList();
+    } catch (e) {
+      $('form-msg').innerHTML = '<span class="err">' + esc(e.message) + '</span>';
+    }
+  }
+
+  $('btn-login').onclick = async function () {
+    $('login-err').textContent = '';
+    try {
+      await api('?action=login', { email: $('login-email').value, password: $('login-pass').value });
+      showApp();
+    } catch (e) {
+      $('login-err').textContent = e.message || 'Erreur login';
+    }
+  };
+  $('btn-logout').onclick = async function () {
+    try { await api('?action=logout', {}); } catch (e) {}
+    showLogin();
+  };
+  $('btn-refresh').onclick = loadList;
+  $('btn-new').onclick = openNew;
+  $('btn-cancel').onclick = showList;
+  $('btn-save').onclick = save;
+  $('btn-delete').onclick = del;
+  $('q-search').oninput = renderList;
+  $('btn-add-fact').onclick = function () {
+    var arr = collectFacts();
+    arr.push(emptyFact());
+    renderFacts(arr);
+  };
+  $('btn-add-part').onclick = function () {
+    var parts = collectParts();
+    parts.push(emptyPart(parts.length + 1));
+    renderParts(parts);
+  };
+
+  document.addEventListener('click', async function (ev) {
+    var up = ev.target.closest('[data-up]');
+    if (up) {
+      var key = up.getAttribute('data-up');
+      try {
+        await uploadFile($('up-' + key), $('f-' + key), 'prev-' + key);
+      } catch (e) { alert(e.message); }
+      return;
+    }
+    var ed = ev.target.closest('[data-edit]');
+    if (ed) openEdit(parseInt(ed.getAttribute('data-edit'), 10));
+  });
+
+  function wireNavSelect(selId, titreId) {
+    var sel = $(selId);
+    if (!sel) return;
+    sel.addEventListener('change', function () {
+      var opt = sel.selectedOptions[0];
+      if (!opt || !opt.value) { setVal(titreId, ''); return; }
+      setVal(titreId, (opt.textContent || '').replace(/\s*\([^)]*\)\s*$/, '').trim());
+    });
+  }
+  wireNavSelect('f-prev_slug', 'f-prev_titre');
+  wireNavSelect('f-next_slug', 'f-next_titre');
+  if ($('f-image')) $('f-image').addEventListener('change', function () { setPreview('f-image', 'prev-image'); });
+  if ($('f-thumbnail')) $('f-thumbnail').addEventListener('change', function () { setPreview('f-thumbnail', 'prev-thumbnail'); });
+
+  api('?action=me').then(function (r) {
+    if (r.authed) showApp(); else showLogin();
+  }).catch(showLogin);
+})();
+</script>
+</body>
+</html>

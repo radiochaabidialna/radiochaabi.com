@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Chaabi Pro — CRUD</title>
+    <meta name="robots" content="noindex, nofollow">
+        <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('chaabi_admin_theme') || localStorage.getItem('chaabi_theme') || 'dark';
+                if (t === 'ios') t = 'glass';
+                if (t !== 'light' && t !== 'glass' && t !== 'dark') t = 'dark';
+                document.documentElement.setAttribute('data-theme', t);
+                if (t === 'light') document.documentElement.classList.remove('dark');
+                else document.documentElement.classList.add('dark');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Cairo', 'sans-serif'] } } } };
+    </script>
+    <style>
+        /* ═══ Thèmes admin : dark | light | glass (variables) ═══ */
+        html[data-theme="dark"] {
+            --adm-bg: #0d1117;
+            --adm-bg2: #161b22;
+            --adm-card: #161b22;
+            --adm-border: #30363d;
+            --adm-text: #e6edf3;
+            --adm-muted: #8b949e;
+            --adm-input: #0d1117;
+            --adm-input-border: #30363d;
+            --adm-aside: #010409;
+            --adm-hover: rgba(255,255,255,.06);
+            --adm-shadow: 0 8px 24px rgba(0,0,0,.4);
+            --adm-primary: #2563eb;
+            --adm-primary2: #1d4ed8;
+            --adm-scroll: #3b82f6 #0d1117;
+        }
+        html[data-theme="light"] {
+            --adm-bg: #f1f5f9;
+            --adm-bg2: #ffffff;
+            --adm-card: #ffffff;
+            --adm-border: #e2e8f0;
+            --adm-text: #0f172a;
+            --adm-muted: #64748b;
+            --adm-input: #f8fafc;
+            --adm-input-border: #cbd5e1;
+            --adm-aside: #ffffff;
+            --adm-hover: rgba(15,23,42,.05);
+            --adm-shadow: 0 4px 20px rgba(15,23,42,.08);
+            --adm-primary: #2563eb;
+            --adm-primary2: #1d4ed8;
+            --adm-scroll: #2563eb #e2e8f0;
+        }
+        html[data-theme="glass"] {
+            --adm-bg: #0b1220;
+            --adm-bg2: rgba(22,27,34,.55);
+            --adm-card: rgba(255,255,255,.06);
+            --adm-border: rgba(255,255,255,.12);
+            --adm-text: #e6edf3;
+            --adm-muted: #94a3b8;
+            --adm-input: rgba(255,255,255,.06);
+            --adm-input-border: rgba(255,255,255,.14);
+            --adm-aside: rgba(10,13,18,.72);
+            --adm-hover: rgba(255,255,255,.08);
+            --adm-shadow: 0 8px 32px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+            --adm-primary: #3b82f6;
+            --adm-primary2: #2563eb;
+            --adm-scroll: #3b82f6 #0b1220;
+        }
+
+        html { scrollbar-color: var(--adm-scroll); }
+        body {
+            background: var(--adm-bg) !important;
+            color: var(--adm-text) !important;
+            min-height: 100vh;
+            transition: background .25s ease, color .2s ease;
+        }
+        html[data-theme="glass"] body {
+            background:
+                radial-gradient(ellipse 90% 50% at 50% -15%, rgba(37,99,235,.22), transparent 55%),
+                var(--adm-bg) !important;
+        }
+        html[data-theme="light"] body {
+            background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 50%, #f1f5f9 100%) !important;
+        }
+
+        .card, .inv-card {
+            background: var(--adm-card) !important;
+            border: 1px solid var(--adm-border) !important;
+            color: var(--adm-text) !important;
+            border-radius: 16px;
+            box-shadow: var(--adm-shadow);
+        }
+        html[data-theme="glass"] .card {
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+        html[data-theme="light"] .card,
+        html[data-theme="dark"] .card {
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+
+        .inp {
+            width: 100%;
+            background: var(--adm-input) !important;
+            border: 1px solid var(--adm-input-border) !important;
+            color: var(--adm-text) !important;
+            border-radius: 10px;
+            padding: 8px 12px;
+            font-size: .875rem;
+            outline: none;
+        }
+        .inp:focus { border-color: var(--adm-primary) !important; box-shadow: 0 0 0 3px rgba(37,99,235,.2); }
+        .inp::placeholder { color: var(--adm-muted); }
+        .lbl { display: block; font-size: .72rem; font-weight: 700; color: var(--adm-muted) !important; margin-bottom: 4px; text-transform: uppercase; letter-spacing: .04em; }
+
+        .btn { display: inline-flex; align-items: center; gap: 6px; border-radius: 10px; font-weight: 700; font-size: .83rem; padding: 8px 14px; transition: all .2s; cursor: pointer; border: none; }
+        .btn-primary { background: linear-gradient(135deg, var(--adm-primary), var(--adm-primary2)); color: #fff; box-shadow: 0 4px 14px -2px rgba(37,99,235,.35); }
+        .btn-primary:hover { transform: translateY(-1px); }
+        .btn-ghost { background: var(--adm-hover) !important; color: var(--adm-text) !important; border: 1px solid var(--adm-border); }
+        .btn-ghost:hover { filter: brightness(1.08); }
+        .btn-danger { background: rgba(239,68,68,.15); color: #f87171; }
+        html[data-theme="light"] .btn-danger { color: #dc2626; background: rgba(239,68,68,.1); }
+
+        .badge { display: inline-flex; align-items: center; gap: 4px; font-size: .68rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+        .badge-pub { background: rgba(37,99,235,.15); color: #3b82f6; }
+        .badge-draft { background: rgba(148,163,184,.15); color: #94a3b8; }
+        html[data-theme="light"] .badge-draft { color: #64748b; }
+        .badge-danger { background: rgba(239,68,68,.15); color: #f87171; }
+        .badge-ghost { background: var(--adm-hover); color: var(--adm-muted); }
+
+        .tab-btn { padding: 8px 14px; border-radius: 10px; font-size: .8rem; font-weight: 700; color: var(--adm-muted) !important; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all .2s; background: transparent; border: none; width: 100%; text-align: left; }
+        .tab-btn:hover { color: var(--adm-text) !important; background: var(--adm-hover) !important; }
+        .tab-btn.active { background: linear-gradient(135deg, var(--adm-primary), var(--adm-primary2)) !important; color: #fff !important; }
+
+        aside, header, #mobile-nav {
+            background: var(--adm-aside) !important;
+            border-color: var(--adm-border) !important;
+            color: var(--adm-text) !important;
+        }
+        html[data-theme="glass"] aside,
+        html[data-theme="glass"] header,
+        html[data-theme="glass"] #mobile-nav {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        /* Forcer les classes Tailwind "sombres" en mode clair */
+        html[data-theme="light"] .text-white { color: #0f172a !important; }
+        html[data-theme="light"] .text-slate-200,
+        html[data-theme="light"] .text-slate-300 { color: #334155 !important; }
+        html[data-theme="light"] .text-slate-400,
+        html[data-theme="light"] .text-slate-500 { color: #64748b !important; }
+        html[data-theme="light"] .bg-\[\#0d1117\],
+        html[data-theme="light"] .bg-\[\#161b22\],
+        html[data-theme="light"] .bg-\[\#010409\] { background: #fff !important; }
+        html[data-theme="light"] .border-\[\#2a313c\],
+        html[data-theme="light"] .border-\[\#30363d\] { border-color: #e2e8f0 !important; }
+        html[data-theme="light"] table { color: #0f172a; }
+        html[data-theme="light"] #view-title { color: #0f172a !important; }
+
+        select option { color: #111827 !important; background: #ffffff !important; }
+
+        .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 80; display: none; align-items: center; justify-content: center; padding: 1rem; }
+        .modal-backdrop.open { display: flex; }
+        html[data-theme="light"] .modal-backdrop { background: rgba(15,23,42,.4); }
+
+        .toast { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%) translateY(120%); z-index: 100; padding: .65rem 1.1rem; border-radius: 12px; font-weight: 700; font-size: .85rem; transition: transform .3s; pointer-events: none; }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+        .toast-ok { background: #065f46; color: #ecfdf5; }
+        .toast-err { background: #7f1d1d; color: #fef2f2; }
+
+        .pager { display: flex; gap: 6px; flex-wrap: wrap; }
+        .pager button { min-width: 2rem; height: 2rem; border-radius: 8px; border: 1px solid var(--adm-border); background: var(--adm-card); color: var(--adm-text); cursor: pointer; font-size: .8rem; font-weight: 700; }
+        .pager button.active { background: var(--adm-primary); color: #fff; border-color: var(--adm-primary); }
+
+        #crud-table th { color: var(--adm-muted); font-size: .7rem; text-transform: uppercase; letter-spacing: .04em; border-bottom: 1px solid var(--adm-border); padding: 10px 12px; text-align: left; }
+        #crud-table td { border-bottom: 1px solid var(--adm-border); padding: 10px 12px; font-size: .85rem; color: var(--adm-text); vertical-align: middle; }
+        #crud-table tr:hover td { background: var(--adm-hover); }
+
+        .theme-switcher {
+            display: inline-flex; align-items: center; gap: 4px;
+            background: var(--adm-hover); border: 1px solid var(--adm-border);
+            border-radius: 999px; padding: 3px;
+        }
+        .theme-switcher button {
+            border: none; background: transparent; cursor: pointer;
+            width: 32px; height: 32px; border-radius: 999px;
+            color: var(--adm-muted); display: flex; align-items: center; justify-content: center;
+            transition: .15s;
+        }
+        .theme-switcher button:hover { color: var(--adm-text); }
+        .theme-switcher button.active {
+            background: linear-gradient(135deg, var(--adm-primary), var(--adm-primary2));
+            color: #fff !important;
+            box-shadow: 0 2px 8px rgba(37,99,235,.35);
+        }
+
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+        .fade-up { animation: fadeUp .3s ease-out; }
+    </style>
+</head>
+<body class="min-h-screen text-slate-200 font-sans">
+
+    <!-- ═══ LOGIN ═══ -->
+    <div id="login-view" class="hidden min-h-screen flex items-center justify-center p-4">
+        <div class="card w-full max-w-md p-8 fade-up">
+            <div class="flex flex-col items-center mb-8">
+                <span class="w-14 h-14 rounded-full bg-gradient-to-br from-amber-300 via-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/40 ring-2 ring-amber-300/40 mb-3"><i class="fas fa-music text-slate-950 text-2xl"></i></span>
+                <h1 class="text-2xl font-black text-white">Chaabi <span class="text-blue-400">Music</span></h1>
+                <p class="text-xs text-slate-400 mt-1 uppercase tracking-[0.3em] font-semibold">Administration</p>
+            </div>
+            <div class="flex bg-[#0d1117] rounded-full p-1 mb-6 border border-[#2a313c] hidden">
+                <button id="lg-tab-account" onclick="switchLoginTab('account')" class="flex-1 py-2 rounded-full text-sm font-bold transition">Compte</button>
+                <button id="lg-tab-key" onclick="switchLoginTab('key')" class="flex-1 py-2 rounded-full text-sm font-bold transition">Clé</button>
+            </div>
+
+            <div id="lg-account" class="space-y-4">
+                <div>
+                    <label class="lbl">Email</label>
+                    <input id="lg-email" type="email" class="inp" placeholder="admin@example.com" autocomplete="username">
+                </div>
+                <div>
+                    <label class="lbl">Mot de passe</label>
+                    <input id="lg-password" type="password" class="inp" placeholder="••••••••" autocomplete="current-password">
+                </div>
+                <button onclick="doLogin()" class="btn btn-primary w-full justify-center py-3"><i class="fas fa-right-to-bracket"></i> Se connecter</button>
+            </div>
+
+            <div id="lg-key" class="hidden space-y-4">
+                <div>
+                    <label class="lbl">Clé d'administration</label>
+                    <input id="lg-key-input" type="password" class="inp" placeholder="Clé secrète">
+                </div>
+                <button onclick="doLoginKey()" class="btn btn-primary w-full justify-center py-3"><i class="fas fa-key"></i> Déverrouiller</button>
+            </div>
+            <p class="text-center mt-6"><a href="../index.html" class="text-xs text-slate-500 hover:text-blue-400 transition"><i class="fas fa-arrow-left mr-1"></i> Retour au site</a></p>
+            <p id="lg-error" class="hidden text-center text-sm font-bold text-red-400 mt-3"></p>
+        </div>
+    </div>
+
+    <!-- ═══ APP ═══ -->
+    <div id="app-view" class="hidden">
+        <div class="flex min-h-screen">
+            <!-- Sidebar -->
+            <aside class="hidden lg:flex flex-col w-60 shrink-0 bg-white/[0.04] backdrop-blur-xl border-r border-white/10 sticky top-0 h-screen">
+                <div class="flex items-center gap-2.5 px-5 py-5">
+                    <span class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-300 via-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/30"><i class="fas fa-music text-slate-950"></i></span>
+                    <div class="leading-tight">
+                        <p class="font-black text-white">Chaabi <span class="text-blue-400">Music</span></p>
+                        <p class="text-[9px] uppercase tracking-[0.3em] text-slate-500 font-semibold">Admin</p>
+                    </div>
+                </div>
+                <nav class="flex-1 px-3 space-y-1" id="sidebar-nav">
+                    <button data-view="dashboard" class="tab-btn w-full active"><i class="fas fa-gauge-high w-5"></i> Dashboard</button>
+                    <button data-view="stats" class="tab-btn w-full"><i class="fas fa-chart-column w-5"></i> Statistiques</button>
+                    <button data-view="artistes" class="tab-btn w-full"><i class="fas fa-user-circle w-5"></i> Artistes</button>
+                    <button data-view="chansons" class="tab-btn w-full"><i class="fas fa-music w-5"></i> Chansons</button>
+                    <button data-view="emissions" class="tab-btn w-full"><i class="fas fa-podcast w-5"></i> Émissions</button>
+                    <button data-view="interviews" class="tab-btn w-full"><i class="fas fa-microphone w-5"></i> Interviews</button>
+                    <button data-view="dedicaces" class="tab-btn w-full"><i class="fas fa-heart w-5"></i> Dédicaces</button>
+                    <button data-view="commentaires" class="tab-btn w-full"><i class="fas fa-comments w-5"></i> Commentaires</button>
+                    <button data-view="emission_comments" class="tab-btn w-full"><i class="fas fa-comment-dots w-5"></i> Com. émissions</button>
+                    <button data-view="contacts" class="tab-btn w-full"><i class="fas fa-envelope w-5"></i> Contacts</button>
+                    <button data-view="bouqalla" class="tab-btn w-full"><i class="fas fa-book-open w-5"></i> Bouqalla</button>
+                    <a href="qacidates.html" class="tab-btn w-full"><i class="fas fa-scroll w-5"></i> Qacidates</a>
+                </nav>
+                <div class="p-3 space-y-1 border-t border-[#242b33]">
+                    <a href="../index.html" class="tab-btn w-full"><i class="fas fa-radio w-5"></i> Voir le site</a>
+                    <button onclick="doLogout()" class="tab-btn w-full text-red-400 hover:text-red-300"><i class="fas fa-right-from-bracket w-5"></i> Déconnexion</button>
+                </div>
+                <p class="text-[10px] text-slate-600 text-center pb-4" id="admin-user"></p>
+            </aside>
+
+            <!-- Contenu -->
+            <div class="flex-1 min-w-0">
+                <!-- Topbar mobile + desktop -->
+                <header class="sticky top-0 z-40 bg-[#0d1117]/55 backdrop-blur-xl border-b border-white/10 px-4 lg:px-8 py-3 flex items-center gap-3">
+                    <button class="lg:hidden text-xl text-blue-400" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
+                    <h2 id="view-title" class="font-black text-lg text-white flex-1">Dashboard</h2>
+                    <a href="../index.html" class="text-slate-400 hover:text-blue-400 text-sm hidden sm:block"><i class="fas fa-radio mr-1"></i>Site</a>
+                    <div class="theme-switcher" role="group" aria-label="Thème">
+                        <button type="button" data-adm-theme="dark" onclick="applyAdminTheme('dark')" title="Sombre"><i class="fas fa-moon"></i></button>
+                        <button type="button" data-adm-theme="light" onclick="applyAdminTheme('light')" title="Clair"><i class="fas fa-sun"></i></button>
+                        <button type="button" data-adm-theme="glass" onclick="applyAdminTheme('glass')" title="Glass"><i class="fas fa-water"></i></button>
+                    </div>
+                    <button onclick="doLogout()" class="lg:hidden text-slate-400 hover:text-red-400"><i class="fas fa-right-from-bracket"></i></button>
+                </header>
+                <div id="mobile-nav" class="hidden lg:hidden bg-[#0d1117]/70 backdrop-blur-xl border-b border-white/10 px-3 py-2 space-y-1">
+                    <button data-view="dashboard" class="tab-btn w-full active"><i class="fas fa-gauge-high w-5"></i> Dashboard</button>
+                    <button data-view="stats" class="tab-btn w-full"><i class="fas fa-chart-column w-5"></i> Statistiques</button>
+                    <button data-view="artistes" class="tab-btn w-full"><i class="fas fa-user-circle w-5"></i> Artistes</button>
+                    <button data-view="chansons" class="tab-btn w-full"><i class="fas fa-music w-5"></i> Chansons</button>
+                    <button data-view="emissions" class="tab-btn w-full"><i class="fas fa-podcast w-5"></i> Émissions</button>
+                    <button data-view="interviews" class="tab-btn w-full"><i class="fas fa-microphone w-5"></i> Interviews</button>
+                    <button data-view="dedicaces" class="tab-btn w-full"><i class="fas fa-heart w-5"></i> Dédicaces</button>
+                    <button data-view="commentaires" class="tab-btn w-full"><i class="fas fa-comments w-5"></i> Commentaires</button>
+                    <button data-view="emission_comments" class="tab-btn w-full"><i class="fas fa-comment-dots w-5"></i> Com. émissions</button>
+                    <button data-view="contacts" class="tab-btn w-full"><i class="fas fa-envelope w-5"></i> Contacts</button>
+                    <button data-view="bouqalla" class="tab-btn w-full"><i class="fas fa-book-open w-5"></i> Bouqalla</button>
+                    <a href="qacidates.html" class="tab-btn w-full"><i class="fas fa-scroll w-5"></i> Qacidates</a>
+                </div>
+
+                <main class="p-4 lg:p-8 space-y-6">
+                    <!-- Dashboard -->
+                    <section id="view-dashboard"></section>
+
+                    <!-- CRUD générique -->
+                    <section id="view-crud" class="hidden">
+                        <div class="flex flex-wrap gap-3 mb-4 items-center">
+                            <div class="relative flex-1 min-w-[220px]">
+                                <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+                                <input id="crud-search" class="inp pl-10" placeholder="Rechercher… (Ctrl+K)">
+                            </div>
+                            <button onclick="openForm()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter</button>
+                            <button onclick="openImport()" class="btn btn-ghost" title="Importer des chansons en masse (CSV)"><i class="fas fa-file-import"></i> Importer</button>
+                            <button onclick="window.open('_api.php?action=export&table=' + CUR_TABLE)" class="btn btn-ghost" title="Exporter cette table en CSV (Excel)"><i class="fas fa-file-csv"></i> CSV</button>
+                            <button onclick="window.open('_api.php?action=backup')" class="btn btn-ghost" title="Sauvegarde complète de la base de données (fichier SQL)"><i class="fas fa-database"></i> Sauvegarde</button>
+                            <button id="trash-toggle" onclick="toggleTrash()" class="btn btn-ghost" title="Corbeille (restaurer / purger)"><i class="fas fa-trash-can"></i> Corbeille</button>
+                        </div>
+                        <div id="trash-note" class="hidden text-[11px] text-blue-400/90 bg-blue-500/5 border border-blue-400/20 rounded-lg px-3 py-2 mb-3"><i class="fas fa-trash-can mr-1"></i> Corbeille : éléments supprimés (soft delete) — boutons <b>Restaurer</b> / <b>Effacer définitivement</b>.</div>
+                        <div class="card overflow-x-auto">
+                            <table class="w-full border-collapse" id="crud-table"></table>
+                        </div>
+                        <div class="flex items-center justify-between mt-4">
+                            <p id="crud-count" class="text-xs text-slate-500"></p>
+                            <div class="pager" id="crud-pager"></div>
+                        </div>
+                    </section>
+                    <section id="view-stats" class="hidden">
+                        <div class="flex flex-wrap gap-2 mb-4" id="stats-days">
+                            <button onclick="loadStats(7)" class="btn btn-ghost">7 jours</button>
+                            <button onclick="loadStats(30)" class="btn btn-primary">30 jours</button>
+                            <button onclick="loadStats(90)" class="btn btn-ghost">90 jours</button>
+                        </div>
+                        <div id="stats-root" class="space-y-6"><p class="text-slate-500">Chargement…</p></div>
+                    </section>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ MODAL FORMULAIRE ═══ -->
+    <div id="modal" class="modal-backdrop" onclick="if(event.target===this)closeForm()">
+        <div class="card w-full max-w-2xl p-6 fade-up max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between mb-5">
+                <h3 id="modal-title" class="text-lg font-black text-white"></h3>
+                <button onclick="closeForm()" class="text-slate-500 hover:text-white"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="crud-form" class="space-y-4" onsubmit="saveForm(event)"></form>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+    const API = '_api.php';
+    let VIEW = 'dashboard';
+    let CUR_TABLE = null;
+    let CUR_PAGE = 1;
+    let CUR_Q = '';
+    let CUR_TRASH = false;
+    let EDIT_ID = 0;
+    let CATS = [];
+    let ARTISTS = [];
+    let USERS = [];
+    let EMS = [];
+    let SONGS = [];
+    let FORM_INVITES = [];   // invités du formulaire émission (état local)
+    function api(path, data) {
+        const opts = { method: data !== undefined ? 'POST' : 'GET', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin' };
+        if (data !== undefined) opts.body = JSON.stringify(data);
+        // POST vide pour actions sans body
+        if (data === undefined && path.indexOf('action=') >= 0) {
+            opts.method = 'POST';
+            opts.body = '{}';
+        }
+        return fetch(API + path, opts).then(async r => {
+            const text = await r.text();
+            let json = null;
+            try { json = text ? JSON.parse(text) : {}; } catch (e) {
+                throw { error: 'Réponse non-JSON (HTTP ' + r.status + ') — vérifiez _api.php / BDD', raw: text.slice(0, 200) };
+            }
+            if (r.status === 401) {
+                showLogin();
+                throw json.error ? json : { error: 'Session expirée — reconnectez-vous' };
+            }
+            if (!r.ok && json && json.error) throw json;
+            return json;
+        });
+    }
+    function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+    /* Chemin média → URL web. Toujours absolu (/music/...) : rien à modifier au déploiement */
+    function mediaUrl(p) { if (!p) return ''; if (/^https?:/.test(p) || p.charAt(0) === '/') return p; return '/music/' + p.replace(/^music\//, ''); }
+    function thumb(p) { const u = mediaUrl(p); return u ? '<img src="' + esc(u) + '" class="w-10 h-10 rounded-lg object-cover bg-[#0d1117]" onerror="this.style.visibility=\'hidden\'">' : '<div class="w-10 h-10 rounded-lg bg-[#21262d] flex items-center justify-center text-slate-500"><i class="fas fa-music"></i></div>'; }
+    function toast(msg, ok = true) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.className = 'toast show ' + (ok ? 'toast-ok' : 'toast-err');
+        setTimeout(() => t.classList.remove('show'), 3200);
+    }
+    function err(e) { console.error(e); toast(e && e.error ? e.error : 'Erreur serveur', false); }
+
+    /* ── Auth ── */
+    function showLogin() {
+        document.getElementById('login-view').classList.remove('hidden');
+        document.getElementById('app-view').classList.add('hidden');
+    }
+    function showApp() {
+        document.getElementById('login-view').classList.add('hidden');
+        document.getElementById('app-view').classList.remove('hidden');
+        switchView('dashboard');
+    }
+    function doLogin() {
+        const btn = event.target.closest('button');
+        if (btn) { btn.disabled = true; btn.style.opacity = '.6'; }
+        api('?action=login', { email: document.getElementById('lg-email').value.trim(), password: document.getElementById('lg-password').value })
+            .then(r => {
+                const el = document.getElementById('lg-error');
+                if (r.ok) { el.classList.add('hidden'); toast('Bienvenue !'); initApp(r.user); }
+                else { el.textContent = r.error || 'Erreur'; el.classList.remove('hidden'); }
+            }).catch(() => toast('Serveur injoignable', false))
+            .finally(() => { if (btn) { btn.disabled = false; btn.style.opacity = '1'; } });
+    }
+    function doLogout() {
+        api('?action=logout').finally(() => { window.location.reload(); });
+    }
+    function initApp(user) {
+        document.getElementById('admin-user').textContent = user ? 'Connecté : ' + user.nom : '';
+        showApp();
+        loadRefs();
+    }
+    api('?action=me').then(r => { if (r.authed) { const u = r.user ? r.user : null; initApp(u); var h=(location.hash||'').replace('#',''); var ok=['dashboard','stats','artistes','chansons','emissions','interviews','dedicaces','commentaires','emission_comments','contacts','bouqalla']; if(ok.indexOf(h)>=0) switchView(h); } else showLogin(); }).catch(showLogin);
+    window.addEventListener('hashchange', function(){ var h=(location.hash||'').replace('#',''); var ok=['dashboard','stats','artistes','chansons','emissions','interviews','dedicaces','commentaires','emission_comments','contacts','bouqalla']; if(ok.indexOf(h)>=0 && !document.getElementById('app-view').classList.contains('hidden')) switchView(h); });
+
+    /* ── Navigation ── */
+    function switchView(v) {
+        VIEW = v;
+        document.querySelectorAll('[data-view]').forEach(b => b.classList.toggle('active', b.dataset.view === v));
+        try { if ((location.hash||'').replace('#','') !== v) history.replaceState(null,'','#'+v); } catch(e) {}
+        document.getElementById('mobile-nav').classList.add('hidden');
+        document.getElementById('view-dashboard').classList.toggle('hidden', v !== 'dashboard');
+        document.getElementById('view-crud').classList.toggle('hidden', v === 'dashboard' || v === 'stats');
+        document.getElementById('view-stats').classList.toggle('hidden', v !== 'stats');
+        const titles = { dashboard: 'Dashboard', stats: 'Statistiques d\'écoute', artistes: 'Artistes', chansons: 'Chansons', emissions: 'Émissions', interviews: 'Interviews', dedicaces: 'Dédicaces', commentaires: 'Commentaires', emission_comments: 'Commentaires émissions', contacts: 'Contacts', bouqalla: 'Bouqalla' };
+        document.getElementById('view-title').textContent = titles[v] || '';
+        document.title = (titles[v] || 'Admin') + ' — Chaabi Pro';
+        if (v === 'dashboard') loadDashboard();
+        else if (v === 'stats') loadStats(STATS_DAYS);
+        else {
+            CUR_TABLE = v; CUR_PAGE = 1; CUR_Q = ''; CUR_TRASH = false;
+            const tb = document.getElementById('trash-toggle');
+            const tn = document.getElementById('trash-note');
+            if (tb) { tb.classList.toggle('hidden', ['emissions','dedicaces','commentaires','emission_comments','contacts','bouqalla'].includes(v)); tb.classList.remove('text-blue-400'); tb.querySelector('i').className = 'fas fa-trash-can'; }
+            if (tn) tn.classList.add('hidden');
+            document.getElementById('crud-search').value = ''; loadCrud();
+        }
+    }
+    document.querySelectorAll('[data-view]').forEach(b => b.addEventListener('click', () => switchView(b.dataset.view)));
+    function toggleMobileNav() { document.getElementById('mobile-nav').classList.toggle('hidden'); }
+        function getAdminTheme() {
+            return document.documentElement.getAttribute('data-theme') || 'dark';
+        }
+        function applyAdminTheme(t) {
+            if (t !== 'light' && t !== 'glass' && t !== 'dark') t = 'dark';
+            const h = document.documentElement;
+            h.setAttribute('data-theme', t);
+            if (t === 'light') h.classList.remove('dark');
+            else h.classList.add('dark');
+            try {
+                localStorage.setItem('chaabi_admin_theme', t);
+                localStorage.setItem('chaabi_theme', t === 'glass' ? 'ios' : t);
+            } catch (e) {}
+            document.querySelectorAll('[data-adm-theme]').forEach(function (b) {
+                b.classList.toggle('active', b.getAttribute('data-adm-theme') === t);
+            });
+            var meta = document.querySelector('meta[name="theme-color"]');
+            if (!meta) {
+                meta = document.createElement('meta');
+                meta.name = 'theme-color';
+                document.head.appendChild(meta);
+            }
+            meta.setAttribute('content', t === 'light' ? '#f1f5f9' : '#0d1117');
+        }
+        function toggleAdminTheme() {
+            var cur = getAdminTheme();
+            var next = cur === 'dark' ? 'light' : (cur === 'light' ? 'glass' : 'dark');
+            applyAdminTheme(next);
+            if (typeof toast === 'function') toast(next === 'dark' ? 'Thème sombre' : (next === 'light' ? 'Thème clair' : 'Thème glass'), true);
+        }
+        try { applyAdminTheme(getAdminTheme()); } catch (e) {}
+    let searchTimer = null;
+    document.getElementById('crud-search').addEventListener('input', e => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => { CUR_Q = e.target.value.trim(); CUR_PAGE = 1; loadCrud(); }, 300);
+    });
+
+    /* ── Dashboard ── */
+    const STAT_CARDS = [
+        ['artistes', 'Artistes', 'fa-user-circle', 'linear-gradient(135deg,#3b82f6,#1d4ed8)'],
+        ['chansons', 'Chansons', 'fa-music', 'linear-gradient(135deg,#3b82f6,#1d4ed8)'],
+        ['emissions', 'Émissions', 'fa-podcast', 'linear-gradient(135deg,#3b82f6,#1d4ed8)'],
+        ['interviews', 'Interviews', 'fa-microphone', 'linear-gradient(135deg,#3b82f6,#1d4ed8)'],
+        ['categories', 'Catégories', 'fa-th-large', 'linear-gradient(135deg,#2563eb,#b56a12)'],
+        ['ecoutes_30j', 'Écoutes (30 j)', 'fa-headphones', 'linear-gradient(135deg,#2563eb,#b56a12)'],
+        ['dedicaces_pending', 'Dédicaces à modérer', 'fa-heart', 'linear-gradient(135deg,#2563eb,#b56a12)'],
+        ['commentaires_pending', 'Commentaires à modérer', 'fa-comment', 'linear-gradient(135deg,#2563eb,#b56a12)'],
+        ['emission_comments_pending', 'Com. émissions à modérer', 'fa-comment-dots', 'linear-gradient(135deg,#2563eb,#b56a12)'],
+        ['contacts_new', 'Contacts à traiter', 'fa-envelope', 'linear-gradient(135deg,#2563eb,#b56a12)']
+    ];
+    function loadDashboard() {
+        api('?action=stats').then(r => {
+            if (!r.ok) return err(r);
+            const s = r.data;
+            const grid = STAT_CARDS.map(c => `
+                <div class="card p-5 fade-up">
+                    <div class="flex items-center justify-between mb-3">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-400">${c[1]}</p>
+                        <span class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:${c[3]}"><i class="fas ${c[2]} text-slate-950 text-sm"></i></span>
+                    </div>
+                    <p class="text-3xl font-black" style="color:var(--adm-text)">${s[c[0]] ?? 0}</p>
+                </div>`).join('');
+            document.getElementById('view-dashboard').innerHTML = `
+                <h3 class="text-sm font-black uppercase tracking-widest text-blue-400 mb-4"><i class="fas fa-gauge-high mr-2"></i>Vue d'ensemble</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">${grid}</div>
+                ${s.top_ecoutes && s.top_ecoutes.length ? `<div class="card p-5 mt-6"><p class="text-sm font-black uppercase tracking-widest text-blue-400 mb-3"><i class="fas fa-fire mr-2"></i>Top écoutes (30 jours)</p><ol class="space-y-2">${s.top_ecoutes.map((x, i) => `<li class="flex items-center gap-3 text-sm"><span class="w-6 h-6 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center text-xs font-bold">${i + 1}</span><span class="font-semibold" style="color:var(--adm-text)">${esc(x.titre)}</span><span class="text-slate-500 flex-1 truncate">${esc(x.artiste_nom || '')}</span><span class="text-blue-400 text-xs font-bold">${x.demarrages} ▶</span></li>`).join('')}</ol></div>` : ''}
+                <a href="qacidates.html" class="card p-5 mt-6 block hover:border-amber-500/40 transition-colors" style="border:1px solid var(--adm-border)">
+                    <p class="font-bold text-white mb-1"><i class="fas fa-scroll text-amber-400 mr-2"></i>Qacidates</p>
+                    <p class="text-sm text-slate-400">Gérer les textes FR / AR par parties → <span class="text-amber-400 font-semibold">ouvrir le CRUD dédié</span></p>
+                </a>
+                <div class="card p-5 mt-4 text-sm text-slate-400 leading-relaxed">
+                    <p class="font-bold text-white mb-1"><i class="fas fa-circle-info text-blue-400 mr-2"></i>Rappel des répertoires médias</p>
+                    Chansons → <code class="text-blue-400">/music/img_&lt;catégorie&gt;</code> et <code class="text-blue-400">/music/audio_&lt;catégorie&gt;</code> ·
+                    Artistes → <code class="text-blue-400">img_artistes</code> · Émissions → <code class="text-blue-400">img_emissions</code> / <code class="text-blue-400">audio_emissions</code> ·
+                    Interviews → <code class="text-blue-400">img_interviews</code> / <code class="text-blue-400">audio_interviews</code> · Invités → <code class="text-blue-400">img_invites</code>
+                </div>`;
+            // Compteur visiteurs site
+            fetch('../api/radiochaabi.php?action=get_visit_stats&_t=' + Date.now(), { credentials: 'same-origin' })
+              .then(r => r.json()).then(vs => {
+                if (!vs || vs.error) return;
+                const box = document.createElement('div');
+                box.className = 'grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6';
+                box.innerHTML = `
+                  <div class="card p-5"><p class="text-xs font-bold uppercase tracking-wider text-slate-400">En ligne</p>
+                    <p class="text-3xl font-black text-emerald-400 mt-1">${vs.online ?? 0}</p>
+                    <p class="text-xs text-slate-500 mt-1">actives (5 min)</p></div>
+                  <div class="card p-5"><p class="text-xs font-bold uppercase tracking-wider text-slate-400">Aujourd'hui</p>
+                    <p class="text-3xl font-black text-blue-400 mt-1">${vs.today ?? 0}</p>
+                    <p class="text-xs text-slate-500 mt-1">visiteurs uniques</p></div>
+                  <div class="card p-5"><p class="text-xs font-bold uppercase tracking-wider text-slate-400">Total</p>
+                    <p class="text-3xl font-black mt-1" style="color:var(--adm-text)">${vs.total ?? 0}</p>
+                    <p class="text-xs text-slate-500 mt-1">visiteurs enregistrés</p></div>`;
+                const root = document.getElementById('view-dashboard');
+                if (root) root.appendChild(box);
+              }).catch(() => {});
+        }).catch(err);
+    }
+
+    let STATS_DAYS = 30;
+    function loadStats(days) {
+        if (days) STATS_DAYS = days;
+        document.querySelectorAll('#stats-days button').forEach(b => b.classList.toggle('btn-primary', (b.getAttribute('onclick') || '').indexOf('(' + STATS_DAYS + ')') > -1));
+        api('?action=stats_ecoutes&days=' + STATS_DAYS).then(r => {
+            if (!r.ok) return err(r);
+            const s = r.data;
+            const root = document.getElementById('stats-root');
+            if (!s.hasTable) { root.innerHTML = '<div class="card p-6 text-rose-300">Table ecoutes_statistiques absente — le suivi n\'a pas encore été installé.</div>'; return; }
+            const sum = s.summary;
+            const pct = (part, total) => total > 0 ? Math.round(part * 1000 / total) / 10 : 0;
+            const dur = (sec) => { const h = Math.floor(sec / 3600); const m = Math.floor((sec % 3600) / 60); return h + 'h ' + String(m).padStart(2, '0') + 'min'; };
+            const maxD = Math.max(...s.daily.map(d => +d.starts), 1);
+            const langName = (c) => c === 'ar' ? 'Arabe' : 'Français';
+            root.innerHTML = `
+                <div class="grid grid-cols-2 xl:grid-cols-4 gap-4">
+                    <div class="card p-5 border-t-4 border-blue-400"><p class="text-xs font-bold uppercase tracking-wider text-slate-400">Démarrages</p><p class="text-3xl font-black text-white mt-1">${(+sum.starts).toLocaleString('fr-FR')}</p><p class="text-xs text-slate-500 mt-1">lectures réellement commencées</p></div>
+                    <div class="card p-5"><p class="text-xs font-bold uppercase tracking-wider text-slate-400">Auditeurs uniques</p><p class="text-3xl font-black text-white mt-1">${(+sum.listeners).toLocaleString('fr-FR')}</p><p class="text-xs text-slate-500 mt-1">visiteurs pseudonymisés</p></div>
+                    <div class="card p-5"><p class="text-xs font-bold uppercase tracking-wider text-slate-400">Temps d'écoute</p><p class="text-3xl font-black text-white mt-1">${dur(+sum.seconds)}</p><p class="text-xs text-slate-500 mt-1">progressions cumulées</p></div>
+                    <div class="card p-5"><p class="text-xs font-bold uppercase tracking-wider text-slate-400">Taux de complétion</p><p class="text-3xl font-black text-white mt-1">${pct(+sum.completed, +sum.starts)} %</p><p class="text-xs text-slate-500 mt-1">${(+sum.completed).toLocaleString('fr-FR')} écoute(s) terminée(s)</p></div>
+                </div>
+                <div class="grid gap-4 xl:grid-cols-5">
+                    <div class="card p-5 xl:col-span-3">
+                        <div class="flex items-baseline justify-between"><h3 class="font-black text-white">Démarrages par jour</h3><span class="text-xs text-slate-500">${STATS_DAYS} derniers jours</span></div>
+                        <div class="mt-5 flex h-40 items-end gap-1 border-b border-slate-700 pb-1">${s.daily.length ? s.daily.map(d => { const hh = Math.max(3, Math.round((+d.starts / maxD) * 100)); return `<div class="flex-1 min-w-0 flex items-end"><div class="w-full rounded-t bg-blue-500/80 hover:bg-amber-300" style="height:${hh}%" title="${d.day} : ${d.starts} démarrage(s)"></div></div>`; }).join('') : '<p class="m-auto text-sm text-slate-500">Aucune donnée</p>'}</div>
+                    </div>
+                    <div class="card p-5 xl:col-span-2">
+                        <h3 class="font-black text-white">Langue du lecteur</h3>
+                        <div class="mt-4 space-y-3">${s.languages.length ? s.languages.map(l => { const w = pct(+l.starts, +sum.starts); return `<div><div class="flex justify-between text-sm font-bold mb-1"><span class="text-slate-300">${langName(l.language_code)}</span><span class="text-white">${(+l.starts).toLocaleString('fr-FR')}</span></div><div class="h-2 rounded-full bg-slate-800"><div class="h-full rounded-full bg-blue-500" style="width:${w}%"></div></div></div>`; }).join('') : '<p class="text-sm text-slate-500">Aucune donnée</p>'}</div>
+                        <h3 class="font-black text-white mt-6">Pages d'origine</h3>
+                        <div class="mt-2 space-y-2 text-sm">${s.sources.length ? s.sources.map(src => `<div class="flex justify-between gap-3"><span class="truncate text-slate-400">${esc(src.page_path)}</span><strong class="text-blue-400">${(+src.starts).toLocaleString('fr-FR')}</strong></div>`).join('') : '<p class="text-sm text-slate-500">Aucune donnée</p>'}</div>
+                    </div>
+                </div>
+                <div class="card overflow-x-auto">
+                    <div class="p-5 border-b border-slate-800"><h3 class="font-black text-white">Médias les plus écoutés</h3><p class="text-xs text-slate-500 mt-1">Classement par démarrages sur la période</p></div>
+                    <table class="w-full text-left text-sm min-w-[640px]">
+                        <thead class="text-xs uppercase tracking-wide text-slate-500 border-b border-slate-800"><tr><th class="px-5 py-3">Média</th><th class="px-5 py-3">Type</th><th class="px-5 py-3 text-right">Démarrages</th><th class="px-5 py-3 text-right">Auditeurs</th><th class="px-5 py-3 text-right">Temps</th><th class="px-5 py-3 text-right">Complétion</th></tr></thead>
+                        <tbody class="divide-y divide-slate-800">${s.top.length ? s.top.map(m => `<tr><td class="px-5 py-4 font-bold text-white max-w-xs truncate">${esc(m.label)}</td><td class="px-5 py-4 capitalize text-slate-400">${esc(m.media_type)}</td><td class="px-5 py-4 text-right text-blue-400 font-bold">${(+m.starts).toLocaleString('fr-FR')}</td><td class="px-5 py-4 text-right">${(+m.listeners).toLocaleString('fr-FR')}</td><td class="px-5 py-4 text-right">${dur(+m.seconds)}</td><td class="px-5 py-4 text-right">${pct(+m.completed, +m.starts)} %</td></tr>`).join('') : '<tr><td colspan="6" class="px-5 py-10 text-center text-slate-500">Aucun média écouté durant la période</td></tr>'}</tbody>
+                    </table>
+                </div>`;
+        }).catch(err);
+    }
+
+    /* ── CRUD list ── */
+    function loadCrud() {
+        const tb0 = document.getElementById('crud-table');
+        if (tb0) tb0.innerHTML = '<tr><td class="p-8 text-center text-slate-500"><i class="fas fa-spinner fa-spin mr-2"></i>Chargement…</td></tr>';
+        const qs = '?action=' + CUR_TABLE + '&op=list&page=' + CUR_PAGE + '&limit=10&q=' + encodeURIComponent(CUR_Q) + (CUR_TRASH ? '&trash=1' : '');
+        api(qs).then(r => {
+            if (!r.ok) return err(r);
+            renderCrud(r.data, r.total, r.pages);
+        }).catch(err);
+    }
+    function renderCrud(rows, total, pages) {
+        const cols = {
+            artistes: ['Image', 'Nom', 'Catégorie', 'Statut', 'Actions'],
+            chansons: ['Image', 'Titre', 'Artiste', 'Catégorie', 'Statut', 'Actions'],
+            emissions: ['Image', 'Émission', 'Animateur', 'Invités', 'Statut', 'Actions'],
+            interviews: ['Image', 'Artiste', 'Réf. artiste', 'Statut', 'Actions'],
+            dedicaces: ['Nom', 'Pour', 'Message', 'Statut', 'Actions'],
+            commentaires: ['Nom', 'Email', 'Note', 'Message', 'Statut', 'Actions'],
+            emission_comments: ['Émission', 'Nom', 'Email', 'Message', 'Statut', 'Actions'],
+            contacts: ['Nom', 'Contact', 'Sujet', 'Message', 'Statut', 'Actions'],
+            bouqalla: ['N°', 'Arabe', 'Phonétique', 'Français', 'Actions']
+        }[CUR_TABLE] || [];
+        const th = cols.map(c => '<th>' + c + '</th>').join('');
+        let tr = '';
+        rows.forEach(r => {
+            const stBadge = (v) => {
+                const n = { published: 'Publié', draft: 'Brouillon', pending: 'En attente', rejected: 'Rejeté', new: 'Nouveau', read: 'Lu', archived: 'Archivé' }[v] || esc(v) || '—';
+                const c = { published: 'badge-pub', draft: 'badge-draft', pending: 'badge-draft', rejected: 'badge-danger', new: 'badge-draft', read: 'badge-pub', archived: 'badge-ghost' }[v] || 'badge-ghost';
+                return `<span class="badge ${c}"><i class="fas fa-circle text-[6px]"></i> ${n}</span>`;
+            };
+            const st = stBadge(r.status);
+            const act = CUR_TRASH ? `
+                <div class="flex gap-2">
+                    <button onclick="restoreItem(${r.id})" class="btn btn-ghost !px-2.5 !py-1.5 text-xs text-emerald-400" title="Restaurer"><i class="fas fa-rotate-left"></i></button>
+                    <button onclick="purgeItem(${r.id})" class="btn btn-danger !px-2.5 !py-1.5 text-xs" title="Effacer définitivement"><i class="fas fa-trash"></i></button>
+                </div>` : `
+                <div class="flex gap-2">
+                    ${CUR_TABLE === 'chansons' ? `<button onclick="toggleFeatured(${r.id}, ${r.featured ? 0 : 1})" class="btn btn-ghost !px-2.5 !py-1.5 text-xs" title="${r.featured ? 'Retirer le coup de cœur' : 'Coup de cœur de la semaine'}">${r.featured ? '⭐' : '☆'}</button>` : ''}
+                    <button onclick="openForm(${r.id})" class="btn btn-ghost !px-2.5 !py-1.5 text-xs" title="Modifier"><i class="fas fa-pen"></i></button>
+                    <button onclick="delItem(${r.id})" class="btn btn-danger !px-2.5 !py-1.5 text-xs" title="Supprimer"><i class="fas fa-trash"></i></button>
+                </div>`;
+            const rowCls = CUR_TRASH ? 'opacity-60' : '';
+            if (CUR_TABLE === 'artistes') tr += `<tr class="${rowCls}"><td>${thumb(r.image)}</td><td class="font-semibold text-white">${esc(r.nom)}<div class="text-xs text-slate-500">${esc(r.nom_ar || '')}</div></td><td>${esc(r.categorie_nom || '—')}</td><td>${st}</td><td>${act}</td></tr>`;
+            else if (CUR_TABLE === 'chansons') tr += `<tr class="${rowCls}"><td>${thumb(r.image)}</td><td class="font-semibold text-white">${esc(r.titre)}<div class="text-xs text-slate-500">${esc(r.titre_ar || '')}</div></td><td>${esc(r.artiste_nom || '—')}</td><td>${esc(r.categorie_nom || '—')}</td><td>${st}</td><td>${act}</td></tr>`;
+            else if (CUR_TABLE === 'emissions') tr += `<tr class="${rowCls}"><td>${thumb(r.image)}</td><td class="font-semibold text-white">${esc(r.numero_emission ? 'N°' + esc(r.numero_emission) + ' — ' : '')}${esc(r.titre)}</td><td>${esc(r.animateur_nom || '—')}</td><td><span class="badge badge-pub">${r.invites_count ?? 0}</span></td><td>${st}</td><td>${act}</td></tr>`;
+            else if (CUR_TABLE === 'dedicaces') tr += `<tr class="${rowCls}"><td class="font-semibold text-white">${esc(r.nom || '—')}<div class="text-xs text-slate-500">${esc(r.nom_ar || '')}</div></td><td>${esc(r.pour || '—')}</td><td class="max-w-[240px]"><p class="truncate text-slate-400">${esc(r.description || '')}</p></td><td class="text-xs text-blue-400">${esc(r.chanson_titre || '—')}${r.chanson_artiste ? '<div class="text-slate-500">' + esc(r.chanson_artiste) + '</div>' : ''}</td><td>${st}</td><td>${act}</td></tr>`;
+            else if (CUR_TABLE === 'commentaires') tr += `<tr class="${rowCls}"><td class="font-semibold text-white">${esc(r.nom || '—')}<div class="text-xs text-slate-500">${esc(r.nom_ar || '')}</div></td><td class="text-xs">${esc(r.email || '—')}</td><td>${(+r.rating || 0) > 0 ? '<i class="fas fa-star text-blue-400"></i> ' + (+r.rating) : '—'}</td><td class="max-w-[240px]"><p class="truncate text-slate-400">${esc(r.message || '')}</p></td><td>${st}</td><td>${act}</td></tr>`;
+            else if (CUR_TABLE === 'emission_comments') tr += `<tr class="${rowCls}"><td class="font-semibold text-blue-400">${r.numero_emission ? 'N° ' + esc(r.numero_emission) : '—'}</td><td class="font-semibold text-white">${esc(r.nom || '—')}<div class="text-xs text-slate-500">${esc(r.nom_ar || '')}</div></td><td class="text-xs">${esc(r.email || '—')}</td><td class="max-w-[240px]"><p class="truncate text-slate-400">${esc(r.message || '')}</p></td><td>${st}</td><td>${act}</td></tr>`;
+            else if (CUR_TABLE === 'contacts') tr += `<tr class="${rowCls}"><td class="font-semibold text-white">${esc(r.nom || '—')}</td><td class="text-xs">${esc(r.email || '')}${r.phone ? '<div class="text-slate-500">' + esc(r.phone) + '</div>' : ''}</td><td>${esc(r.sujet || '—')}</td><td class="max-w-[240px]"><p class="truncate text-slate-400">${esc(r.message || '')}</p></td><td>${stBadge(r.admin_status)}</td><td>${act}</td></tr>`;
+            else if (CUR_TABLE === 'bouqalla') tr += `<tr class="${rowCls}"><td class="font-semibold text-blue-400">${esc(r.num ?? '')}</td><td class="font-semibold text-white" dir="rtl">${esc(r.arabe || '')}</td><td class="text-slate-400 italic">${esc(r.phonetic || '')}</td><td class="text-slate-400">${esc(r.francais || '')}</td><td>${act}</td></tr>`;
+            else tr += `<tr class="${rowCls}"><td>${thumb(r.image)}</td><td class="font-semibold text-white">${esc(r.artiste_nom)}<div class="text-xs text-slate-500">${esc(r.artiste_nom_ar || '')}</div></td><td>${esc(r.artiste_ref_nom || '—')}</td><td>${st}</td><td>${act}</td></tr>`;
+        });
+        document.getElementById('crud-table').innerHTML = `<thead><tr>${th}</tr></thead><tbody>${tr || '<tr><td colspan="9" class="text-center py-12"><div class="inline-flex flex-col items-center gap-2 opacity-80"><i class="fas ' + (CUR_TRASH ? 'fa-trash-can' : 'fa-inbox') + ' text-3xl text-blue-400/80"></i><p class="text-sm font-semibold" style="color:var(--adm-muted)">' + (CUR_TRASH ? 'Corbeille vide' : 'Aucun élément') + '</p><p class="text-xs" style="color:var(--adm-muted)">' + (CUR_TRASH ? 'Rien à restaurer pour le moment' : 'Cliquez sur « Ajouter » pour créer une entrée') + '</p></div></td></tr>'}</tbody>`;
+        document.getElementById('crud-count').textContent = (CUR_TRASH ? 'Corbeille : ' : '') + total + ' élément(s) — page ' + CUR_PAGE + '/' + pages;
+        let pager = '';
+        if (pages > 1) {
+            const win = 2; // numéros visibles autour de la page courante
+            const arr = [];
+            for (let p = 1; p <= pages; p++) if (p === 1 || p === pages || Math.abs(p - CUR_PAGE) <= win) arr.push(p);
+            const btn = (p, label, cls) => `<button class="${cls}" ${p >= 1 && p <= pages ? `onclick="goPage(${p})"` : 'disabled'}>${label}</button>`;
+            pager = btn(CUR_PAGE - 1, '‹', 'nav');
+            let last = 0;
+            arr.forEach(p => {
+                if (last && p - last > 1) pager += `<span class="sep">…</span>`;
+                pager += btn(p, p, p === CUR_PAGE ? 'on' : '');
+                last = p;
+            });
+            pager += btn(CUR_PAGE + 1, '›', 'nav');
+        }
+        document.getElementById('crud-pager').innerHTML = pager;
+    }
+    function goPage(p) { CUR_PAGE = p; loadCrud(); }
+    function toggleTrash() {
+        CUR_TRASH = !CUR_TRASH;
+        CUR_PAGE = 1;
+        const b = document.getElementById('trash-toggle');
+        const n = document.getElementById('trash-note');
+        if (b) { b.classList.toggle('text-blue-400', CUR_TRASH); b.querySelector('i').className = CUR_TRASH ? 'fas fa-rotate-left' : 'fas fa-trash-can'; }
+        if (n) n.classList.toggle('hidden', !CUR_TRASH);
+        loadCrud();
+    }
+    function delItem(id) {
+        if (!confirm('Déplacer vers la corbeille ? (restaurable)')) return;
+        api('?action=' + CUR_TABLE + '&op=delete&id=' + id).then(r => {
+            if (!r.ok) return err(r);
+            toast('Élément supprimé'); loadCrud();
+        }).catch(err);
+    }
+    function restoreItem(id) {
+        api('?action=' + CUR_TABLE + '&op=restore&id=' + id).then(r => {
+            if (!r.ok) return err(r);
+            toast('Élément restauré ✓'); loadCrud();
+        }).catch(err);
+    }
+    function purgeItem(id) {
+        if (!confirm('⚠️ Effacer DÉFINITIVEMENT ? Cette action est irréversible.')) return;
+        api('?action=' + CUR_TABLE + '&op=purge&id=' + id).then(r => {
+            if (!r.ok) return err(r);
+            toast('Élément effacé définitivement'); loadCrud();
+        }).catch(err);
+    }
+    function toggleFeatured(id, val) {
+        api('?action=featured', { id, featured: val }).then(r => {
+            if (!r.ok) return err(r);
+            toast(val ? '⭐ Coup de cœur de la semaine défini !' : 'Coup de cœur retiré'); loadCrud();
+        }).catch(err);
+    }
+    function openImport() {
+        EDIT_ID = 0;
+        document.getElementById('modal-title').textContent = '📥 Importer des chansons (CSV)';
+        document.getElementById('crud-form').innerHTML = `
+            <div class="text-xs text-slate-400 leading-relaxed bg-slate-800/60 rounded-lg p-3">
+                <b class="text-blue-400">Format</b> : une chanson par ligne, colonnes séparées par <b>;</b> — la 1ʳᵉ ligne d'en-tête est facultative.<br>
+                <code class="text-blue-400">titre;titre_ar;artiste;categorie;audio;duree;status</code><br>
+                <span class="text-slate-500">L'artiste et la catégorie sont <b>créés automatiquement</b> s'ils n'existent pas. Le fichier audio doit être déjà uploadé (ex: <code>/music/audio_chaabi/ma-chanson.mp3</code>).</span>
+            </div>
+            <textarea id="import-csv" class="inp font-mono text-xs" rows="12" placeholder="Ya Lil;يا ليل;Dahmane El Harrachi;Chaabi;/music/audio_chaabi/ya-lil.mp3;4:32;published&#10;Hiziya;حيزية;El Hadj M'Hamed El Anka;Chaabi;/music/audio_chaabi/hiziya.mp3;5:10;published"></textarea>
+            <div class="flex gap-3">
+                <button type="button" onclick="doImport()" class="btn btn-primary"><i class="fas fa-file-import mr-1"></i> Importer</button>
+                <button type="button" onclick="closeForm()" class="btn btn-ghost">Annuler</button>
+            </div>`;
+        document.getElementById('modal').classList.remove('hidden');
+    }
+    function doImport() {
+        const csv = document.getElementById('import-csv').value.trim();
+        if (!csv) { toast('Collez d\'abord votre CSV'); return; }
+        api('?action=import_chansons', { csv }).then(r => {
+            if (!r.ok) return err(r);
+            const msg = '✅ ' + r.imported + ' chanson(s) importée(s)' + (r.errors && r.errors.length ? ' — ⚠️ ' + r.errors.length + ' erreur(s) : ' + r.errors.slice(0, 5).join(' | ') : '');
+            toast(msg);
+            closeForm(); loadCrud(); loadDashboard();
+        }).catch(err);
+    }
+
+    /* ── Référentiels (sélecteurs avec noms) ──
+       Chaque référentiel se charge indépendamment : si l'un échoue,
+       les autres restent remplis + le message d'erreur exact s'affiche. */
+    function loadRefs() {
+        const jobs = [
+            ['categories', api('?action=categories'), r => { CATS = r.data || []; }],
+            ['artistes', api('?action=artistes&op=list&limit=500'), r => { ARTISTS = (r.data || []).map(x => ({ id: x.id, nom: x.nom })); }],
+            ['animateurs', api('?action=animators'), r => { USERS = r.data || []; }],
+            ['émissions', api('?action=emissions&op=list&limit=500'), r => { EMS = (r.data || []).map(x => ({ id: x.id, titre: x.titre, numero_emission: x.numero_emission })); }],
+            ['chansons', api('?action=chansons&op=list&page=1&limit=500'), r => { SONGS = (r.data || []).map(x => ({ id: x.id, titre: x.titre, artiste_nom: x.artiste_nom })); }]
+        ];
+        return Promise.allSettled(jobs.map(j => j[1].then(r => {
+            if (!r.ok) throw new Error((r.error || 'Erreur') + ' [' + j[0] + ']');
+            j[2](r);
+        }))).then(results => {
+            const bad = results.filter(x => x.status === 'rejected');
+            if (bad.length) {
+                const msgs = bad.map(b => (b.reason && b.reason.message) || '?');
+                console.error('Référentiels en échec :', msgs);
+                toast('Référentiels en échec : ' + msgs.join(' | '), false);
+            }
+        });
+    }
+
+    /* ── Formulaire ── */
+    const SAVE_BTN = `
+        <div class="flex gap-3 pt-3 border-t border-[#242b33] mt-2">
+            <button type="submit" class="btn btn-primary flex-1 justify-center py-3"><i class="fas fa-floppy-disk"></i> Enregistrer</button>
+            <button type="button" class="btn btn-ghost" onclick="closeForm()">Annuler</button>
+        </div>`;
+    function formFields() {
+        const selCat = `<select id="f-categorie_id" class="inp" onchange="catChanged()"><option value="">— Catégorie —</option>${CATS.map(c => `<option value="${c.id}" data-slug="${esc(c.slug)}">${esc(c.nom)}</option>`).join('')}</select>`;
+        const selArt = `<select id="f-artiste_id" class="inp"><option value="">— Aucun —</option>${ARTISTS.map(a => `<option value="${a.id}">${esc(a.nom)}</option>`).join('')}</select>`;
+        const selAnim = `<select id="f-animateur_id" class="inp"><option value="">— Aucun —</option>${USERS.map(u => `<option value="${u.id}">${esc(u.nom)}</option>`).join('')}</select>`;
+        const stt = (v) => `<select id="f-status" class="inp"><option value="published" ${v === 'published' ? 'selected' : ''}>Publié</option><option value="draft" ${v === 'draft' ? 'selected' : ''}>Brouillon</option></select>`;
+        const seoBlock = `
+            <div class="border-t border-[#242b33] pt-3 mt-1">
+                <p class="text-xs font-black uppercase tracking-widest text-slate-500 mb-2"><i class="fas fa-magnifying-glass-chart mr-1 text-blue-400"></i> SEO (optionnel — auto-généré si vide)</p>
+                <div><label class="lbl">Slug (URL)</label><input id="f-slug" class="inp" placeholder="auto"></div>
+                <div class="grid md:grid-cols-2 gap-4 mt-3">
+                    <div><label class="lbl">Meta title FR</label><input id="f-meta_title" class="inp" maxlength="60" placeholder="60 caractères max"></div>
+                    <div><label class="lbl">Meta title AR</label><input id="f-meta_title_ar" class="inp" dir="rtl" maxlength="60"></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4 mt-3">
+                    <div><label class="lbl">Meta description FR</label><textarea id="f-meta_description" class="inp" rows="2" maxlength="160" placeholder="160 caractères max"></textarea></div>
+                    <div><label class="lbl">Meta description AR</label><textarea id="f-meta_description_ar" class="inp" rows="2" dir="rtl" maxlength="160"></textarea></div>
+                </div>
+            </div>`;
+        const upImg = (id, target, val) => `
+            <div>
+                <label class="lbl">Image</label>
+                <div class="flex items-center gap-3">
+                    <div id="${id}-prev" class="w-14 h-14 rounded-xl overflow-hidden bg-[#0d1117] border border-[#2a313c] flex items-center justify-center text-slate-600 shrink-0">${val ? '<img src="' + esc(val) + '" class="w-full h-full object-cover">' : '<i class="fas fa-image"></i>'}</div>
+                    <div class="flex-1">
+                        <input type="file" accept="image/*" class="inp !py-1.5" onchange="upFile(this, '${target}', '${id}')">
+                        <input type="hidden" id="${id}" value="${esc(val || '')}">
+                        <p class="text-[10px] text-slate-600 mt-1">dossier cible : <code class="text-blue-400">${target}</code></p>
+                    </div>
+                </div>
+            </div>`;
+        const upAud = (id, target, val) => `
+            <div>
+                <label class="lbl">Audio</label>
+                <div class="flex items-center gap-3">
+                    <span class="w-14 h-14 rounded-xl bg-[#0d1117] border border-[#2a313c] flex items-center justify-center text-blue-400 shrink-0"><i class="fas fa-headphones"></i></span>
+                    <div class="flex-1">
+                        <input type="file" accept="audio/*" class="inp !py-1.5" onchange="upFile(this, '${target}', '${id}')">
+                        <input type="hidden" id="${id}" value="${esc(val || '')}">
+                        <p id="${id}-name" class="text-[10px] text-slate-600 mt-1 truncate">${esc(val || 'aucun fichier')}</p>
+                        <div id="${id}-player" class="mt-1.5"></div>
+                    </div>
+                </div>
+            </div>`;
+
+        if (CUR_TABLE === 'artistes') return {
+            title: 'Artiste', fields: `
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Nom *</label><input id="f-nom" class="inp" required></div>
+                    <div><label class="lbl">Nom (arabe)</label><input id="f-nom_ar" class="inp" dir="rtl"></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Biographie</label><textarea id="f-bio" class="inp" rows="4"></textarea></div>
+                    <div><label class="lbl">Biographie (arabe)</label><textarea id="f-bio_ar" class="inp" rows="4" dir="rtl"></textarea></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Catégorie</label>${selCat}</div>
+                    <div><label class="lbl">Statut</label>${stt()}</div>
+                </div>
+                ${upImg('f-image', 'img_artistes')}
+                ${seoBlock}`
+        };
+        if (CUR_TABLE === 'chansons') return {
+            title: 'Chanson', fields: `
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Titre *</label><input id="f-titre" class="inp" required></div>
+                    <div><label class="lbl">Titre (arabe)</label><input id="f-titre_ar" class="inp" dir="rtl"></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Artiste</label>${selArt}</div>
+                    <div><label class="lbl">Catégorie (détermine les dossiers img_/audio_)</label>${selCat}</div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Durée</label><input id="f-duree" class="inp" placeholder="ex: 4:32"></div>
+                    <div><label class="lbl">Statut</label>${stt()}</div>
+                </div>
+                <div id="cat-target-hint" class="text-[11px] text-slate-500 -mt-2"><i class="fas fa-folder mr-1"></i>dossiers : <code class="text-blue-400">img_…</code> / <code class="text-blue-400">audio_…</code></div>
+                ${upImg('f-image', 'img_pending', '')}
+                ${upAud('f-audio', 'audio_pending', '')}
+                ${seoBlock}`
+        };
+        if (CUR_TABLE === 'emissions') return {
+            title: 'Émission', fields: `
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Numéro</label><input id="f-numero_emission" class="inp" placeholder="ex: 51"></div>
+                    <div><label class="lbl">Titre *</label><input id="f-titre" class="inp" required></div>
+                </div>
+                <div><label class="lbl">Titre (arabe)</label><input id="f-titre_ar" class="inp" dir="rtl"></div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Description</label><textarea id="f-description" class="inp" rows="3"></textarea></div>
+                    <div><label class="lbl">Description (arabe)</label><textarea id="f-description_ar" class="inp" rows="3" dir="rtl"></textarea></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Animateur (table users)</label>${selAnim}</div>
+                    <div><label class="lbl">Date de l'émission</label><input id="f-date_emission" type="datetime-local" class="inp"></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Durée</label><input id="f-duree" class="inp" placeholder="ex: 1:45:00"></div>
+                    <div><label class="lbl">Statut</label>${stt()}</div>
+                </div>
+                ${upImg('f-image', 'img_emissions')}
+                ${upAud('f-audio', 'audio_emissions')}
+                <div>
+                    <label class="lbl"><i class="fas fa-users mr-1"></i> Invités internes / externes</label>
+                    <div id="invites-container" class="space-y-3"></div>
+                    <div class="flex gap-2 mt-2">
+                        <button type="button" class="btn btn-ghost text-xs" onclick="addInvite('artiste')"><i class="fas fa-user-plus"></i> + Artiste</button>
+                        <button type="button" class="btn btn-ghost text-xs" onclick="addInvite('externe')"><i class="fas fa-globe"></i> + Invité externe</button>
+                    </div>
+                </div>
+                ${seoBlock}`
+        };
+        const modSt = (v) => `<select id="f-status" class="inp"><option value="published" ${v === 'published' ? 'selected' : ''}>Publié</option><option value="pending" ${v === 'pending' ? 'selected' : ''}>En attente</option><option value="rejected" ${v === 'rejected' ? 'selected' : ''}>Rejeté</option></select>`;
+        if (CUR_TABLE === 'dedicaces') return {
+            title: 'Dédicace (modération)', fields: `
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Nom *</label><input id="f-nom" class="inp" required></div>
+                    <div><label class="lbl">Nom (arabe)</label><input id="f-nom_ar" class="inp" dir="rtl"></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Pour</label><input id="f-pour" class="inp"></div>
+                    <div><label class="lbl">Pour (arabe)</label><input id="f-pour_ar" class="inp" dir="rtl"></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Message</label><textarea id="f-description" class="inp" rows="4"></textarea></div>
+                    <div><label class="lbl">Message (arabe)</label><textarea id="f-description_ar" class="inp" rows="4" dir="rtl"></textarea></div>
+                </div>
+                <div><label class="lbl">Chanson demandée</label><select id="f-chanson_id" class="inp"><option value="">— Aucune —</option>${SONGS.map(s => `<option value="${s.id}">${esc(s.titre)}${s.artiste_nom ? ' - ' + esc(s.artiste_nom) : ''}</option>`).join('')}</select></div>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div><label class="lbl">Créé le</label><input id="f-created_at" type="datetime-local" class="inp"></div>
+                    <div><label class="lbl">Likes</label><input id="f-likes" class="inp" readonly></div>
+                    <div><label class="lbl">Modéré le</label><input id="f-moderated_at" class="inp" readonly></div>
+                </div>
+                <div><label class="lbl">Modéré par</label><input id="f-moderated_by" class="inp" readonly></div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Statut (modération)</label>${modSt()}</div>
+                    <div><label class="lbl">Note de modération</label><input id="f-moderation_note" class="inp"></div>
+                </div>`
+        };
+        if (CUR_TABLE === 'commentaires') return {
+            title: 'Commentaire (modération)', fields: `
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Nom *</label><input id="f-nom" class="inp" required></div>
+                    <div><label class="lbl">Nom (arabe)</label><input id="f-nom_ar" class="inp" dir="rtl"></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Email</label><input id="f-email" type="email" class="inp"></div>
+                    <div><label class="lbl">Note /5</label><input id="f-rating" type="number" min="0" max="5" class="inp"></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Message</label><textarea id="f-message" class="inp" rows="4"></textarea></div>
+                    <div><label class="lbl">Message (arabe)</label><textarea id="f-message_ar" class="inp" rows="4" dir="rtl"></textarea></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Créé le</label><input id="f-created_at" type="datetime-local" class="inp"></div>
+                    <div><label class="lbl">Modéré le</label><input id="f-moderated_at" class="inp" readonly></div>
+                </div>
+                <div><label class="lbl">Modéré par</label><input id="f-moderated_by" class="inp" readonly></div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Statut (modération)</label>${modSt()}</div>
+                    <div><label class="lbl">Note de modération</label><input id="f-moderation_note" class="inp"></div>
+                </div>`
+        };
+        if (CUR_TABLE === 'emission_comments') {
+            const selEm = `<select id="f-emission_id" class="inp"><option value="">— Choisir une émission —</option>${EMS.map(e => `<option value="${e.id}">${esc(e.numero_emission ? 'N°' + e.numero_emission + ' — ' : '')}${esc(e.titre)}</option>`).join('')}</select>`;
+            return {
+                title: 'Commentaire d\'émission (modération)', fields: `
+                    <div><label class="lbl">Émission *</label>${selEm}</div>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div><label class="lbl">Nom *</label><input id="f-nom" class="inp" required></div>
+                        <div><label class="lbl">Nom (arabe)</label><input id="f-nom_ar" class="inp" dir="rtl"></div>
+                    </div>
+                    <div><label class="lbl">Email</label><input id="f-email" type="email" class="inp"></div>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div><label class="lbl">Message</label><textarea id="f-message" class="inp" rows="4"></textarea></div>
+                        <div><label class="lbl">Message (arabe)</label><textarea id="f-message_ar" class="inp" rows="4" dir="rtl"></textarea></div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div><label class="lbl">Créé le</label><input id="f-created_at" type="datetime-local" class="inp"></div>
+                        <div><label class="lbl">IP</label><input id="f-user_ip" class="inp" readonly></div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div><label class="lbl">Pays</label><input id="f-country" class="inp"></div>
+                        <div><label class="lbl">Ville</label><input id="f-city" class="inp"></div>
+                    </div>
+                    <div><label class="lbl">Avatar (URL)</label><input id="f-avatar" class="inp" placeholder="https://…"></div>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div><label class="lbl">Statut (modération)</label>${modSt()}</div>
+                        <div><label class="lbl">Note de modération</label><input id="f-moderation_note" class="inp"></div>
+                    </div>`
+            };
+        }
+        if (CUR_TABLE === 'contacts') return {
+            title: 'Contact', fields: `
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Nom *</label><input id="f-nom" class="inp" required></div>
+                    <div><label class="lbl">Email</label><input id="f-email" type="email" class="inp"></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Téléphone</label><input id="f-phone" class="inp"></div>
+                    <div><label class="lbl">Sujet</label><input id="f-sujet" class="inp"></div>
+                </div>
+                <div><label class="lbl">Message</label><textarea id="f-message" class="inp" rows="4"></textarea></div>
+                <div><label class="lbl">Statut</label><select id="f-admin_status" class="inp"><option value="new">Nouveau</option><option value="read">Lu</option><option value="archived">Archivé</option></select></div>`
+        };
+        if (CUR_TABLE === 'bouqalla') return {
+            title: 'Bouqalla', fields: `
+                <div><label class="lbl">Numéro (ordre)</label><input id="f-num" type="number" class="inp" placeholder="ex: 1"></div>
+                <div><label class="lbl">Arabe *</label><textarea id="f-arabe" class="inp" rows="3" dir="rtl" required></textarea></div>
+                <div><label class="lbl">Phonétique</label><textarea id="f-phonetic" class="inp" rows="2"></textarea></div>
+                <div><label class="lbl">Français</label><textarea id="f-francais" class="inp" rows="2"></textarea></div>`
+        };
+        return {
+            title: 'Interview', fields: `
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Nom invité *</label><input id="f-artiste_nom" class="inp" required></div>
+                    <div><label class="lbl">Nom (arabe)</label><input id="f-artiste_nom_ar" class="inp" dir="rtl"></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Artiste de la base</label>${selArt}</div>
+                    <div><label class="lbl">Date de l'interview</label><input id="f-date_interview" type="datetime-local" class="inp"></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="lbl">Durée</label><input id="f-duree" class="inp" placeholder="ex: 22:10"></div>
+                    <div><label class="lbl">Statut</label>${stt()}</div>
+                </div>
+                ${upImg('f-image', 'img_interviews')}
+                ${upAud('f-audio', 'audio_interviews')}
+                ${seoBlock}`
+        };
+    }
+
+    function catChanged() {
+        const sel = document.getElementById('f-categorie_id');
+        const opt = sel.options[sel.selectedIndex];
+        const slug = opt ? opt.dataset.slug : '';
+        const hint = document.getElementById('cat-target-hint');
+        if (hint && slug) hint.innerHTML = '<i class="fas fa-folder mr-1"></i>dossiers : <code class="text-blue-400">/music/img_' + esc(slug) + '</code> / <code class="text-blue-400">/music/audio_' + esc(slug) + '</code>';
+    }
+
+    function openForm(id) {
+        EDIT_ID = id || 0;
+        const cfg = formFields();
+        document.getElementById('modal-title').textContent = (EDIT_ID ? 'Modifier : ' : 'Ajouter : ') + cfg.title;
+        document.getElementById('crud-form').innerHTML = cfg.fields + SAVE_BTN;
+        if (CUR_TABLE === 'emissions') FORM_INVITES = [];
+        if (!EDIT_ID) { document.getElementById('modal').classList.add('open'); renderInvites(); return; }
+        api('?action=' + CUR_TABLE + '&op=get&id=' + EDIT_ID).then(r => {
+            if (!r.ok) return err(r);
+            const d = r.data;
+            ['nom', 'nom_ar', 'pour', 'pour_ar', 'bio', 'bio_ar', 'titre', 'titre_ar', 'description', 'description_ar', 'message', 'message_ar', 'email', 'phone', 'sujet', 'artiste_nom', 'artiste_nom_ar', 'numero_emission', 'duree', 'image', 'audio', 'num', 'arabe', 'phonetic', 'francais', 'rating', 'moderation_note', 'slug', 'meta_title', 'meta_title_ar', 'meta_description', 'meta_description_ar'].forEach(k => {
+                const el = document.getElementById('f-' + k);
+                if (el) el.value = d[k] || '';
+            });
+            ['artiste_id', 'animateur_id', 'categorie_id', 'emission_id', 'chanson_id'].forEach(k => {
+                const el = document.getElementById('f-' + k);
+                if (el && d[k]) el.value = d[k];
+            });
+            const st = document.getElementById('f-status'); if (st && d.status) st.value = d.status;
+            const ca = document.getElementById('f-admin_status'); if (ca && d.admin_status) ca.value = d.admin_status;
+            const cda = document.getElementById('f-created_at'); if (cda && d.created_at) cda.value = d.created_at.replace(' ', 'T').slice(0, 16);
+            const lk = document.getElementById('f-likes'); if (lk) lk.value = d.likes ?? 0;
+            const ma = document.getElementById('f-moderated_at'); if (ma) ma.value = d.moderated_at || '';
+            const mb = document.getElementById('f-moderated_by'); if (mb) mb.value = d.moderated_by ? (USERS.find(u => u.id == d.moderated_by)?.nom || '#' + d.moderated_by) : '';
+            const uip = document.getElementById('f-user_ip'); if (uip) uip.value = d.user_ip || '';
+            const dt = document.getElementById('f-date_emission'); if (dt && d.date_emission) dt.value = d.date_emission.replace(' ', 'T').slice(0, 16);
+            const di = document.getElementById('f-date_interview'); if (di && d.date_interview) di.value = d.date_interview.replace(' ', 'T').slice(0, 16);
+            ['f-image', 'f-audio'].forEach(k => {
+                const name = document.getElementById(k + '-name');
+                if (name) name.textContent = d[k] ? d[k].split('/').pop() : 'aucun fichier';
+            });
+            const ip = document.getElementById('f-image-prev');
+            if (ip && d.image) ip.innerHTML = '<img src="' + esc(mediaUrl(d.image)) + '" class="w-full h-full object-cover">';
+            const pl = document.getElementById('f-audio-player');
+            if (pl && d.audio) pl.innerHTML = '<audio controls preload="none" src="' + esc(mediaUrl(d.audio)) + '" class="w-full h-8"></audio>';
+            if (CUR_TABLE === 'emissions') {
+                FORM_INVITES = (d.invites || []).map(iv => ({
+                    id: iv.id, type: iv.artiste_id ? 'artiste' : 'externe',
+                    artiste_id: iv.artiste_id || '', nom: iv.invite_externe_nom || '', nom_ar: iv.invite_externe_nom_ar || '',
+                    type_ex: iv.invite_externe_type || '', type_ex_ar: iv.invite_externe_type_ar || '',
+                    image: iv.invite_externe_image || '', bio: iv.invite_externe_bio || '', bio_ar: iv.invite_externe_bio_ar || '',
+                    ordre: iv.ordre || 0
+                }));
+            }
+            document.getElementById('modal').classList.add('open');
+            renderInvites();
+            catChanged();
+        }).catch(err);
+    }
+    function closeForm() { document.getElementById('modal').classList.remove('open'); }
+
+    /* ── Upload ── */
+    function targetFor(kind) {
+        if (CUR_TABLE === 'chansons') {
+            const sel = document.getElementById('f-categorie_id');
+            const slug = sel && sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].dataset.slug : '';
+            return (kind === 'img' ? 'img_' : 'audio_') + (slug || 'divers');
+        }
+        return kind + CUR_TABLE;
+    }
+    function upFile(input, target, hiddenId) {
+        if (!input.files || !input.files[0]) return;
+        // pour les chansons, on recalcule la cible réelle img_<cat> / audio_<cat>
+        const real = target.startsWith('img_') || target.startsWith('audio_') ? targetFor(target.indexOf('audio_') === 0 ? 'audio' : 'img') : target;
+        const fd = new FormData();
+        fd.append('file', input.files[0]);
+        fd.append('target', real);
+        fetch(API + '?action=upload', { method: 'POST', body: fd })
+            .then(r => r.json()).then(r => {
+                if (!r.ok) return toast(r.error || 'Upload échoué', false);
+                document.getElementById(hiddenId).value = r.path;
+                const prev = document.getElementById(hiddenId + '-prev');
+                if (prev) prev.innerHTML = '<img src="' + esc(r.path) + '" class="w-full h-full object-cover">';
+                const name = document.getElementById(hiddenId + '-name');
+                if (name) name.textContent = r.path.split('/').pop();
+                const pl = document.getElementById(hiddenId + '-player');
+                if (pl) pl.innerHTML = '<audio controls preload="none" src="' + esc(r.path) + '" class="w-full h-8"></audio>';
+                toast('Fichier uploadé : ' + r.path);
+                input.value = '';
+            }).catch(() => toast('Upload échoué', false));
+    }
+
+    /* ── Invités (émission) ── */
+    function addInvite(type) {
+        FORM_INVITES.push({ id: 0, type, artiste_id: '', nom: '', nom_ar: '', type_ex: '', type_ex_ar: '', image: '', bio: '', bio_ar: '', ordre: FORM_INVITES.length });
+        renderInvites();
+    }
+    function renderInvites() {
+        const c = document.getElementById('invites-container');
+        if (!c) return;
+        c.innerHTML = FORM_INVITES.map((iv, i) => `
+            <div class="inv-card">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="badge ${iv.type === 'artiste' ? 'badge-pub' : 'badge-draft'}"><i class="fas ${iv.type === 'artiste' ? 'fa-user' : 'fa-globe'}"></i> ${iv.type === 'artiste' ? 'Artiste interne' : 'Invité externe'}</span>
+                    <button type="button" class="text-red-400 hover:text-red-300" onclick="delInvite(${i})"><i class="fas fa-trash"></i></button>
+                </div>
+                ${iv.type === 'artiste'
+                    ? `<div class="grid md:grid-cols-2 gap-3">
+                        <div><label class="lbl">Artiste</label><select data-i="${i}" data-field="artiste_id" class="inp" onchange="invSet(this)"><option value="">— Choisir —</option>${ARTISTS.map(a => `<option value="${a.id}" ${String(a.id) === String(iv.artiste_id) ? 'selected' : ''}>${esc(a.nom)}</option>`).join('')}</select></div>
+                        <div><label class="lbl">Ordre</label><input data-i="${i}" data-field="ordre" type="number" class="inp" value="${iv.ordre}" onchange="invSet(this)"></div>
+                      </div>`
+                    : `<div class="grid md:grid-cols-2 gap-3">
+                        <div><label class="lbl">Nom</label><input data-i="${i}" data-field="nom" class="inp" value="${esc(iv.nom)}" oninput="invSet(this)"></div>
+                        <div><label class="lbl">Nom (arabe)</label><input data-i="${i}" data-field="nom_ar" class="inp" dir="rtl" value="${esc(iv.nom_ar)}" oninput="invSet(this)"></div>
+                        <div><label class="lbl">Type (ex: poète)</label><input data-i="${i}" data-field="type_ex" class="inp" value="${esc(iv.type_ex)}" oninput="invSet(this)"></div>
+                        <div><label class="lbl">Type (arabe)</label><input data-i="${i}" data-field="type_ex_ar" class="inp" dir="rtl" value="${esc(iv.type_ex_ar)}" oninput="invSet(this)"></div>
+                        <div class="md:col-span-2"><label class="lbl">Bio</label><textarea data-i="${i}" data-field="bio" class="inp" rows="2" oninput="invSet(this)">${esc(iv.bio)}</textarea></div>
+                        <div class="md:col-span-2">
+                            <label class="lbl">Image (invité externe)</label>
+                            <div class="flex items-center gap-3">
+                                <div id="inv-img-${i}" class="w-11 h-11 rounded-lg overflow-hidden bg-[#0d1117] border border-[#2a313c] flex items-center justify-center text-slate-600 shrink-0">${iv.image ? '<img src="' + esc(mediaUrl(iv.image)) + '" class="w-full h-full object-cover">' : '<i class="fas fa-user"></i>'}</div>
+                                <input type="file" accept="image/*" class="inp !py-1.5 flex-1" onchange="upInviteFile(this, ${i})">
+                            </div>
+                        </div>
+                      </div>`}
+            </div>`).join('') || '<p class="text-xs text-slate-600 italic">Aucun invité — ajoutez un artiste interne ou un invité externe.</p>';
+    }
+    function invSet(el) {
+        const iv = FORM_INVITES[+el.dataset.i];
+        if (!iv) return;
+        const f = el.dataset.field;
+        iv[f] = el.value;
+        if (f === 'ordre') iv.ordre = parseInt(el.value || '0', 10);
+    }
+    function delInvite(i) {
+        const iv = FORM_INVITES[i];
+        if (iv && iv.id) {
+            api('?action=emission_invites&op=delete&id=' + iv.id).then(() => { FORM_INVITES.splice(i, 1); renderInvites(); }).catch(err);
+        } else { FORM_INVITES.splice(i, 1); renderInvites(); }
+    }
+    function upInviteFile(input, i) {
+        if (!input.files || !input.files[0]) return;
+        const fd = new FormData();
+        fd.append('file', input.files[0]);
+        fd.append('target', 'img_invites');
+        fetch(API + '?action=upload', { method: 'POST', body: fd })
+            .then(r => r.json()).then(r => {
+                if (!r.ok) return toast(r.error || 'Upload échoué', false);
+                FORM_INVITES[i].image = r.path;
+                const prev = document.getElementById('inv-img-' + i);
+                if (prev) prev.innerHTML = '<img src="' + esc(r.path) + '" class="w-full h-full object-cover">';
+                toast('Image invité uploadée');
+                input.value = '';
+            }).catch(() => toast('Upload échoué', false));
+    }
+
+    /* ── Sauvegarde ── */
+    function saveForm(e) {
+        e.preventDefault();
+        const submitBtn = e.target.querySelector('[type="submit"]');
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.dataset._old = submitBtn.innerHTML; submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enregistrement…'; }
+        const _unlock = () => { if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = submitBtn.dataset._old || 'Enregistrer'; } };
+        const data = {};
+        ['nom', 'nom_ar', 'pour', 'pour_ar', 'bio', 'bio_ar', 'titre', 'titre_ar', 'description', 'description_ar', 'message', 'message_ar', 'email', 'phone', 'sujet', 'artiste_nom', 'artiste_nom_ar', 'numero_emission', 'duree', 'image', 'audio', 'artiste_id', 'animateur_id', 'categorie_id', 'emission_id', 'status', 'admin_status', 'num', 'arabe', 'phonetic', 'francais', 'rating', 'moderation_note', 'slug', 'meta_title', 'meta_title_ar', 'meta_description', 'meta_description_ar', 'country', 'city', 'avatar'].forEach(k => {
+            const el = document.getElementById('f-' + k);
+            if (el) data[k] = el.value;
+        });
+        const dt = document.getElementById('f-date_emission');
+        if (dt) data.date_emission = dt.value ? dt.value.replace('T', ' ') + ':00' : null;
+        const di = document.getElementById('f-date_interview');
+        if (di) data.date_interview = di.value ? di.value.replace('T', ' ') + ':00' : null;
+        const cda = document.getElementById('f-created_at');
+        if (cda) data.created_at = cda.value ? cda.value.replace('T', ' ') + ':00' : null;
+        if (CUR_TABLE === 'dedicaces' || CUR_TABLE === 'commentaires' || CUR_TABLE === 'emission_comments') data.status = data.status || 'pending';
+        else if (CUR_TABLE === 'contacts') data.admin_status = data.admin_status || 'new';
+        else data.status = data.status || 'draft';
+        const payload = { id: EDIT_ID, data };
+        api('?action=' + CUR_TABLE + '&op=save', payload).then(async r => {
+            if (!r.ok) { _unlock(); return err(r); }
+            if (CUR_TABLE === 'emissions' && EDIT_ID === 0) EDIT_ID = r.id; // invités rattachés ensuite
+            if (CUR_TABLE === 'emissions') {
+                await saveInvites(r.id);
+            }
+            toast(CUR_TABLE === 'emissions' ? 'Émission enregistrée ✓' : 'Enregistré ✓');
+            closeForm();
+            loadCrud();
+        }).catch(e => { _unlock(); err(e); });
+    }
+    async function saveInvites(emissionId) {
+        for (const iv of FORM_INVITES) {
+            const data = {
+                emission_id: emissionId,
+                ordre: iv.ordre || 0,
+                artiste_id: iv.type === 'artiste' ? (iv.artiste_id || null) : null,
+                invite_externe_nom: iv.type === 'externe' ? (iv.nom || '') : null,
+                invite_externe_nom_ar: iv.type === 'externe' ? (iv.nom_ar || null) : null,
+                invite_externe_type: iv.type === 'externe' ? (iv.type_ex || null) : null,
+                invite_externe_type_ar: iv.type === 'externe' ? (iv.type_ex_ar || null) : null,
+                invite_externe_image: iv.type === 'externe' ? (iv.image || null) : null,
+                invite_externe_bio: iv.type === 'externe' ? (iv.bio || null) : null,
+                invite_externe_bio_ar: iv.type === 'externe' ? (iv.bio_ar || null) : null
+            };
+            const res = await api('?action=emission_invites&op=save', { id: iv.id || 0, data });
+            if (!res.ok) throw res;
+        }
+    }
+
+
+    /* ── Raccourcis clavier admin ── */
+    document.addEventListener('keydown', function (ev) {
+        var tag = (ev.target && ev.target.tagName) || '';
+        var typing = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (ev.target && ev.target.isContentEditable);
+        // Échap : fermer modal / menu mobile
+        if (ev.key === 'Escape') {
+            var modal = document.getElementById('modal');
+            if (modal && modal.classList.contains('open')) { closeForm(); return; }
+            var mn = document.getElementById('mobile-nav');
+            if (mn && !mn.classList.contains('hidden')) mn.classList.add('hidden');
+        }
+        // Ctrl/Cmd + K : focus recherche
+        if ((ev.ctrlKey || ev.metaKey) && ev.key.toLowerCase() === 'k') {
+            ev.preventDefault();
+            var s = document.getElementById('crud-search');
+            if (s && !document.getElementById('view-crud').classList.contains('hidden')) { s.focus(); s.select(); }
+        }
+        // Ctrl/Cmd + S : sauver formulaire ouvert
+        if ((ev.ctrlKey || ev.metaKey) && ev.key.toLowerCase() === 's') {
+            var modal = document.getElementById('modal');
+            if (modal && modal.classList.contains('open')) {
+                ev.preventDefault();
+                var form = document.getElementById('crud-form');
+                if (form) form.requestSubmit ? form.requestSubmit() : form.dispatchEvent(new Event('submit', { cancelable: true }));
+            }
+        }
+        // Ctrl/Cmd + N : nouvel élément (si pas en train de taper)
+        if (!typing && (ev.ctrlKey || ev.metaKey) && ev.key.toLowerCase() === 'n') {
+            if (!document.getElementById('view-crud').classList.contains('hidden')) {
+                ev.preventDefault();
+                openForm();
+            }
+        }
+    });
+    // admin-shortcuts
+    </script>
+</body>
+</html>
