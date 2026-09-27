@@ -1,0 +1,224 @@
+
+/* ════════════════════════════════════════════════════════════
+   FIX GLOBAL — cartes + récents + TOUS les heroes
+   v=20260926all — CHARGER EN DERNIER
+   ════════════════════════════════════════════════════════════ */
+
+/* ===== 1. CARTES : plus de plafond 140px, image entière ===== */
+html body .media-card .aspect-square,
+html body .media-card .mc-img-bx,
+html body .home-card-grid .media-card .aspect-square,
+html body .media-card figure,
+html body .list-card .aspect-square {
+  max-height: none !important;
+  height: auto !important;
+  aspect-ratio: 1 / 1 !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  background: #0f172a !important;
+}
+
+html body .media-card img,
+html body .list-card img,
+html body .home-card-grid img,
+html body #list-container img,
+html body .swiper-slide img,
+html body .aspect-square > img,
+html body .media-card .aspect-square > img {
+  max-height: none !important;
+  height: 100% !important;
+  width: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  background-color: #0f172a !important;
+}
+
+html:not(.dark) body .media-card img,
+html:not(.dark) body .aspect-square {
+  background-color: #f5f5f4 !important;
+}
+
+/* ===== 2. Écoutés récemment / Favoris — harmonisé ===== */
+#section-home-recent {
+  padding-top: 1rem !important;
+  padding-bottom: 1.25rem !important;
+}
+#section-home-recent #home-recent-wrap,
+#section-home-recent #home-fav-wrap {
+  background: rgba(15, 23, 42, 0.35) !important;
+  border: 1px solid rgba(245, 185, 66, 0.18) !important;
+  border-radius: 1.15rem !important;
+  padding: 0.85rem 0.9rem !important;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12) !important;
+}
+html:not(.dark) #section-home-recent #home-recent-wrap,
+html:not(.dark) #section-home-recent #home-fav-wrap {
+  background: #fff !important;
+  border-color: rgba(180, 83, 9, 0.14) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06) !important;
+}
+#section-home-recent .recent-strip,
+#home-recent.recent-strip,
+#home-fav.recent-strip {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 0.65rem !important;
+  overflow-x: auto !important;
+  padding-bottom: 0.35rem !important;
+  scroll-snap-type: x mandatory !important;
+  align-items: stretch !important;
+}
+#section-home-recent .recent-chip {
+  scroll-snap-align: start !important;
+  flex: 0 0 auto !important;
+  width: 13.5rem !important;
+  max-width: 13.5rem !important;
+  min-height: 3.6rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.65rem !important;
+  padding: 0.45rem 0.75rem 0.45rem 0.45rem !important;
+  border-radius: 0.95rem !important;
+  background: rgba(15, 23, 42, 0.65) !important;
+  border: 1px solid rgba(245, 185, 66, 0.22) !important;
+  box-sizing: border-box !important;
+  cursor: pointer !important;
+}
+#section-home-recent .recent-chip img {
+  width: 2.6rem !important;
+  height: 2.6rem !important;
+  max-height: 2.6rem !important;
+  border-radius: 0.65rem !important;
+  object-fit: cover !important;
+  flex-shrink: 0 !important;
+}
+#section-home-recent .recent-chip .rc-title,
+#section-home-recent .recent-chip .t {
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  color: #fff7ed !important;
+}
+#section-home-recent .recent-chip .rc-artist,
+#section-home-recent .recent-chip .a {
+  font-size: 0.68rem !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  color: #fcd34d !important;
+}
+html:not(.dark) #section-home-recent .recent-chip {
+  background: #fff !important;
+  border-color: rgba(180, 83, 9, 0.2) !important;
+}
+html:not(.dark) #section-home-recent .recent-chip .rc-title,
+html:not(.dark) #section-home-recent .recent-chip .t { color: #1c1917 !important; }
+html:not(.dark) #section-home-recent .recent-chip .rc-artist,
+html:not(.dark) #section-home-recent .recent-chip .a { color: #b45309 !important; }
+
+/* ===== 3. TOUS LES HEROES — 1200×400, arrondi, ombre, SANS filtre ===== */
+html body .hero-bg,
+html body .hero-bg.hero-casbah,
+html.dark body .hero-bg,
+html:not(.dark) body .hero-bg,
+html.theme-light body .hero-bg,
+html.theme-ios body .hero-bg,
+#view-home .hero-bg,
+#view-home .hero-casbah,
+#section-hero,
+#section-page-bar,
+.section-hero {
+  aspect-ratio: 3 / 1 !important;
+  max-height: 400px !important;
+  min-height: 120px !important;
+  width: 100% !important;
+  border-radius: 1.25rem !important;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.08), 0 12px 28px rgba(0,0,0,0.14) !important;
+  overflow: hidden !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  opacity: 1 !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* Home */
+#view-home .hero-bg,
+#view-home .hero-bg.hero-casbah {
+  background-image: url('/music/news_hero/moisaique.png') !important;
+}
+
+/* Sections — data-hero ou classes */
+#section-hero[data-section="artistes"],
+#section-page-bar[data-section="artistes"] {
+  background-image: url('/music/news_hero/radiochaabi_artistes.webp') !important;
+}
+#section-hero[data-section="chansons"],
+#section-page-bar[data-section="chansons"] {
+  background-image: url('/music/news_hero/chansons_chaabi.webp') !important;
+}
+#section-hero[data-section="emissions"],
+#section-page-bar[data-section="emissions"] {
+  background-image: url('/music/news_hero/emissions_chaabi.webp') !important;
+}
+#section-hero[data-section="interviews"],
+#section-page-bar[data-section="interviews"] {
+  background-image: url('/music/news_hero/interviews_chaabi.webp') !important;
+}
+#section-hero[data-section="bouqalla"],
+#section-page-bar[data-section="bouqalla"] {
+  background-image: url('/music/news_hero/bouqalla_chaabi.webp') !important;
+}
+#section-hero[data-section="dedicaces"],
+#section-page-bar[data-section="dedicaces"] {
+  background-image: url('/music/news_hero/dedicaces_chaabi.webp') !important;
+}
+#section-hero[data-section="commentaires"],
+#section-page-bar[data-section="commentaires"] {
+  background-image: url('/music/news_hero/radiochaabi_commentaires.webp') !important;
+}
+#section-hero[data-section="contacts"],
+#section-page-bar[data-section="contacts"] {
+  background-image: url('/music/news_hero/radiochaabi_contacts.webp') !important;
+}
+#section-hero[data-section="onair"],
+#section-page-bar[data-section="onair"],
+#view-onair .hero-bg {
+  background-image: url('/music/news_hero/onair.webp') !important;
+}
+#section-hero[data-section="qacidates"],
+#section-page-bar[data-section="qacidates"] {
+  background-image: url('/music/news_hero/qacidate.webp') !important;
+}
+#section-hero[data-section="memoire"],
+#section-hero[data-section="histoire"],
+#section-page-bar[data-section="memoire"] {
+  background-image: url('/music/news_hero/histoire.webp') !important;
+}
+
+/* Aucun pseudo filtre */
+.hero-bg::before,
+.hero-bg::after,
+.hero-casbah::before,
+.hero-casbah::after,
+#section-hero::before,
+#section-page-bar::before {
+  display: none !important;
+  content: none !important;
+  opacity: 0 !important;
+  background: none !important;
+}
+
+@media (max-width: 640px) {
+  html body .hero-bg,
+  #view-home .hero-bg,
+  #section-hero,
+  #section-page-bar {
+    min-height: 100px !important;
+    max-height: 160px !important;
+    border-radius: 1rem !important;
+  }
+}

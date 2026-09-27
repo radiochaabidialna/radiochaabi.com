@@ -1,0 +1,57 @@
+
+/* v=20260926home2 — charger EN TOUT DERNIER dans le <head> */
+
+/* ===== HOME = moisaique.png (toutes variantes) ===== */
+html body .hero-bg,
+html body .hero-bg.hero-casbah,
+html.dark body .hero-bg,
+html.dark body .hero-bg.hero-casbah,
+html:not(.dark) body .hero-bg,
+html:not(.dark) body .hero-bg.hero-casbah,
+html.theme-light body .hero-bg,
+html.theme-ios body .hero-bg,
+#view-home .hero-bg,
+#view-home section.hero-bg,
+#view-home .hero-casbah,
+section.hero-bg.hero-casbah {
+  background-image:
+    linear-gradient(180deg, rgba(7,9,13,0.22) 0%, rgba(7,9,13,0.48) 100%),
+    url('/music/news_hero/moisaique.png') !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* ===== CARTES / PORTRAITS : haut du visage visible ===== */
+/* contain = image entière ; object-position top = têtes en haut, pas coupées aux yeux */
+html body .media-card img,
+html body .list-card img,
+html body .home-card-grid img,
+html body #list-container img,
+html body .swiper-slide img,
+html body .swiper-slide .media-card img,
+html body .aspect-square > img,
+html body [class*="card"] img,
+html body .card img {
+  object-fit: contain !important;
+  object-position: top center !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  background-color: #0f172a !important;
+}
+
+/* Artistes : portraits — prioriser le haut (visage) */
+html body #list-container[data-tab="artistes"] img,
+html body [data-nav="artistes"] img,
+html body .media-card[data-type="artiste"] img,
+html body .media-card.artiste img {
+  object-fit: cover !important;
+  object-position: top center !important;
+}
+
+html:not(.dark) body .media-card img,
+html:not(.dark) body .home-card-grid img {
+  background-color: #f5f5f4 !important;
+}

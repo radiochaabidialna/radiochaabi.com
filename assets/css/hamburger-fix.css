@@ -1,0 +1,48 @@
+
+/* Hamburger : mobile only — v=20260927h
+   Charge EN DERNIER dans le <head> */
+
+#mobile-menu-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2.75rem !important;
+  height: 2.75rem !important;
+  min-width: 2.75rem !important;
+  border-radius: 0.75rem !important;
+  background: linear-gradient(135deg, #fbbf24, #d97706) !important;
+  border: none !important;
+  color: #1c1410 !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.4) !important;
+  z-index: 70 !important;
+}
+
+#mobile-menu-btn i,
+#mobile-menu-btn .fa-bars {
+  color: #1c1410 !important;
+  font-size: 1.15rem !important;
+  opacity: 1 !important;
+}
+
+/* Desktop ≥ 1024px : TOUJOURS caché */
+@media (min-width: 1024px) {
+  #mobile-menu-btn,
+  button#mobile-menu-btn,
+  header #mobile-menu-btn,
+  nav #mobile-menu-btn,
+  .flex #mobile-menu-btn {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    border: none !important;
+    position: absolute !important;
+    clip: rect(0, 0, 0, 0) !important;
+  }
+}

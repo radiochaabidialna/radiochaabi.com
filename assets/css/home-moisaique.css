@@ -1,0 +1,15 @@
+
+/* Home UNIQUEMENT = moisaique.png — v=20260926home3 */
+#view-home .hero-bg,
+#view-home .hero-bg.hero-casbah,
+#view-home section.hero-bg,
+#view-home .hero-casbah,
+html body #view-home .hero-bg,
+html.dark #view-home .hero-bg,
+html:not(.dark) #view-home .hero-bg {
+  background-image: url('/music/news_hero/moisaique.png') !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  filter: none !important;
+}

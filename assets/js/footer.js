@@ -154,7 +154,9 @@
         '</h4>',
         '<img src="/music/images/chaabidialna.png" alt="Musique Chaabi" style="width:100%;max-height:160px;height:auto;object-fit:contain;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.3);margin-bottom:12px;background:rgba(0,0,0,.15)" onerror="this.onerror=null;this.src=FOOTER_PH">',
         '<p style="color:var(--footer-muted,#9ca3af);font-size:.875rem;font-weight:500;margin-bottom:12px" data-footer-i18n="footer_desc">'+tf('footer_desc')+'</p>',
-        '<button type="button" onclick="location.href=\''+fhref('admin/dashboard.html')+'\'" style="display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 14px;border-radius:10px;font-size:.8rem;font-weight:700;gap:8px;color:#fff;background:linear-gradient(135deg,#2563eb,#1d4ed8);border:none;cursor:pointer;box-shadow:0 4px 12px rgba(37,99,235,.35)"><i class="fas fa-lock" style="font-size:.7rem"></i><span data-footer-i18n="nav_admin">'+tf('nav_admin')+'</span></button>',
+        
+     
+     
       '</div>',
 
       /* ── Colonne 2 : Chaabi ── */
@@ -264,10 +266,74 @@
     ].join('\n');
   }
 
-  function injectFooter() {
+  
+
+  /* ── Compteur visiteurs (invisible public, visible admin) ── */
+  var VISITORS_API = (typeof window.CHAABI_API === 'string' && window.CHAABI_API.indexOf('api/') >= 0)
+    ? window.CHAABI_API.replace(/radiochaabi\.php.*/, 'visitors.php')
+    : 'api/visitors.php';
+
+  function trackVisit() {
+    try {
+      fetch(VISITORS_API + '?action=hit&_=' + Date.now(), {
+        credentials: 'same-origin',
+        cache: 'no-store'
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
+  function injectVisitorStats(root) {
+    if (!root) return;
+    var prev = root.querySelector('#visitor-stats');
+    if (prev) prev.remove();
+    var box = document.createElement('div');
+    box.id = 'visitor-stats';
+    box.hidden = true;
+    box.setAttribute('aria-live', 'polite');
+    box.style.cssText = 'display:none;margin:10px auto 4px;padding:6px 12px;max-width:max-content;border-radius:999px;font-size:0.72rem;font-weight:600;color:#f5b942;background:rgba(245,185,66,0.12);border:1px solid rgba(245,185,66,0.28);text-align:center;';
+    box.innerHTML = '<span style="text-transform:uppercase;letter-spacing:.06em;opacity:.85;margin-right:6px">Stats</span>' +
+      '<span id="vs-today">—</span> aujourd\'hui · ' +
+      '<span id="vs-total">—</span> visites · ' +
+      '<span id="vs-unique">—</span> visiteurs';
+    root.appendChild(box);
+
+    var key = '';
+    try { key = localStorage.getItem('chaabi_stats_key') || ''; } catch (e) {}
+    var url = VISITORS_API + '?action=stats&_=' + Date.now();
+    if (key) url += '&key=' + encodeURIComponent(key);
+
+    fetch(url, { credentials: 'same-origin', cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        if (!data || !data.ok) return;
+        box.hidden = false;
+        box.style.display = 'inline-block';
+        var a = document.getElementById('vs-today');
+        var b = document.getElementById('vs-total');
+        var c = document.getElementById('vs-unique');
+        if (a) a.textContent = String(data.today);
+        if (b) b.textContent = String(data.total);
+        if (c) c.textContent = String(data.unique_total);
+      })
+      .catch(function () {});
+  }
+
+  window.ChaabiVisitorStats = {
+    setKey: function (k) {
+      try { localStorage.setItem('chaabi_stats_key', k || ''); } catch (e) {}
+      injectVisitorStats(document.getElementById('footer-root'));
+    },
+    refresh: function () {
+      injectVisitorStats(document.getElementById('footer-root'));
+    }
+  };
+
+function injectFooter() {
     var root = document.getElementById('footer-root');
     if (!root) return;
     root.innerHTML = buildFooter();
+    trackVisit();
+    injectVisitorStats(root);
   }
 
   function retranslateFooter() {

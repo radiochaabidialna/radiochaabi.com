@@ -1,0 +1,102 @@
+
+/* ═══════════════════════════════════════════
+   Player lisible + hamburger + search
+   v=20260926ui
+   ═══════════════════════════════════════════ */
+
+/* Player : titre / artiste TOUJOURS visibles */
+#floating-player #fp-title {
+  display: block !important;
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  color: #fff !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+#floating-player #fp-artist {
+  display: block !important;
+  font-size: 0.75rem !important;
+  line-height: 1.2 !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  color: #cbd5e1 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+#floating-player #fp-type:not(.hidden) {
+  display: inline-block !important;
+  font-size: 0.6rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  color: #fbbf24 !important;
+  margin-bottom: 0.15rem !important;
+}
+
+/* Colonne meta prioritaire sur mobile */
+#floating-player .min-w-0.flex-1 {
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+  max-width: calc(100vw - 11rem) !important;
+}
+
+/* Moins de boutons visibles sur très petit écran */
+@media (max-width: 480px) {
+  #floating-player #fp-continuous,
+  #floating-player #fp-shuffle,
+  #floating-player #fp-repeat {
+    display: none !important;
+  }
+  #floating-player #fp-title { font-size: 0.85rem !important; }
+  #floating-player #fp-artist { font-size: 0.7rem !important; }
+}
+
+/* Mode clair : textes player sombres si fond clair */
+html:not(.dark) #floating-player #fp-title { color: #0f172a !important; }
+html:not(.dark) #floating-player #fp-artist { color: #475569 !important; }
+
+/* Hamburger bien visible */
+#mobile-menu-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2.75rem !important;
+  height: 2.75rem !important;
+  min-width: 2.75rem !important;
+  border-radius: 0.75rem !important;
+  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  border: none !important;
+  color: #1c1410 !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.4) !important;
+  z-index: 60 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+#mobile-menu-btn i,
+#mobile-menu-btn .fa-bars,
+#mobile-menu-btn svg {
+  color: #1c1410 !important;
+  font-size: 1.15rem !important;
+  opacity: 1 !important;
+}
+html.dark #mobile-menu-btn {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+  color: #1c1410 !important;
+}
+
+/* Suggestions recherche : badges type */
+.search-suggest [data-kind]::before,
+.search-suggest-item .kind-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.85;
+}

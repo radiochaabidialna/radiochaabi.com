@@ -52,6 +52,7 @@
                 else el.classList.add('hidden');
             });
             UIState.view = view;
+            if (typeof setNavActive === 'function') setNavActive(opts.tab || view);
             if (opts.tab) {
                 if (UIState.tab !== opts.tab) { listSearchQuery = ''; var _ls = document.getElementById('list-search'); if (_ls) _ls.value = ''; }
                 UIState.tab = opts.tab;
@@ -123,18 +124,19 @@
                     comments: 'Commentaires', contacts: 'Contacts'
                 };
                 var imgMap = {
-                    home: '/music/img_hero/radiochaabi_accueil_1920x600.jpg',
-                    artistes: '/music/img_hero/radiochaabi_artistes_1920x600.jpg',
-                    chansons: '/music/img_hero/radiochaabi_chansons_1920x600.jpg',
-                    emissions: '/music/img_hero/radiochaabi_emissions_1920x600.jpg',
-                    interviews: '/music/img_hero/radiochaabi_interviews_1920x600.jpg',
-                    bouqalla: '/music/img_hero/radiochaabi_bouqalla_1920x600.png',
-                    dedicaces: '/music/img_hero/dedicaces_20-09-26.png',
-                    commentaires: '/music/img_hero/radiochaabi_commentaires_1920x600.jpg',
-                    contacts: '/music/img_hero/radiochaabi_contacts_1920x600.jpg',
-                    onair: '/music/img_hero/radiochaabi_emissions_1920x600.jpg',
-                    qacidates: '/music/img_hero/qacidate.2026.webp',
-                    memoire: '/music/img_hero/radiochaabi_memoire_du_chaabi_1920x600.jpg'
+                    home: '/music/news_hero/moisaique.png',
+                    artistes: '/music/news_hero/radiochaabi_artistes.webp',
+                    chansons: '/music/news_hero/chansons_chaabi.webp',
+                    emissions: '/music/news_hero/emissions_chaabi.webp',
+                    interviews: '/music/news_hero/interviews_chaabi.webp',
+                    bouqalla: '/music/news_hero/bouqalla_chaabi.webp',
+                    dedicaces: '/music/news_hero/dedicaces_chaabi.webp',
+                    commentaires: '/music/news_hero/radiochaabi_commentaires.webp',
+                    contacts: '/music/news_hero/radiochaabi_contacts.webp',
+                    onair: '/music/news_hero/onair.webp',
+                    qacidates: '/music/news_hero/qacidate.webp',
+                    memoire: '/music/news_hero/histoire.webp',
+                    histoire: '/music/news_hero/histoire.webp'
                 };
 
                 var viewList = document.getElementById('view-list');
@@ -169,32 +171,32 @@
                 var homeLabel = t.home || (lang === 'ar' ? 'الرئيسية' : 'Accueil');
                 var sep = lang === 'ar' ? '‹' : '›';
                 var desc = t['section_desc_' + view] || '';
-                var img = imgMap[view] || '/music/img_hero/radiochaabi_accueil_1920x600.jpg';
+                var img = imgMap[view] || '/music/news_hero/moisaique.png';
 
                 // === Barre ultra-visible (inline styles) ===
                 if (bar) {
                     bar.style.cssText = [
                         'display:block',
                         'margin:0 0 1.35rem 0',
-                        'border-radius:1.35rem',
+                        'border-radius:1.25rem',
                         'overflow:hidden',
-                        'border:1px solid rgba(245,185,66,0.28)',
-                        'box-shadow:0 16px 48px rgba(0,0,0,0.32), 0 4px 14px rgba(0,0,0,0.14), inset 0 1px 0 rgba(255,255,255,0.08)',
-                        'background:#0f172a',
+                        'border:1px solid rgba(245,185,66,0.22)',
+                        'box-shadow:0 8px 28px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08)',
+                        'background:transparent',
                         'width:100%'
                     ].join(';');
                     /* Image claire : cover + brightness, voile léger seulement */
                     bar.innerHTML =
-                        '<div style="position:relative;width:100%;aspect-ratio:1920/600;max-height:min(42vw,320px);min-height:180px;overflow:hidden;">' +
-                        '<div style="position:absolute;inset:0;background-image:url(\'' + img + '\');background-size:cover;background-position:center center;background-repeat:no-repeat;filter:brightness(1.12) contrast(1.05) saturate(1.06);"></div>' +
-                        '<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,23,42,0.52) 0%,rgba(15,23,42,0.26) 50%,rgba(15,23,42,0.12) 100%);"></div>' +
-                        '<div style="position:relative;z-index:1;padding:1.25rem 1.5rem;color:#fff;height:100%;display:flex;flex-direction:column;justify-content:center;">' +
-                        '<div style="font-size:0.68rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#93c5fd;margin-bottom:0.35rem;text-shadow:0 1px 4px rgba(0,0,0,0.5);">Radio Chaabi</div>' +
-                        '<h2 style="margin:0;font-size:1.85rem;font-weight:900;line-height:1.15;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,0.55);display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap">' + (typeof chaabiIcon === 'function' ? chaabiIcon(sectionIcon, 'ci-amber ci-lg') : '') + ' ' + title + '</h2>' +
-                        (desc ? '<p style="margin:0.45rem 0 0;font-size:0.88rem;color:rgba(255,255,255,0.92);max-width:36rem;text-shadow:0 1px 6px rgba(0,0,0,0.4);">' + desc + '</p>' : '') +
-                        '</div></div>' +
-                        '<nav aria-label="Fil d\'Ariane" style="display:flex;flex-wrap:wrap;align-items:center;gap:0.4rem;padding:0.65rem 1rem;background:rgba(15,23,42,0.92);border-top:1px solid rgba(59,130,246,0.25);font-size:0.85rem;font-weight:600;">' +
-                        '<a href="#home" style="color:#60a5fa;text-decoration:none;" onclick="event.preventDefault();navigateTo(\'home\')">' + homeLabel + '</a>' +
+                        '<div class="section-hero-banner" style="position:relative;width:100%;aspect-ratio:1200/400;max-height:400px;min-height:120px;overflow:hidden;border-radius:1.25rem 1.25rem 0 0;">' +
+                        '<div style="position:absolute;inset:0;background-image:url(\'' + img + '\');background-size:cover;background-position:center center;background-repeat:no-repeat;filter:none;"></div>' +
+                        '<div style="position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:1rem 1.15rem 1.15rem;">' +
+                        '<div style="display:inline-block;max-width:min(100%,28rem);padding:0.75rem 1rem;border-radius:1rem;background:rgba(15,23,42,0.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.14);box-shadow:0 8px 24px rgba(0,0,0,0.35);">' +
+                        '<div style="font-size:0.65rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#fde68a;margin-bottom:0.25rem;">Radio Chaabi</div>' +
+                        '<h2 style="margin:0;font-size:clamp(1.25rem,2.8vw,1.75rem);font-weight:900;line-height:1.2;color:#ffffff;display:flex;align-items:center;gap:0.45rem;flex-wrap:wrap;">' + (typeof chaabiIcon === 'function' ? chaabiIcon(sectionIcon, 'ci-amber ci-lg') : '') + ' ' + title + '</h2>' +
+                        (desc ? '<p style="margin:0.35rem 0 0;font-size:0.86rem;line-height:1.35;color:rgba(255,255,255,0.92);">' + desc + '</p>' : '') +
+                        '</div></div></div>' +
+                        '<nav aria-label="Fil d\'Ariane" style="display:flex;flex-wrap:wrap;align-items:center;gap:0.4rem;padding:0.65rem 1rem;background:rgba(15,23,42,0.96);border-top:1px solid rgba(245,185,66,0.25);font-size:0.85rem;font-weight:600;border-radius:0 0 1.25rem 1.25rem;">' +
+                        '<a href="#home" style="color:#fbbf24;text-decoration:none;" onclick="event.preventDefault();navigateTo(\'home\')">' + homeLabel + '</a>' +
                         '<span style="color:#64748b;" aria-hidden="true">' + sep + '</span>' +
                         '<span style="color:#e2e8f0;font-weight:800;" aria-current="page">' + title + '</span>' +
                         '</nav>';
@@ -275,8 +277,23 @@
         }
         window.updateSeoForView = updateSeoForView;
 
+        
+        function setNavActive(view) {
+            try {
+                var v = String(view || 'home');
+                document.querySelectorAll('[data-nav]').forEach(function (el) {
+                    var on = el.getAttribute('data-nav') === v;
+                    el.classList.toggle('nav-active', on);
+                    if (on) el.setAttribute('aria-current', 'page');
+                    else el.removeAttribute('aria-current');
+                });
+            } catch (_) {}
+        }
+        window.setNavActive = setNavActive;
+
         function navigateTo(view) {
             if (view === 'admin') { location.href = 'admin/dashboard.html'; return; }
+            if (typeof setNavActive === 'function') setNavActive(view);
             // Mémoriser la vue dans le hash (reprise après changement de langue / reload)
             try {
                 var h = (view === 'home') ? 'home' : view;
@@ -447,7 +464,7 @@
             if (!imgSrc || /chaabidialna/i.test(imgSrc)) {
                 if (hasPlay && window._lastArtistImage) imgSrc = window._lastArtistImage;
             }
-            if (!imgSrc) imgSrc = '/music/img_hero/radiochaabi_emissions_1920x600.jpg';
+            if (!imgSrc) imgSrc = '/music/news_hero/emissions_chaabi.webp';
             var playerVisible = document.getElementById('floating-player') && !document.getElementById('floating-player').classList.contains('hidden');
 
             if (hasPlay || (playerVisible && title)) {
@@ -468,7 +485,7 @@
                 if (artistEl) artistEl.textContent = isAr ? 'شغّل أغنية أو حصة لبدء البث' : 'Lancez une chanson ou une emission pour demarrer';
                 if (typeEl) { typeEl.textContent = '—'; typeEl.classList.add('hidden'); }
                 if (coverEl) {
-                    var onairHero = '/music/img_hero/radiochaabi_emissions_1920x600.jpg';
+                    var onairHero = '/music/news_hero/emissions_chaabi.webp';
                     if (coverEl.getAttribute('src') !== onairHero) coverEl.src = onairHero;
                     coverEl.classList.remove('fp-cover-spin');
                 }
@@ -499,12 +516,12 @@
                 return;
             }
             box.innerHTML = q.slice(0, 8).map(function (item, i) {
-                var img = item.img || item.image || (item.mediaInfo && item.mediaInfo.image) || window._lastArtistImage || '/music/img_hero/radiochaabi_emissions_1920x600.jpg';
+                var img = item.img || item.image || (item.mediaInfo && item.mediaInfo.image) || window._lastArtistImage || '/music/news_hero/emissions_chaabi.webp';
                 if (typeof formatPath === 'function' && img && img.indexOf('assets/') !== 0 && img.indexOf('http') !== 0 && img.charAt(0) !== '/') {
                     img = formatPath(img);
                 }
                 return '<div class="onair-row" onclick="playQueueAt(' + i + ')">' +
-                    '<img src="' + img + '" alt="" loading="lazy" decoding="async" width="48" height="48" onerror="this.onerror=null;this.src=\'/music/img_hero/radiochaabi_emissions_1920x600.jpg\'">' +
+                    '<img src="' + img + '" alt="" loading="lazy" decoding="async" width="48" height="48" onerror="this.onerror=null;this.src=\'/music/news_hero/emissions_chaabi.webp\'">' +
                     '<div class="min-w-0"><div class="t truncate">' + (item.title || '') + '</div><div class="a truncate">' + (item.artist || '') + '</div></div></div>';
             }).join('');
         }
@@ -1038,7 +1055,12 @@
             _searchTimer = setTimeout(async function () {
                 try {
                     var data = await safeFetch((window.CHAABI_API||'api/radiochaabi.php')+'?action=search&q=' + encodeURIComponent(q));
-                    if (!data) { box.classList.add('hidden'); return; }
+                    var poemesSug = null;
+                    try {
+                        poemesSug = await safeFetch((window.CHAABI_POEMES_API || 'poemes/api/search.php') + '?q=' + encodeURIComponent(q) + '&limit=4');
+                    } catch (_) { poemesSug = null; }
+                    if (!data && !(poemesSug && poemesSug.items && poemesSug.items.length)) { box.classList.add('hidden'); return; }
+                    if (!data) data = {};
                     var isAr = (typeof currentLang !== 'undefined' && currentLang === 'ar');
                     var showLab = (typeof translations !== 'undefined' && translations[currentLang] && translations[currentLang].show_label)
                         ? translations[currentLang].show_label
@@ -1111,6 +1133,21 @@
                             nom: inv.nom || nom
                         });
                     });
+                    
+                    if (poemesSug && Array.isArray(poemesSug.items)) {
+                        poemesSug.items.slice(0, 3).forEach(function (qc) {
+                            var qt = (isAr && qc.title_ar) ? qc.title_ar : (qc.title || '');
+                            items.push({
+                                kind: 'qacida',
+                                icon: 'fa-scroll',
+                                label: qt,
+                                sub: (qc.subtitle || 'Qacidate'),
+                                url: qc.url || ('poemes/q/' + encodeURIComponent(qc.slug || '')),
+                                slug: qc.slug || '',
+                                image: qc.image || null
+                            });
+                        });
+                    }
                     _searchSuggestItems = items;
                     if (!items.length) {
                         box.innerHTML = '<div class="search-suggest-empty">' +
@@ -1139,7 +1176,13 @@
             if (!it) return;
             if (box) box.classList.add('hidden');
 
-            if (it.kind === 'chanson') {
+            
+            if (it.kind === 'qacida') {
+                var u = it.url || ('poemes/q/' + encodeURIComponent(it.slug || ''));
+                window.location.href = u;
+                return;
+            }
+if (it.kind === 'chanson') {
                 var audio = it.audio;
                 if (typeof formatPath === 'function' && audio) audio = formatPath(audio);
                 if (typeof playTrack === 'function' && audio) {
@@ -1265,11 +1308,19 @@
             var pag = document.getElementById('pagination');
             if (pag) pag.innerHTML = '';
 
-            var data = await safeFetch((window.CHAABI_API || 'api/radiochaabi.php') + '?action=search&q=' + encodeURIComponent(q));
-            if (!data) {
+            var apiUrl = (window.CHAABI_API || 'api/radiochaabi.php') + '?action=search&q=' + encodeURIComponent(q);
+            var poemesUrl = (window.CHAABI_POEMES_API || 'poemes/api/search.php') + '?q=' + encodeURIComponent(q) + '&limit=8';
+            var data = await safeFetch(apiUrl);
+            var poemesData = null;
+            try {
+                /* Recherche globale : aussi les qacidates (module poemes) */
+                poemesData = await safeFetch(poemesUrl);
+            } catch (eP) { poemesData = null; }
+            if (!data && !(poemesData && poemesData.items && poemesData.items.length)) {
                 container.innerHTML = '<div class="col-span-full empty-state"><i class="fas fa-triangle-exclamation"></i>Erreur de recherche</div>';
                 return;
             }
+            if (!data) data = {};
 
             var isAr = currentLang === 'ar';
             var labels = {
@@ -1277,16 +1328,33 @@
                 chansons: (translations[currentLang] && translations[currentLang].songs) || 'Chansons',
                 emissions: (translations[currentLang] && translations[currentLang].shows) || 'Emissions',
                 interviews: (translations[currentLang] && translations[currentLang].interviews) || (isAr ? 'مقابلات' : 'Interviews'),
-                invites: isAr ? 'ضيوف' : 'Invites'
+                invites: isAr ? 'ضيوف' : 'Invites',
+                qacidates: (translations[currentLang] && translations[currentLang].qacidates) || (isAr ? 'قصائد' : 'Qacidates')
             };
+            if (poemesData && Array.isArray(poemesData.items) && poemesData.items.length) {
+                data.qacidates = poemesData.items;
+            }
             var html = '';
-            var keys = ['artistes', 'chansons', 'emissions', 'interviews', 'invites'];
+            var keys = ['artistes', 'chansons', 'emissions', 'interviews', 'invites', 'qacidates'];
             for (var ki = 0; ki < keys.length; ki++) {
                 var key = keys[ki];
                 var arr = data[key];
                 if (arr && arr.length > 0) {
                     html += '<div class="col-span-full text-xl font-bold text-emerald-700 dark:text-emerald-400 mt-4 mb-2">' + labels[key] + '</div>';
-                    if (key === 'invites') {
+                    if (key === 'qacidates') {
+                        for (var jq = 0; jq < arr.length; jq++) {
+                            var qc = arr[jq];
+                            var qTitre = (isAr && qc.title_ar) ? qc.title_ar : (qc.title || qc.titre || '');
+                            var qSub = qc.subtitle || '';
+                            var qUrl = qc.url || ('poemes/q/' + encodeURIComponent(qc.slug || ''));
+                            var qImg = qc.image || '/music/images/chaabidialna.png';
+                            html += '<a class="media-card group p-3 flex items-center gap-3 no-underline text-inherit" href="' + qUrl + '">';
+                            html += '<img src="' + qImg + '" alt="" class="w-14 h-14 rounded-xl object-cover" loading="lazy" onerror="this.src=\'/music/images/chaabidialna.png\'">';
+                            html += '<div class="min-w-0 flex-1"><p class="font-bold text-sm truncate">' + (typeof escHtml === 'function' ? escHtml(qTitre) : qTitre) + '</p>';
+                            if (qSub) html += '<p class="text-xs text-slate-500 truncate">' + (typeof escHtml === 'function' ? escHtml(qSub) : qSub) + '</p>';
+                            html += '<p class="text-[10px] text-amber-600 mt-0.5">Qacidate</p></div></a>';
+                        }
+                    } else if (key === 'invites') {
                         for (var j = 0; j < arr.length; j++) {
                             var inv = arr[j];
                             var nom = (isAr && inv.nom_ar) ? inv.nom_ar : (inv.nom || '');
@@ -1790,7 +1858,7 @@
                 const btn = document.createElement('button');
                 btn.innerHTML = text;
                 btn.disabled = disabled;
-                btn.className = `px-3 py-1.5 text-sm rounded-md border transition ${active ? 'bg-indigo-600 text-white border-emerald-600' : disabled ? 'bg-gray-200 text-gray-400 dark:bg-gray-700' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700'}`;
+                btn.className = `px-3 py-1.5 text-sm rounded-md border transition ${active ? 'bg-amber-600 text-white border-amber-500' : disabled ? 'bg-gray-200 text-gray-400 dark:bg-gray-700' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700'}`;
                 if (!disabled) btn.onclick = () => { currentPage = page; loadListData(); };
                 return btn;
             };
@@ -2144,13 +2212,13 @@
                         <div class="flex flex-col md:flex-row gap-6 mb-8">
                             <img src="${formatPath(data.image)}" class="w-40 h-40 rounded-lg object-cover shadow-lg">
                             <div class="flex-1">
-                                <span class="text-sm bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">${t.show_label}</span>
+                                <span class="text-sm bg-amber-100 text-amber-900 px-3 py-1 rounded-full">${t.show_label}</span>
                                 <h1 class="text-3xl font-bold mt-2">${t.show_label} #${data.numero_emission || '?'}</h1>
                                 <p class="text-md text-gray-500 mt-1"><i class="fas fa-users mr-1"></i> ${title}</p>
                                 <div class="flex gap-6 text-sm text-gray-500 mt-2"><span><i class="fas fa-eye mr-1"></i> ${data.views}</span><button onclick="likeItem('emission', ${data.id}, this)" class="hover:text-emerald-400"><i class="fas fa-heart"></i> <span class="like-count">${data.likes}</span></button></div>
                                 ${stars}<p class="mt-4">${getFld(data, 'description')}</p></div>
                         </div>
-                        ${data.audio ? `<button onclick="playTrack('${t.show_label} #${jsStr(data.numero_emission || '?')}', '${jsStr(getFld(data, 'invites_noms') || '')}', '${formatPath(data.audio)}', '${formatPath(data.image)}', { type: 'emission', id: ${data.id}, title: '', artist: '', numero: '${jsStr(data.numero_emission || '')}', invite: '${jsStr(getFld(data, 'invites_noms') || '')}' })" class="w-full bg-indigo-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2 transition mb-8 shadow-lg shadow-emerald-900/30"><i class="fas fa-play"></i> ${t.listen_emission}</button>` : ''}
+                        ${data.audio ? `<button onclick="playTrack('${t.show_label} #${jsStr(data.numero_emission || '?')}', '${jsStr(getFld(data, 'invites_noms') || '')}', '${formatPath(data.audio)}', '${formatPath(data.image)}', { type: 'emission', id: ${data.id}, title: '', artist: '', numero: '${jsStr(data.numero_emission || '')}', invite: '${jsStr(getFld(data, 'invites_noms') || '')}' })" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2 transition mb-8 shadow-lg shadow-emerald-900/30"><i class="fas fa-play"></i> ${t.listen_emission}</button>` : ''}
                         
                                                 <h3 class="text-xl font-semibold border-l-4 border-emerald-600 pl-3 mb-4">${t.invites}</h3>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
@@ -2241,7 +2309,7 @@
                 var artist = item.artist || item.artiste_nom || '';
                 var audio = item.audio || item.src || '';
                 var img = (typeof resolveMediaImage === 'function') ? resolveMediaImage(item.img, item.image, item.photo, item.artiste_image, item.mediaInfo && item.mediaInfo.image, window._lastArtistImage) : (typeof formatPath === 'function' ? formatPath(item.img || item.image) : (item.img || item.image || ''));
-                if (!img) img = (typeof IMG_FALLBACK !== 'undefined' ? IMG_FALLBACK : '/music/img_hero/radiochaabi_emissions_1920x600.jpg');
+                if (!img) img = (typeof IMG_FALLBACK !== 'undefined' ? IMG_FALLBACK : '/music/news_hero/emissions_chaabi.webp');
                 var type = (item.mediaInfo && item.mediaInfo.type) || item.type || kind || 'chanson';
                 var id = (item.mediaInfo && item.mediaInfo.id) || item.id || 0;
                 var mi = { type: type, id: id, title: title, artist: artist, image: img };
@@ -2296,7 +2364,7 @@
             html += '</section>';
 
             // Queue
-            html += '<section class="mb-8"><h2 class="text-lg font-bold mb-3"><i class="fas fa-list-ol text-indigo-400 mr-2"></i>' + (t.player_queue || (isAr ? "قائمة الانتظار" : "File d'attente")) + '</h2>';
+            html += '<section class="mb-8"><h2 class="text-lg font-bold mb-3"><i class="fas fa-list-ol text-amber-400 mr-2"></i>' + (t.player_queue || (isAr ? "قائمة الانتظار" : "File d'attente")) + '</h2>';
             if (queue.length) {
                 html += '<div class="grid gap-2">' + queue.map(function (q) { return row(q, q.type); }).join('') + '</div>';
             } else {

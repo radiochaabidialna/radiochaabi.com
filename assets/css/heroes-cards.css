@@ -1,0 +1,73 @@
+
+/* ═══════════════════════════════════════════════════
+   Cartes : image entière + Heroes news_hero 1200×400
+   v=20260926hero
+   ═══════════════════════════════════════════════════ */
+
+/* Cartes — montrer l’image entière (plus de crop agressif) */
+.media-card img,
+.list-card img,
+.media-card .cover,
+.media-card .thumb,
+.aspect-square > img,
+.home-card-grid img,
+#list-container img {
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  aspect-ratio: 1 / 1 !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  display: block !important;
+  background: #0f172a !important;
+}
+html:not(.dark) .media-card img,
+html:not(.dark) .list-card img,
+html:not(.dark) .home-card-grid img {
+  background: #f5f5f4 !important;
+}
+
+/* Conteneur image carte : cadre fixe, image contain */
+.media-card .media-card__img,
+.media-card .thumb-wrap,
+.media-card .cover-wrap {
+  aspect-ratio: 1 / 1 !important;
+  overflow: hidden !important;
+  background: #0f172a !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Hero section — format 1200×400 (ratio 3:1) */
+.hero-bg,
+.hero-bg.hero-casbah,
+#section-hero,
+#section-page-bar,
+.section-hero {
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  aspect-ratio: 3 / 1 !important;
+  max-height: 400px !important;
+  min-height: 140px !important;
+  width: 100% !important;
+  border-radius: 15px !important;
+  overflow: hidden !important;
+}
+@media (max-width: 640px) {
+  .hero-bg,
+  .hero-bg.hero-casbah,
+  #section-hero,
+  #section-page-bar {
+    min-height: 110px !important;
+    max-height: 180px !important;
+  }
+}
+
+/* Accueil hero */
+#view-home .hero-bg.hero-casbah {
+  background-image: url('/music/news_hero/radiochaabi_accueil.webp') !important;
+  background-size: cover !important;
+  background-position: center center !important;
+}

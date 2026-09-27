@@ -1,0 +1,79 @@
+/**
+ * Radio Chaabi — kill mauve (charger EN DERNIER dans le <head>)
+ * Remplace les tokens violet de chaabi-themes.css / theme-layers.css
+ */
+
+/* Tokens sombres : charbon chaud + ambre */
+html.dark,
+html[data-theme="dark"] {
+  --rc-glass: rgb(16 20 28 / 0.88) !important;
+  --rc-card: rgb(18 22 30 / 0.92) !important;
+  --rc-border: rgb(245 185 66 / 0.16) !important;
+  --rc-border-strong: rgb(245 185 66 / 0.32) !important;
+  --rc-text: #f1f5f9 !important;
+  --rc-text-muted: #94a3b8 !important;
+  --rc-accent: #f5b942 !important;
+  --rc-primary: #d97706 !important;
+  --rc-live-grad: linear-gradient(90deg, #2a1a0c, #1a1610 45%, #12151c) !important;
+}
+
+html.dark .glass,
+html.dark .glass-strong,
+html[data-theme="dark"] .glass,
+html[data-theme="dark"] .glass-strong {
+  background: var(--rc-glass) !important;
+  background-color: rgb(16 20 28 / 0.9) !important;
+  border-color: var(--rc-border) !important;
+}
+
+html.dark .media-card,
+html[data-theme="dark"] .media-card,
+html.dark .rc-card,
+html[data-theme="dark"] .rc-card {
+  background: var(--rc-card) !important;
+  background-color: #12151c !important;
+  background-image: linear-gradient(165deg, #161a22 0%, #10131a 100%) !important;
+  border-color: var(--rc-border) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+html.dark .media-card:hover,
+html[data-theme="dark"] .media-card:hover {
+  border-color: var(--rc-border-strong) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Header */
+html.dark header.glass-strong,
+html[data-theme="dark"] header.glass-strong {
+  background: rgba(10, 12, 18, 0.95) !important;
+  border-bottom-color: rgba(245, 185, 66, 0.28) !important;
+}
+
+/* Player flottant */
+html.dark #floating-player .glass-strong,
+html.dark #floating-player > div > div,
+html[data-theme="dark"] #floating-player .glass-strong,
+html[data-theme="dark"] #floating-player > div > div {
+  background: rgba(12, 14, 20, 0.97) !important;
+  border: 1px solid rgba(245, 185, 66, 0.28) !important;
+  color: #f1f5f9 !important;
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.55) !important;
+}
+
+html.dark #fp-queue:not(.hidden),
+html[data-theme="dark"] #fp-queue:not(.hidden) {
+  background: rgba(12, 14, 20, 0.98) !important;
+  border-color: rgba(245, 185, 66, 0.25) !important;
+}
+
+/* Live bar — sans violet #2a1830 */
+html.dark #live-bar,
+html[data-theme="dark"] #live-bar {
+  background: linear-gradient(90deg, #2a1a0c 0%, #1a1610 42%, #12151c 100%) !important;
+}
+
+html[data-theme="dark"] {
+  --lb-bg: linear-gradient(90deg, #2a1a0c 0%, #1a1610 42%, #12151c 100%) !important;
+  --ded-bg: linear-gradient(90deg, #2a1a0c, #1a1610) !important;
+}

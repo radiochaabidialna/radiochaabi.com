@@ -1,0 +1,33 @@
+
+/* Section heroes — harmonisés avec applySectionHero v=20260926sec */
+#section-page-bar {
+  border-radius: 1.25rem !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08) !important;
+  border: 1px solid rgba(245,185,66,0.22) !important;
+  background: transparent !important;
+}
+#section-page-bar .section-hero-banner {
+  aspect-ratio: 1200 / 400 !important;
+  max-height: 400px !important;
+  min-height: 120px !important;
+  width: 100% !important;
+}
+/* home hero aussi */
+#view-home .hero-bg,
+#view-home .hero-casbah {
+  aspect-ratio: 1200 / 400 !important;
+  max-height: 400px !important;
+  border-radius: 1.25rem !important;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.18) !important;
+  filter: none !important;
+  background-size: cover !important;
+  background-position: center center !important;
+}
+@media (max-width: 640px) {
+  #section-page-bar .section-hero-banner,
+  #view-home .hero-bg {
+    min-height: 100px !important;
+    max-height: 160px !important;
+  }
+}

@@ -1,0 +1,63 @@
+
+/* ═══════════════════════════════════════════════════
+   FORCE moisaique home + images cartes ENTIÈRES
+   v=20260926mosaic  — charger EN DERNIER
+   ═══════════════════════════════════════════════════ */
+
+/* HOME hero = moisaique.png partout */
+.hero-bg,
+.hero-bg.hero-casbah,
+html.dark .hero-bg,
+html.dark .hero-bg.hero-casbah,
+html:not(.dark) .hero-bg,
+html:not(.dark) .hero-bg.hero-casbah,
+html.theme-light .hero-bg,
+html.theme-ios .hero-bg,
+html.theme-ios .hero-bg.hero-casbah,
+#view-home .hero-bg,
+#view-home .hero-bg.hero-casbah,
+#view-home section.hero-bg {
+  background-image:
+    linear-gradient(180deg, rgba(7,9,13,0.25) 0%, rgba(7,9,13,0.45) 100%),
+    url('/music/news_hero/moisaique.png') !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* Cartes : IMAGE ENTIÈRE — battre tous les cover !important */
+.media-card img,
+.list-card img,
+.home-card-grid img,
+#list-container img,
+#list-container .media-card img,
+.swiper-slide img,
+.swiper-slide .media-card img,
+.aspect-square > img,
+.card img,
+[class*="card"] img {
+  object-fit: contain !important;
+  object-position: center center !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  background-color: #0f172a !important;
+}
+
+/* Cadre image carré stable */
+.media-card .thumb,
+.media-card .cover,
+.media-card figure,
+.home-card-grid .media-card > div:first-child,
+.home-card-grid a > div:first-child {
+  aspect-ratio: 1 / 1 !important;
+  overflow: hidden !important;
+  background: #0f172a !important;
+}
+
+html:not(.dark) .media-card img,
+html:not(.dark) .list-card img,
+html:not(.dark) .home-card-grid img {
+  background-color: #f5f5f4 !important;
+}

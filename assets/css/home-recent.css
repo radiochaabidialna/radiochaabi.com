@@ -1,0 +1,85 @@
+
+/* Écoutés récemment — règles STRICTEMENT limitées (ne casse pas le reste) */
+#section-home-recent {
+  padding-top: 1rem;
+  padding-bottom: 1.25rem;
+}
+#section-home-recent #home-recent-wrap,
+#section-home-recent #home-fav-wrap {
+  background: rgba(15, 23, 42, 0.35);
+  border: 1px solid rgba(245, 185, 66, 0.18);
+  border-radius: 1.15rem;
+  padding: 0.85rem 0.9rem;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+}
+html:not(.dark) #section-home-recent #home-recent-wrap,
+html:not(.dark) #section-home-recent #home-fav-wrap {
+  background: #fff;
+  border-color: rgba(180, 83, 9, 0.14);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+#section-home-recent .recent-strip {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.65rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  align-items: stretch;
+}
+#section-home-recent .recent-chip {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+  width: 13.5rem;
+  max-width: 13.5rem;
+  min-height: 3.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.45rem 0.75rem 0.45rem 0.45rem;
+  border-radius: 0.95rem;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(245, 185, 66, 0.22);
+  cursor: pointer;
+  text-align: left;
+  color: #fef3c7;
+  box-sizing: border-box;
+}
+#section-home-recent .recent-chip:hover {
+  background: rgba(245, 185, 66, 0.14);
+  border-color: rgba(245, 185, 66, 0.45);
+}
+#section-home-recent .recent-chip img {
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 0.65rem;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+#section-home-recent .recent-chip .rc-title,
+#section-home-recent .recent-chip .t {
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff7ed;
+}
+#section-home-recent .recent-chip .rc-artist,
+#section-home-recent .recent-chip .a {
+  font-size: 0.68rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fcd34d;
+}
+html:not(.dark) #section-home-recent .recent-chip {
+  background: #fff;
+  border-color: rgba(180, 83, 9, 0.2);
+  color: #1c1917;
+}
+html:not(.dark) #section-home-recent .recent-chip .rc-title,
+html:not(.dark) #section-home-recent .recent-chip .t { color: #1c1917; }
+html:not(.dark) #section-home-recent .recent-chip .rc-artist,
+html:not(.dark) #section-home-recent .recent-chip .a { color: #b45309; }

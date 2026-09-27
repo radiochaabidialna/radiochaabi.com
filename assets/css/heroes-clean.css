@@ -1,0 +1,124 @@
+
+/* ═══════════════════════════════════════════════════
+   Cartes ENTIÈRES + Heroes propres 1200×400
+   v=20260926clean — charger EN DERNIER
+   ═══════════════════════════════════════════════════ */
+
+/* ---------- CARTES : image COMPLÈTE (haut + bas) ---------- */
+/* contain = pas de crop ; on voit toute la photo */
+html body .media-card img,
+html body .list-card img,
+html body .home-card-grid img,
+html body #list-container img,
+html body .swiper-slide img,
+html body .swiper-slide .media-card img,
+html body .aspect-square > img,
+html body [class*="card"] img,
+html body .card img,
+html body #list-container[data-tab="artistes"] img,
+html body .media-card[data-type="artiste"] img,
+html body .media-card.artiste img {
+  object-fit: contain !important;
+  object-position: center center !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  background-color: #0f172a !important;
+}
+
+html:not(.dark) body .media-card img,
+html:not(.dark) body .home-card-grid img,
+html:not(.dark) body #list-container img {
+  background-color: #f5f5f4 !important;
+}
+
+/* Cadre image stable, sans overflow qui coupe */
+html body .media-card .thumb,
+html body .media-card .cover,
+html body .media-card figure,
+html body .aspect-square {
+  aspect-ratio: 1 / 1 !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #0f172a !important;
+}
+html:not(.dark) body .aspect-square,
+html:not(.dark) body .media-card .thumb {
+  background: #f5f5f4 !important;
+}
+
+/* ---------- HEROES : 1200×400, arrondi, ombre, SANS filtre ---------- */
+html body .hero-bg,
+html body .hero-bg.hero-casbah,
+html.dark body .hero-bg,
+html:not(.dark) body .hero-bg,
+html.theme-light body .hero-bg,
+html.theme-ios body .hero-bg,
+#view-home .hero-bg,
+#view-home .hero-casbah,
+#section-hero,
+#section-page-bar {
+  /* image seule — PAS de dégradé sombre par-dessus */
+  background-color: transparent !important;
+  background-image: none !important; /* neutralisé puis redéfini par section / JS */
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  aspect-ratio: 3 / 1 !important; /* 1200×400 */
+  max-height: 400px !important;
+  min-height: 133px !important;
+  width: 100% !important;
+  border-radius: 1.25rem !important;
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.07),
+    0 12px 28px rgba(0, 0, 0, 0.14) !important;
+  overflow: hidden !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Home = moisaique, SANS overlay */
+#view-home .hero-bg,
+#view-home .hero-bg.hero-casbah,
+#view-home section.hero-bg {
+  background-image: url('/music/news_hero/moisaique.png') !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-color: #1c1917 !important;
+}
+
+/* Supprimer pseudo-éléments filtre si présents */
+.hero-bg::before,
+.hero-bg::after,
+.hero-casbah::before,
+.hero-casbah::after,
+#section-hero::before,
+#section-page-bar::before {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  opacity: 0 !important;
+}
+
+/* Contenu texte du hero : rester lisible sans assombrir l’image */
+.hero-bg .hero-content,
+.hero-bg .section-hero-content,
+#section-page-bar .section-hero-content {
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.35) !important;
+}
+
+@media (max-width: 640px) {
+  html body .hero-bg,
+  #view-home .hero-bg,
+  #section-hero,
+  #section-page-bar {
+    min-height: 100px !important;
+    max-height: 160px !important;
+    border-radius: 1rem !important;
+  }
+}

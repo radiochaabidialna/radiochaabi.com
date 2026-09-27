@@ -1,0 +1,58 @@
+
+/* Panneau texte home — plus compact et plus clair — v=20260927b */
+html body #view-home .hero-inner {
+  background: rgba(15, 23, 42, 0.48) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  border-radius: 0.9rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22) !important;
+  padding: 0.75rem 1rem !important;
+  max-width: min(92%, 26rem) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+html body #view-home .hero-inner h1,
+html body #view-home .hero-inner h1 span,
+html body #view-home .hero-inner [data-i18n="hero_title"] {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: none !important;
+  background-image: none !important;
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  font-size: clamp(1.35rem, 3.5vw, 2rem) !important;
+  line-height: 1.2 !important;
+  margin-bottom: 0.35rem !important;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55) !important;
+}
+html body #view-home .hero-inner .hero-desc,
+html body #view-home .hero-inner [data-i18n="hero_desc"] {
+  color: rgba(255, 255, 255, 0.95) !important;
+  font-size: 0.9rem !important;
+  margin-bottom: 0.35rem !important;
+}
+html body #view-home .hero-inner .hero-kicker-ar {
+  color: #fde68a !important;
+  font-size: 0.85rem !important;
+  margin-bottom: 0.25rem !important;
+}
+html body #view-home .hero-inner .glass {
+  margin-bottom: 0.45rem !important;
+  padding: 0.3rem 0.75rem !important;
+  font-size: 0.75rem !important;
+}
+/* Boutons un peu plus compacts dans le panneau */
+html body #view-home .hero-inner .hero-cta-primary,
+html body #view-home .hero-inner .hero-cta-ghost {
+  padding: 0.55rem 1.1rem !important;
+  font-size: 0.88rem !important;
+}
+html body #view-home .hero-inner .hero-wave {
+  margin: 0.25rem 0 !important;
+  transform: scale(0.85);
+}
+html body #view-home .hero-inner #home-stats {
+  margin-top: 0.35rem !important;
+  gap: 0.35rem !important;
+}
